@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="generator" content="PML 1.4.0 (www.pml-lang.dev)" />
+        <title>Open-Source Parser For Practical XML (pXML)</title>
+        <link rel="stylesheet" href="css/pml-default.css">
+        <link rel="stylesheet" href="css/pml-print-default.css" media="print">
+
+    </head>
+    <body>
+
+        <div class="pml-doc-wrapper">
+            <header class="pml-doc-header">
+            </header>
+            <div class="pml-doc-content">
+                <aside class="pml-doc-left">
+                    <nav class="pml-toc">
+                        <h2 class="pml-toc-title">Table of Contents</h2>
+                        <div class="pml-toc-tree" id="TOCTree">
+                            <ul>
+                                <li class="pml-toc-leaf-node"><a href="#ch__1">Introduction</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__2">pXML Syntax Refresh</a></li>
+                                <li class="pml-toc-branch-node">
+                                    <details>
+                                        <summary><a href="#ch__3">Usage Examples</a></summary>
+                                        <ul>
+                                            <li class="pml-toc-branch-node">
+                                                <details>
+                                                    <summary><a href="#ch__4">From pXML to XML And Back Again</a></summary>
+                                                    <ul>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__5">Hello World</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__6">Login Form</a></li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li class="pml-toc-branch-node">
+                                                <details>
+                                                    <summary><a href="#ch__7">XML Technology Used With pXML</a></summary>
+                                                    <ul>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__8">Loading/Saving a 'Document'</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__9">Validation</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__10">Transformation</a></li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__11">Using XML technology with PML</a></li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li class="pml-toc-branch-node">
+                                    <details>
+                                        <summary><a href="#ch__12">Parser (Reader)</a></summary>
+                                        <ul>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__13">Event-Based</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__14">Customized Parsing</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__15">Parser Properties And Features</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__16">XML Features Not Yet Supported</a></li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__17">Writer</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__18">Summary</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </aside>
+                <article class="pml-doc-text">
+                    <div class="pml-doc-title-wrapper">
+                        <h1 class="pml-doc-title">Open-Source Parser For Practical XML (pXML)</h1>
+                        <div class="pml-doc-authors">Christian Neumanns</div>
+                        <time class="pml-doc-date-time" datetime="2021-04-29">2021-04-29</time>
+                    </div>
+                    <figure style="text-align: center">
+                        <img alt="From XML to pXML" class="pml-image" src="images/n_v.png" width="400" />
+                    </figure>
+                    <section id="ch__1" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Introduction</h2>
+                        <p class="pml-paragraph">My previous article <a href="https://pxml-lang.github.io/docs/articles/suggestion-for-better-xml-html/index.html" class="pml-link">Suggestion For a Better XML/HTML Syntax</a> suggests a new XML/HTML syntax called <i class="pml-italic">practicalXML (<b class="pml-bold">pXML</b>)</i>. pXML is less verbose than XML, and has other advantages.</p>
+                        <p class="pml-paragraph">In this article I introduce a parser for pXML. The parser is written in Java, open-sourced under MIT, and the source code is available on <a href="https://github.com/pxml-lang/java_parser" class="pml-link">Github</a>. Examples used in this article are on <a href="https://github.com/pxml-lang/java_examples" class="pml-link">Github</a> too.</p>
+                        <p class="pml-paragraph">More information about pXML can be found on its <a href="https://pxml-lang.github.io" class="pml-link">website</a>.</p>
+                    </section>
+                    <section id="ch__2" class="pml-chapter">
+                        <h2 class="pml-chapter-title">pXML Syntax Refresh</h2>
+                        <p class="pml-paragraph">If you never heard of pXML you might want to read <a href="https://pxml-lang.github.io/docs/articles/suggestion-for-better-xml-html/index.html" class="pml-link">Suggestion For a Better XML/HTML Syntax</a> first. That article introduces pXML and explains its rationale.</p>
+                        <p class="pml-paragraph">Here is a copy of chapter <a href="https://pxml-lang.github.io/docs/articles/suggestion-for-better-xml-html/index.html#ch__26" class="pml-link">Syntax Comparison</a>:</p>
+                        <p class="pml-paragraph">Empty element:</p>
+                        <pre class="pml-code"><code>XML:  &lt;br /&gt;
+pXML: [br]</code></pre>
+                        <p class="pml-paragraph">Element with text content:</p>
+                        <pre class="pml-code"><code>XML:  &lt;summary&gt;text&lt;/summary&gt;
+pXML: [summary text]</code></pre>
+                        <p class="pml-paragraph">Element with child elements:</p>
+                        <pre class="pml-code"><code>XML:  &lt;ul&gt;
+          &lt;li&gt;
+              &lt;div&gt;A &lt;i&gt;friendly&lt;/i&gt; dog&lt;/div&gt;
+          &lt;/li&gt;
+      &lt;/ul&gt;
+
+pXML: [ul
+          [li
+              [div A [i friendly] dog]
+          ]
+      ]</code></pre>
+                        <p class="pml-paragraph">Attributes:</p>
+                        <pre class="pml-code"><code>XML:  &lt;div id=&quot;unplug_warning&quot; class=&quot;warning big-text&quot;&gt;Unplug power cord before opening!&lt;/div&gt;
+pXML: [div (id=unplug_warning class=&quot;warning big-text&quot;)Unplug power cord before opening!]</code></pre>
+                        <p class="pml-paragraph">Escaping:</p>
+                        <pre class="pml-code"><code>XML:  &lt;note&gt;Watch out for &amp;lt;, &amp;gt;, &amp;quot;, &amp;apos;, &amp;amp;, [, ], and \ characters&lt;/note&gt;
+pXML: [note Watch out for &lt;, &gt;, &quot;, ', &amp;, \[, \], and \\ characters]    </code></pre>
+                        <p class="pml-paragraph">Comments:</p>
+                        <pre class="pml-code"><code>Single comment:
+XML:  &lt;!-- text --&gt;
+pXML: [- text -]
+
+Nested comments:
+XML:  not supported
+pXML: [- text [- nested -] -]</code></pre>
+                    </section>
+                    <section id="ch__3" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Usage Examples</h2>
+                        <p class="pml-paragraph">Before explaining how the parser is implemented, let's first see what you can do with the parser, by looking at some high-level usage examples. The aim is to show how XML technology can be used with pXML.</p>
+                        <section id="ch__4" class="pml-chapter">
+                            <h3 class="pml-chapter-title">From pXML to XML And Back Again</h3>
+                            <p class="pml-paragraph">To honor the 'p' in pXML ('p' stands for practical), we obviously need to be able to convert pXML to XML, and XML to pXML. This chapter shows examples of how to do this.</p>
+                            <section id="ch__5" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Hello World</h4>
+                                <p class="pml-paragraph"><b class="pml-bold">From PXML to XML</b></p>
+                                <p class="pml-paragraph">The code below illustrates the simplest possible pXML document - an empty root element with name <code class="pml-inline-code">hello</code>:</p>
+                                <pre class="pml-code"><code>[hello]
+</code></pre>
+                                <p class="pml-paragraph">To convert pXML to XML, there is a utility class <code class="pml-inline-code">PXMLToXMLConverter</code> in package <code class="pml-inline-code">dev.pxml.core.utilities</code>. This class contains method <code class="pml-inline-code">pXMLFileToXMLFile</code> with the following signature:</p>
+                                <pre class="pml-code"><code>public static void pXMLFileToXMLFile ( @NotNull File pXMLFile, @NotNull File XMLFile ) throws Exception</code></pre>
+                                <p class="pml-paragraph">The method is overloaded. The input parameters can be of type <code class="pml-inline-code">File</code> (as shown above), <code class="pml-inline-code">Path</code> or <code class="pml-inline-code">String</code>.</p>
+                                <p class="pml-paragraph">Suppose the above pXML <code class="pml-inline-code">[hello]</code> code is stored in file <code class="pml-inline-code">hello.pxml</code>. The following instruction converts <code class="pml-inline-code">hello.pxml</code> to <code class="pml-inline-code">hello.xml</code> :</p>
+                                <pre class="pml-code"><code>pXMLFileToXMLFile ( &quot;hello.pxml&quot;, &quot;hello.xml&quot; );</code></pre>
+                                <p class="pml-paragraph">As expected, the resulting file <code class="pml-inline-code">hello.xml</code> contains the following code:</p>
+                                <pre class="pml-code"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;hello /&gt;</code></pre>
+                                <p class="pml-paragraph">A complete test suite with all source code examples used in this article is available in a <a href="https://github.com/pxml-lang/java_examples" class="pml-link">Github repo</a>. That repo uses the Gradle build tool.</p>
+                                <p class="pml-paragraph">The parser's Java API documentation is available on <a href="https://pxml-lang.github.io/docs/api/javadoc" class="pml-link">pXML's website</a>.</p>
+                                <p class="pml-paragraph">If you want to try out the above example in your own environment, you can proceed as follows:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">If not done already, install Java version 11 or later.</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Create a Java application with the tool of your choice (e.g. Gradle, IntellijIdea, Eclipse), or just with raw Java.</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Visit pXML's <a href="https://pxml-lang.github.io/downloads" class="pml-link">downloads</a> page, download the latest <code class="pml-inline-code">.jar</code> file, and add it as a dependency to your Java project.</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Adapt the main class so that it contains the following code:</p>
+                                        <pre class="pml-code"><code>package tests.pxml.hello;
+
+import static dev.pxml.core.utilities.PXMLToXMLConverter.*;
+
+public static void main ( String[] args ) {
+    
+    try {
+        pXMLFileToXMLFile ( &quot;input/hello.pxml&quot;, &quot;output/hello.xml&quot; );
+    } catch ( Exception e ) {
+        e.printStackTrace();
+    }
+}</code></pre>
+                                        <div class="pml-admonition">
+                                            <div class="pml-admonition-label">Note</div>
+                                            <div class="pml-admonition-content">
+                                                <p class="pml-paragraph">Adapt <code class="pml-inline-code">tests.pxml.hello</code>, as well as the paths of the two files if necessary. Absolute and relative file paths are accepted. Relative file paths are relative to your working directory.</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Create file <code class="pml-inline-code">input/hello.pxml</code> with <code class="pml-inline-code">[hello]</code> as content.</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Create directory <code class="pml-inline-code">output</code>.</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Execute the application.</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Open the resulting file <code class="pml-inline-code">output/hello.xml</code> in your editor to verify its content.</p>
+                                    </li>
+                                </ul>
+                                <p class="pml-paragraph"><b class="pml-bold">From XML to PXML</b></p>
+                                <p class="pml-paragraph">To convert from XML to pXML is easy too. It's done with method <code class="pml-inline-code">XMLFileToPXMLFile</code> in class <code class="pml-inline-code">dev.pxml.core.utilities.XMLToPXMLConverter</code>. Hence, the following two Java statements are required to convert an XML file into a pXML file:</p>
+                                <pre class="pml-code"><code>import static dev.pxml.core.utilities.XMLToPXMLConverter.*;
+
+XMLFileToPXMLFile ( &quot;input/hello.xml&quot;, &quot;output/hello.pxml&quot; );</code></pre>
+                                <p class="pml-paragraph">Executing this code converts file <code class="pml-inline-code">input/hello.xml</code> with this content:</p>
+                                <pre class="pml-code"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;hello /&gt;</code></pre>
+                                <p class="pml-paragraph">... into <code class="pml-inline-code">output/hello.pxml</code> with the following pXML code:</p>
+                                <pre class="pml-code"><code>[hello]</code></pre>
+                                <p class="pml-paragraph"><b class="pml-bold">Any Reader/Writer</b></p>
+                                <p class="pml-paragraph">As we have seen, methods <code class="pml-inline-code">pXMLFileToXMLFile</code> and <code class="pml-inline-code">XMLFileToPXMLFile</code> accept file paths as input/output arguments. If we want to read/write XML/pXML documents from/to other sources like URLs, strings, etc., we can:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Use <code class="pml-inline-code">PXMLToXMLConverter.pipePXMLReaderToXMLWriter</code> to read <i class="pml-italic">any</i> pXML source (<code class="pml-inline-code">URL</code>, <code class="pml-inline-code">File</code>, <code class="pml-inline-code">String</code>, etc.) and write to <i class="pml-italic">any</i> XML destination (<code class="pml-inline-code">URL</code>, <code class="pml-inline-code">File</code>, <code class="pml-inline-code">String</code>, etc.). For example we could read pXML code from a URL and store the resulting XML code as a string.</p>
+                                        <p class="pml-paragraph">This is possible because <code class="pml-inline-code">pipePXMLReaderToXMLWriter</code> takes a standard <code class="pml-inline-code">java.io.Reader</code> to read pXML, and a <code class="pml-inline-code">java.io.Writer</code> to write XML.</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Analogously, <code class="pml-inline-code">XMLToPXMLConverter.pipeXMLReaderToPXMLWriter</code> can be used to read <i class="pml-italic">any</i> XML source and write the result to <i class="pml-italic">any</i> pXML destination.</p>
+                                    </li>
+                                </ul>
+                            </section>
+                            <section id="ch__6" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Login Form</h4>
+                                <p class="pml-paragraph">Let's create a more useful example showing some commonly used XML features.</p>
+                                <p class="pml-paragraph">We will convert pXML code to XML, and then convert the resulting XML back to pXML. If everything works fine, the final pXML code must be the same as the initial one.</p>
+                                <p class="pml-paragraph"><b class="pml-bold">From PXML to XML</b></p>
+                                <p class="pml-paragraph">Here is a pXML document using nested elements, attributes, comments, and name spaces:</p>
+                                <pre class="pml-code"><code>[form
+    [title Login]
+    [note Characters \[, \], &lt; and &gt; are not allowed]
+    [fields
+        [- Two text fields: user and password -]
+        [text_entry (id=user) User]
+        [text_entry (id=password) Password]
+    ]
+    [buttons
+        [button (type=submit) Ok]
+        [button (type=cancel color=&quot;light red&quot;) Cancel]
+    ]
+
+    [ch:checks (xmlns:ch=&quot;http://www.example.com&quot;)
+        [ch:check user.size &gt;= 2]
+        [ch:check password.size &gt;= 8]
+    ]
+]
+</code></pre>
+                                <div class="pml-caption">File input/login_form.pxml</div>
+                                <p class="pml-paragraph">As seen before, we can convert this file to <code class="pml-inline-code">output/login_form.xml</code> with:</p>
+                                <pre class="pml-code"><code>pXMLFileToXMLFile ( &quot;input/login_form.pxml&quot;, &quot;output/login_form.xml&quot; );</code></pre>
+                                <p class="pml-paragraph">After executing the above statement, the content of <code class="pml-inline-code">output/login_form.xml</code> is:</p>
+                                <pre class="pml-code"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;form&gt;
+    &lt;title&gt;Login&lt;/title&gt;
+    &lt;note&gt;Characters [, ], &amp;lt; and &amp;gt; are not allowed&lt;/note&gt;
+    &lt;fields&gt;
+        &lt;!-- Two text fields: user and password --&gt;
+        &lt;text_entry id=&quot;user&quot;&gt;User&lt;/text_entry&gt;
+        &lt;text_entry id=&quot;password&quot;&gt;Password&lt;/text_entry&gt;
+    &lt;/fields&gt;
+    &lt;buttons&gt;
+        &lt;button type=&quot;submit&quot;&gt;Ok&lt;/button&gt;
+        &lt;button type=&quot;cancel&quot; color=&quot;light red&quot;&gt;Cancel&lt;/button&gt;
+    &lt;/buttons&gt;
+
+    &lt;ch:checks xmlns:ch=&quot;http://www.example.com&quot;&gt;
+        &lt;ch:check&gt;user.size &amp;gt;= 2&lt;/ch:check&gt;
+        &lt;ch:check&gt;password.size &amp;gt;= 8&lt;/ch:check&gt;
+    &lt;/ch:checks&gt;
+&lt;/form&gt;
+</code></pre>
+                                <div class="pml-caption">File output/login_form.xml</div>
+                                <p class="pml-paragraph">The following syntax differences can be observed:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <pre class="pml-code"><code>pXML: [title Login]
+XML:  &lt;title&gt;Login&lt;/title&gt;</code></pre>
+                                        <p class="pml-paragraph">This illustrates the most important difference between pXML and XML, as explained in <a href="https://pxml-lang.github.io/docs/articles/suggestion-for-better-xml-html/index.html" class="pml-link">Suggestion For a Better XML/HTML Syntax</a></p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <pre class="pml-code"><code>pXML: [note Characters \[, \], &lt; and &gt; are not allowed]
+XML:  &lt;note&gt;Characters [, ], &amp;lt; and &amp;gt; are not allowed&lt;/note&gt;</code></pre>
+                                        <p class="pml-paragraph">Here we can see how the escape rules of both dialects are applied during the conversion. pXML uses <code class="pml-inline-code">\ </code> as escape character (like most programming languages), while XML uses entities.</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <pre class="pml-code"><code>pXML: [- Two text fields: user and password -]
+XML:  &lt;!-- Two text fields: user and password --&gt;</code></pre>
+                                        <p class="pml-paragraph">Example of converting a comment.</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <pre class="pml-code"><code>pXML: [text_entry (id=user) User]
+XML:  &lt;text_entry id=&quot;user&quot;&gt;User&lt;/text_entry&gt;</code></pre>
+                                        <p class="pml-paragraph">Example of converting an attribute.</p>
+                                        <p class="pml-paragraph">Note the space after <code class="pml-inline-code">)</code> in the pXML code, which does not appear in the resulting XML. The pXML parser allows an optional space after <code class="pml-inline-code">)</code> which is ignored. This allows to write:</p>
+                                        <pre class="pml-code"><code>[text_entry (id=user) User]</code></pre>
+                                        <p class="pml-paragraph">.. instead of:</p>
+                                        <pre class="pml-code"><code>[text_entry (id=user)User]</code></pre>
+                                        <p class="pml-paragraph">... which is a bit less readable (but still valid pXML code).</p>
+                                        <p class="pml-paragraph">Writing:</p>
+                                        <pre class="pml-code"><code>[text_entry(id=user)User]</code></pre>
+                                        <p class="pml-paragraph">... would also be parsed correctly.</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <pre class="pml-code"><code>pXML: [ch:checks (xmlns:ch=&quot;http://www.example.com&quot;)
+          [ch:check user.size &gt;= 2]
+
+XML:  &lt;ch:checks xmlns:ch=&quot;http://www.example.com&quot;&gt;
+          &lt;ch:check&gt;user.size &amp;gt;= 2&lt;/ch:check&gt;</code></pre>
+                                        <p class="pml-paragraph">XML namespaces are supported in the pXML parser.</p>
+                                    </li>
+                                </ul>
+                                <p class="pml-paragraph"><b class="pml-bold">From XML to PXML</b></p>
+                                <p class="pml-paragraph">After copying the result file <code class="pml-inline-code">output/login_form.xml</code> to <code class="pml-inline-code">input/login_form.xml</code> we can convert back from XML to pXML with:</p>
+                                <pre class="pml-code"><code>XMLFileToPXMLFile ( &quot;input/login_form.xml&quot;, &quot;output/login_form.pxml&quot; );</code></pre>
+                                <p class="pml-paragraph">Here is the content of <code class="pml-inline-code">output/login_form.pxml</code>:</p>
+                                <pre class="pml-code"><code>[form 
+    [title Login]
+    [note Characters \[, \], &lt; and &gt; are not allowed]
+    [fields 
+        [- Two text fields: user and password -]
+        [text_entry (id=&quot;user&quot;) User]
+        [text_entry (id=&quot;password&quot;) Password]
+    ]
+    [buttons 
+        [button (type=&quot;submit&quot;) Ok]
+        [button (color=&quot;light red&quot; type=&quot;cancel&quot;) Cancel]
+    ]
+
+    [ch:checks (xmlns:ch=&quot;http://www.example.com&quot;) 
+        [ch:check user.size &gt;= 2]
+        [ch:check password.size &gt;= 8]
+    ]
+]
+</code></pre>
+                                <div class="pml-caption">File output/login_form.pxml</div>
+                                <p class="pml-paragraph">As we can see, the content is the same as the content of our initial file <code class="pml-inline-code">input/login_form.pxml</code>.</p>
+                                <p class="pml-paragraph">However, there is one small <i class="pml-italic">syntax</i> difference - a difference that does not change the <i class="pml-italic">data</i> stored in both files. In the new file, quotes are always used to surround attribute values, even if they could be omitted (e.g. <code class="pml-inline-code">id=&quot;user&quot;</code> instead of <code class="pml-inline-code">id=user</code>). The reason is that, by default, the pXML writer used in this example always encloses attribute values with quotes. It does not check if the value is allowed to be written without quotes, as that would reduce performance. In a future version of the writer, a parameter could be added to tell the writer to omit quotes if possible.</p>
+                            </section>
+                        </section>
+                        <section id="ch__7" class="pml-chapter">
+                            <h3 class="pml-chapter-title">XML Technology Used With pXML</h3>
+                            <p class="pml-paragraph">The most powerful feature of the pXML parser is its ability to read a pXML document into a standard <code class="pml-inline-code">org.w3c.dom.Document</code> Java object.</p>
+                            <p class="pml-paragraph">Since we have a Java <code class="pml-inline-code">Document</code> object in memory we can use the whole set of XML extensions supported natively in Java or provided by third party libraries and frameworks. For example, we can:</p>
+                            <ul class="pml-list">
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">validate a document with XML Schema (W3C), RELAX NG, or Schematron</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">programmatically traverse the document and extract data</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">insert, modify, and delete elements and attributes, and save the result as a new XML or pXML document</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">query the document (search for values, compute aggregates, etc.) with XQuery/XPath</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">convert the document using an XSL transformer (e.g. create a differently structured XML or pXML document, create a plain text document, etc.)</p>
+                                </li>
+                            </ul>
+                            <p class="pml-paragraph">We cannot cover everything in a single article, so let's just have a look at <i class="pml-italic">some</i> examples to see how it works.</p>
+                            <section id="ch__8" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Loading/Saving a 'Document'</h4>
+                                <p class="pml-paragraph">The key to using XML technology with pXML is method <code class="pml-inline-code">pXMLToXMLDocument</code> in class <code class="pml-inline-code">PXMLToXMLConverter</code>. This method reads a pXML document from any source (file, URL, string, etc.), and loads it into a standard Java <code class="pml-inline-code">org.w3c.dom.Document</code> object. The method's signature is:</p>
+                                <pre class="pml-code"><code>public static Document pXMLToXMLDocument (
+    @NotNull Reader pXMLReader, Object pXMLResource ) throws Exception</code></pre>
+                                <p class="pml-paragraph">As shown, this method uses a Java <code class="pml-inline-code">Reader</code> to read pXML code, and returns a <code class="pml-inline-code">Document</code> object. Input argument <code class="pml-inline-code">pXMLResource</code> is just an optional argument used to include the resource's name in error messages (e.g. &quot;Error in file foo/bar.pxml&quot;).</p>
+                                <p class="pml-paragraph">If anything goes wrong, an exception is thrown.</p>
+                                <p class="pml-paragraph">Once the data is loaded, we can do everything we could do with an XML document: validate, query, modify, transform, etc.</p>
+                                <p class="pml-paragraph">The counterpart to method <code class="pml-inline-code">pXMLToXMLDocument</code> is <code class="pml-inline-code">XMLDocumentToPXML</code> in class <code class="pml-inline-code">XMLToPXMLConverter</code>. The method is defined as:</p>
+                                <pre class="pml-code"><code>public static void XMLDocumentToPXML (
+    @NotNull Document XMLDocument, @NotNull Writer pXMLWriter ) throws Exception</code></pre>
+                                <p class="pml-paragraph">The method reads a standard Java <code class="pml-inline-code">Document</code> object and writes the pXML data to any Java <code class="pml-inline-code">Writer</code> (e.g. <code class="pml-inline-code">FileWriter</code>, <code class="pml-inline-code">StringWriter</code>, etc.).</p>
+                            </section>
+                            <section id="ch__9" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Validation</h4>
+                                <p class="pml-paragraph">A common way to validate XML data is to use an <a href="https://www.w3schools.com/xml/schema_intro.asp" class="pml-link">XML Schema</a>. An XML schema is itself an XML document containing rules that must be respected by the XML data document.</p>
+                                <p class="pml-paragraph">Here is a simple example of an XML document defining a list of books:</p>
+                                <pre class="pml-code"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;books&gt;
+    &lt;book&gt;
+        &lt;isbn&gt;978-0135957059&lt;/isbn&gt;
+        &lt;title&gt;The Pragmatic Programmer: Your Journey to Mastery&lt;/title&gt;
+        &lt;price&gt;41.41&lt;/price&gt;
+    &lt;/book&gt;
+    &lt;book&gt;
+        &lt;isbn&gt;978-0735619678&lt;/isbn&gt;
+        &lt;title&gt;Code Complete: A Practical Handbook of Software Construction&lt;/title&gt;
+        &lt;price&gt;45.32&lt;/price&gt;
+    &lt;/book&gt;
+    &lt;book&gt;
+        &lt;isbn&gt;978-0134685991&lt;/isbn&gt;
+        &lt;title&gt;Effective Java&lt;/title&gt;
+        &lt;price&gt;44.10&lt;/price&gt;
+    &lt;/book&gt;
+&lt;/books&gt;
+</code></pre>
+                                <div class="pml-caption">File input/books.xml</div>
+                                <p class="pml-paragraph">The same data, defined with pXML looks like this:</p>
+                                <pre class="pml-code"><code>[books
+    [book
+        [isbn 978-0135957059]
+        [title The Pragmatic Programmer: Your Journey to Mastery]
+        [price 41.41]
+    ]
+    [book
+        [isbn 978-0735619678]
+        [title Code Complete: A Practical Handbook of Software Construction]
+        [price 45.32]
+    ]
+    [book
+        [isbn 978-0134685991]
+        [title Effective Java]
+        [price 44.10]
+    ]
+]
+</code></pre>
+                                <div class="pml-caption">File input/books.pxml</div>
+                                <p class="pml-paragraph">The above XML can be validated with this XML schema:</p>
+                                <pre class="pml-code"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+
+    &lt;xs:element name=&quot;books&quot;&gt;
+        &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+                &lt;xs:element name=&quot;book&quot; type=&quot;booktype&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;unbounded&quot;/&gt;
+            &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+    &lt;/xs:element&gt;
+
+    &lt;xs:complexType name=&quot;booktype&quot;&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name=&quot;isbn&quot; type=&quot;xs:string&quot;/&gt;
+            &lt;xs:element name=&quot;title&quot; type=&quot;xs:string&quot;/&gt;
+            &lt;xs:element name=&quot;price&quot; type=&quot;xs:decimal&quot;/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+
+&lt;/xs:schema&gt;
+</code></pre>
+                                <div class="pml-caption">File input/books.xsd</div>
+                                <p class="pml-paragraph">Because an XML Schema is itself a standard XML document, we can define the schema with pXML too, like this:</p>
+                                <pre class="pml-code"><code>[xs:schema (xmlns:xs=http://www.w3.org/2001/XMLSchema)
+
+    [xs:element (name=books)
+        [xs:complexType
+            [xs:sequence
+                [xs:element (name=book type=booktype minOccurs=1 maxOccurs=unbounded)]
+            ]
+        ]
+    ]
+
+    [xs:complexType (name=booktype)
+        [xs:sequence
+            [xs:element (name=isbn type=xs:string)]
+            [xs:element (name=title type=xs:string)]
+            [xs:element (name=price type=xs:decimal)]
+        ]
+    ]
+]
+</code></pre>
+                                <div class="pml-caption">File input/books.pxsd</div>
+                                <p class="pml-paragraph">Hence, there are four possible combinations to validate data:</p>
+                                <table class="pml-table">
+                                    <thead class="pml-table-header">
+                                        <tr><th class="pml-table-header-cell">Data Format</th><th class="pml-table-header-cell">Schema Format</th></tr>
+                                    </thead>
+                                    <tbody class="pml-table-body">
+                                        <tr><td class="pml-table-body-cell">XML</td><td class="pml-table-body-cell">XML</td></tr>
+                                        <tr><td class="pml-table-body-cell">XML</td><td class="pml-table-body-cell">pXML</td></tr>
+                                        <tr><td class="pml-table-body-cell">pXML</td><td class="pml-table-body-cell">XML</td></tr>
+                                        <tr><td class="pml-table-body-cell">pXML</td><td class="pml-table-body-cell">pXML</td></tr>
+                                    </tbody>
+                                </table>
+                                <p class="pml-paragraph">An example of each combination is included in the <a href="https://github.com/pxml-lang/java_examples/tree/main/src/main/java/dev/pxml/examples/validator/XMLSchemaValidatorExamples.java" class="pml-link">examples repo</a>.</p>
+                                <p class="pml-paragraph">Class <code class="pml-inline-code">dev.pxml.core.utilities.XMLSchemaValidator</code> provides static methods to validate data. For example, validating pXML data with a pXML schema document (e.g. validate <code class="pml-inline-code">books.pxml</code> with <code class="pml-inline-code">books.pxsd</code>) can be done with the following one-liner:</p>
+                                <pre class="pml-code"><code>XMLSchemaValidator.validatePXMLFileWithPXMLSchemaFile (
+    new File ( &quot;input/books.pxml&quot; ),
+    new File ( &quot;input/books.pxsd&quot; ) );</code></pre>
+                                <p class="pml-paragraph">An exception is thrown if the data is invalid. For example, if a book using tag <code class="pml-inline-code">ibn</code> instead of <code class="pml-inline-code">isbn</code>, the following error is reported:</p>
+                                <pre class="pml-output">Invalid content was found starting with element 'ibn'. One of '{isbn}' is expected.</pre>
+                            </section>
+                            <section id="ch__10" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Transformation</h4>
+                                <p class="pml-paragraph"><a href="https://en.wikipedia.org/wiki/XML_transformation_language" class="pml-link">XML transformation</a> is another very useful XML feature. It is used to transform an XML document to another document. The output document can be another XML document, an HTML document, or any other plain text document. The transformation process is described with a <i class="pml-italic">transformation language</i>. The most popular transformation language is <a href="https://en.wikipedia.org/wiki/XSLT" class="pml-link">XSLT</a>, which is defined as an XML document.</p>
+                                <p class="pml-paragraph">For example, let's re-use the books data from the previous 'validation' example.</p>
+                                <pre class="pml-code"><code>[books
+    [book
+        [isbn 978-0135957059]
+        [title The Pragmatic Programmer: Your Journey to Mastery]
+        [price 41.41]
+    ]
+    [book
+        [isbn 978-0735619678]
+        [title Code Complete: A Practical Handbook of Software Construction]
+        [price 45.32]
+    ]
+    [book
+        [isbn 978-0134685991]
+        [title Effective Java]
+        [price 44.10]
+    ]
+]
+</code></pre>
+                                <div class="pml-caption">File input/books.pxml</div>
+                                <p class="pml-paragraph">Now we want to create an HTML document that displays the books in a table. We could use the following XSLT document, written in XML:</p>
+                                <pre class="pml-code"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; version=&quot;1.0&quot;&gt;
+
+&lt;xsl:output method=&quot;html&quot; /&gt;
+
+&lt;xsl:template match=&quot;/&quot;&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Books&lt;/title&gt;
+        &lt;style&gt;
+            table, th, td {
+                border: 1px solid #ddd;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 0.5em;
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;h2&gt;Books&lt;/h2&gt;
+        &lt;table&gt;
+            &lt;tr&gt;&lt;th&gt;ISBN&lt;/th&gt;&lt;th&gt;Title&lt;/th&gt;&lt;th&gt;Price&lt;/th&gt;&lt;/tr&gt;
+            &lt;xsl:for-each select=&quot;books/book&quot;&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;&lt;xsl:value-of select=&quot;isbn&quot;/&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;xsl:value-of select=&quot;title&quot;/&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;xsl:value-of select=&quot;price&quot;/&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/xsl:for-each&gt;
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+&lt;/xsl:template&gt;
+
+&lt;/xsl:stylesheet&gt;
+</code></pre>
+                                <div class="pml-caption">File input/books.html.xslt</div>
+                                <p class="pml-paragraph">Because an XSLT document is itself an XML document, we can define it in pXML too:</p>
+                                <pre class="pml-code"><code>[xsl:stylesheet (xmlns:xsl=http://www.w3.org/1999/XSL/Transform version=1.0)
+
+[xsl:output (method=text)]
+
+[xsl:template (match=/)
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Books&lt;/title&gt;
+        &lt;style&gt;
+            table, th, td {
+                border: 1px solid #ddd;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 0.5em;
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;h2&gt;Books&lt;/h2&gt;
+        &lt;table&gt;
+            &lt;tr&gt;&lt;th&gt;ISBN&lt;/th&gt;&lt;th&gt;Title&lt;/th&gt;&lt;th&gt;Price&lt;/th&gt;&lt;/tr&gt;
+            [xsl:for-each (select=books/book)
+                &lt;tr&gt;
+                    &lt;td&gt;[xsl:value-of (select=isbn)]&lt;/td&gt;
+                    &lt;td&gt;[xsl:value-of (select=title)]&lt;/td&gt;
+                    &lt;td&gt;[xsl:value-of (select=price)]&lt;/td&gt;
+                &lt;/tr&gt;
+            ]
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+]
+]
+</code></pre>
+                                <div class="pml-caption">File input/books.html.pxslt</div>
+                                <p class="pml-paragraph">Class <code class="pml-inline-code">dev.pxml.core.utilities.XSLTTransformer</code> provides static methods to transform data. For example, we can transform the above pXML books data with the above pXML XSLT document like this:</p>
+                                <pre class="pml-code"><code>XSLTTransformer.transformPXMLFileWithPXMLXSLTFile (
+    new File ( &quot;input/books.pxml&quot; ),
+    new File ( &quot;input/books.pxslt&quot; ),
+    new File ( &quot;output/books.html&quot; ) );</code></pre>
+                                <p class="pml-paragraph">Executing the above statement creates file <code class="pml-inline-code">output/books.html</code> with this content:</p>
+                                <pre class="pml-code"><code>
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Books&lt;/title&gt;
+        &lt;style&gt;
+            table, th, td {
+                border: 1px solid #ddd;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 0.5em;
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;h2&gt;Books&lt;/h2&gt;
+        &lt;table&gt;
+            &lt;tr&gt;&lt;th&gt;ISBN&lt;/th&gt;&lt;th&gt;Title&lt;/th&gt;&lt;th&gt;Price&lt;/th&gt;&lt;/tr&gt;
+            
+                &lt;tr&gt;
+                    &lt;td&gt;978-0135957059&lt;/td&gt;
+                    &lt;td&gt;The Pragmatic Programmer: Your Journey to Mastery&lt;/td&gt;
+                    &lt;td&gt;41.41&lt;/td&gt;
+                &lt;/tr&gt;
+            
+                &lt;tr&gt;
+                    &lt;td&gt;978-0735619678&lt;/td&gt;
+                    &lt;td&gt;Code Complete: A Practical Handbook of Software Construction&lt;/td&gt;
+                    &lt;td&gt;45.32&lt;/td&gt;
+                &lt;/tr&gt;
+            
+                &lt;tr&gt;
+                    &lt;td&gt;978-0134685991&lt;/td&gt;
+                    &lt;td&gt;Effective Java&lt;/td&gt;
+                    &lt;td&gt;44.10&lt;/td&gt;
+                &lt;/tr&gt;
+            
+        &lt;/table&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                                <p class="pml-paragraph">The result in a web browser looks like this:</p>
+                                <figure style="text-align: left">
+                                    <img alt="Book table in browser" class="pml-image pml-bordered" src="images/book_table_in_browser.png" width="600" />
+                                </figure>
+                            </section>
+                        </section>
+                        <section id="ch__11" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Using XML technology with PML</h3>
+                            <p class="pml-paragraph">Chapter <a href="https://pxml-lang.github.io/docs/articles/suggestion-for-better-xml-html/index.html#ch__21" class="pml-link">pXML Predecessor</a> in a previous article explains that the pXML syntax originated from the <a href="https://www.pml-lang.dev/" class="pml-link">Practical Markup Language (PML)</a>. PML is a markup language designed to create web articles and books.</p>
+                            <p class="pml-paragraph">Now we can say that PML uses the pXML syntax. It also supports <a href="https://pxml-lang.github.io/docs/articles/suggestion-for-better-xml-html/index.html#lenient_PML" class="pml-link">lenient parsing</a>, but internally the AST is stored in pXML format. In the future, the pXML parser described in this article will be used in PML. Hence, all XML technology illustrated in the previous chapter can then be used with PML documents.</p>
+                            <p class="pml-paragraph">For example, one could:</p>
+                            <ul class="pml-list">
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">use XQuery to extract all links in a PML document</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">use an XML transformer to save all links in a CSV file that can be read by a tool (written in any language) to check for broken links.</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">create filters that consume the AST created by the PML parser, and then transform the AST (add/remove/change nodes) before letting PML produce the HTML output.</p>
+                                </li>
+                            </ul>
+                            <p class="pml-paragraph">It's easy to imagine all kinds of useful PML extensions users will be able create and share.</p>
+                        </section>
+                    </section>
+                    <section id="ch__12" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Parser (Reader)</h2>
+                        <p class="pml-paragraph">The preceding chapter showed <i class="pml-italic">what we can do</i> with the pXML parser. Now we'll dive deeper and see <i class="pml-italic">how it works</i>, and how you can use and customize the parser for your own specific needs.</p>
+                        <div class="pml-admonition">
+                            <div class="pml-admonition-label">Note</div>
+                            <div class="pml-admonition-content">
+                                <p class="pml-paragraph">The parser's source code is available on <a href="https://github.com/pxml-lang/java_parser" class="pml-link">Github</a>, and it's API is documented <a href="https://pxml-lang.github.io/docs/api/javadoc" class="pml-link">here</a>.</p>
+                            </div>
+                        </div>
+                        <section id="ch__13" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Event-Based</h3>
+                            <p class="pml-paragraph">The parser is <i class="pml-italic">event-based</i>. It reads a pXML document and generates a stream of events. The parser itself doesn't do anything with the parsed data. Each type of event (e.g. <code class="pml-inline-code">onNodeStart, onNodeEnd</code>, etc.) is handled by a callback function. All callback functions are part of an events handler object. Before parsing, the client code must pass an events handler object to the parser. The events handler is an interface containing one callback function for each type of event. It is defined as <a href="https://github.com/pxml-lang/java_parser/tree/main/src/main/java/dev/pxml/core/reader/parser/eventHandler/IParserEventsHandler.java" class="pml-link">follows</a>:</p>
+                            <pre class="pml-code"><code>package dev.pxml.core.reader.parser.eventHandler;
+
+import dev.pxml.core.data.node.PXMLNode;
+import dev.pxml.core.reader.reader.TextLocation;
+import dev.pxml.core.utilities.annotations.NotNull;
+
+public interface IParserEventsHandler&lt;N, R&gt; {
+
+    void onStart() throws Exception;
+    void onStop() throws Exception;
+
+    N onRootNodeStart ( @NotNull PXMLNode rootNode ) throws Exception;
+    void onRootNodeEnd ( N rootNode ) throws Exception;
+
+    N onNodeStart ( @NotNull PXMLNode node, @NotNull N parentNode ) throws Exception;
+    void onNodeEnd ( N node ) throws Exception;
+
+    void onText ( @NotNull String text, @NotNull N parentNode, TextLocation location ) throws Exception;
+
+    // [- and -] is included in comment
+    void onComment ( String comment, @NotNull N parentNode, TextLocation location ) throws Exception;
+
+    R getResult() throws Exception;
+}
+</code></pre>
+                            <p class="pml-paragraph">Type parameter <code class="pml-inline-code">N</code> defines the type of the nodes generated by this events handler. Type parameter <code class="pml-inline-code">R</code> defines the type of the final result created when parsing is terminated.</p>
+                            <p class="pml-paragraph">The following implementations of <code class="pml-inline-code">IParserEventsHandler</code> are included in the core library:</p>
+                            <ul class="pml-list">
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph"><a href="https://github.com/pxml-lang/java_parser/tree/main/src/main/java/dev/pxml/core/reader/parser/eventHandler/CreateDOM_ParserEventHandler.java" class="pml-link">CreateDOM_ParserEventHandler</a></p>
+                                    <p class="pml-paragraph">This handler creates a standard Java <code class="pml-inline-code">org.w3c.dom.Document</code> object. It's the handler used in the previous chapter when we validated or transformed a pXML document.</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph"><a href="https://github.com/pxml-lang/java_parser/tree/main/src/main/java/dev/pxml/core/reader/parser/eventHandler/CreateAST_ParserEventHandler.java" class="pml-link">CreateAST_ParserEventHandler</a></p>
+                                    <p class="pml-paragraph">Besides creating a <code class="pml-inline-code">Document</code> object, we can create a pXML specific AST with this handler. The end result is a <a href="https://pxml-lang.github.io/docs/api/javadoc/dev/pxml/core/data/node/PXMLNode.html" class="pml-link">PXMLNode</a>.</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph"><a href="https://github.com/pxml-lang/java_parser/tree/main/src/main/java/dev/pxml/core/reader/parser/eventHandler/WriteXML_ParserEventHandler.java" class="pml-link">WriteXML_ParserEventHandler</a></p>
+                                    <p class="pml-paragraph">If we just need to convert pXML to XML then the most efficient way is to use this handler. Instead of loading the whole pXML document into an internal tree structure, each item (name, attribute, text, etc.) is immediately written to a Java <code class="pml-inline-code">Writer</code>, as soon as it is parsed. Hence, very large documents can be converted quickly and without eating up internal memory.</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph"><a href="https://github.com/pxml-lang/java_parser/tree/main/src/main/java/dev/pxml/core/reader/parser/eventHandler/Logger_ParserEventHandler.java" class="pml-link">Logger_ParserEventHandler</a></p>
+                                    <p class="pml-paragraph">This is a utility handler that writes logging data to a Java <code class="pml-inline-code">Writer</code> (default is standard OS out device). Can be used for debugging purposes.</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph"><a href="https://github.com/pxml-lang/java_parser/tree/main/src/main/java/dev/pxml/core/reader/parser/eventHandler/DoNothing_ParserEventHandler.java" class="pml-link">DoNothing_ParserEventHandler</a></p>
+                                    <p class="pml-paragraph">As the name suggest, this handler doesn't do anything. It's useful in these cases:</p>
+                                    <ul class="pml-list">
+                                        <li class="pml-list-element">
+                                            <p class="pml-paragraph">We just want to know if an error is reported by the parser (e.g. malformed pXML document)</p>
+                                        </li>
+                                        <li class="pml-list-element">
+                                            <p class="pml-paragraph">We don't want to handle all events. In that case we can create an events handler that inherits from this one, and overwrites the functions we care about.</p>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph"><a href="https://github.com/pxml-lang/java_parser/tree/main/src/main/java/dev/pxml/core/reader/parser/eventHandler/Timer_ParserEventHandler.java" class="pml-link">Timer_ParserEventHandler</a></p>
+                                    <p class="pml-paragraph">This events handler inherits from <code class="pml-inline-code">DoNothing_ParserEventHandler</code>, and overwrites functions <code class="pml-inline-code">onStart</code> and <code class="pml-inline-code">onEnd</code> to measure the total parsing time.</p>
+                                </li>
+                            </ul>
+                        </section>
+                        <section id="ch__14" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Customized Parsing</h3>
+                            <p class="pml-paragraph">If none of the above handlers suits your needs, you can create your own customized events handler by creating a class that implements <code class="pml-inline-code">IParserEventsHandler</code>, and pass it to a <a href="https://github.com/pxml-lang/java_parser/tree/main/src/main/java/dev/pxml/core/reader/parser/EventStreamParser.java" class="pml-link">parser</a> that implements <a href="https://github.com/pxml-lang/java_parser/tree/main/src/main/java/dev/pxml/core/reader/parser/AEventStreamParser.java" class="pml-link">AEventStreamParser</a>. To get started you can have a look at the implementations mentioned in the previous chapter.</p>
+                            <p class="pml-paragraph">A parser uses an <a href="https://github.com/pxml-lang/java_parser/tree/main/src/main/java/dev/pxml/core/reader/tokenizer/ITokenizer.java" class="pml-link">ITokenizer</a> to read pXML tokens (name, text, comment, etc.). For maximum customization, you could provide your own tokenizer and/or parser and use it with pXML's core library.</p>
+                        </section>
+                        <section id="ch__15" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Parser Properties And Features</h3>
+                            <ul class="pml-list">
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">The parser is in a <i class="pml-italic">proof of concept</i> state, not ready yet to be used in production.</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Written in Java.</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Free and open-sourced under MIT license.</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">No dependencies.</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Just one +-55 kB .jar file</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Fast (no regexes used)</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Event-based. Therefore low memory footprint, even when reading large documents.</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Customized event handlers can be provided. Increases versatility</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Able to load pXML into a standard Java <code class="pml-inline-code">org.w3c.dom.Document</code> object. Therefore all XML technology based on <code class="pml-inline-code">Document</code> can be used (validation, querying, transformation etc.).</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Uses standard Java <code class="pml-inline-code">Reader</code> / <code class="pml-inline-code">Writer</code> for flexible input/output configurations.</p>
+                                </li>
+                            </ul>
+                        </section>
+                        <section id="ch__16" class="pml-chapter">
+                            <h3 class="pml-chapter-title">XML Features Not Yet Supported</h3>
+                            <p class="pml-paragraph">The following features are not yet supported in the current implementation:</p>
+                            <ul class="pml-list">
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">CDATA sections</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">processing instructions</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">DTD (replaced by XML Schema; will not be supported in pXML)</p>
+                                </li>
+                            </ul>
+                        </section>
+                    </section>
+                    <section id="ch__17" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Writer</h2>
+                        <p class="pml-paragraph">Besides a reader, the core library also includes a writer that implements interface <a href="https://github.com/pxml-lang/java_parser/tree/main/src/main/java/dev/pxml/core/writer/IPXMLWriter.java" class="pml-link">IPXMLWriter</a>. A writer is created by passing a standard Java <code class="pml-inline-code">java.io.Writer</code> to the constructor of class <a href="https://github.com/pxml-lang/java_parser/tree/main/src/main/java/dev/pxml/core/writer/PXMLWriter.java" class="pml-link">PXMLWriter</a>. Then methods like <code class="pml-inline-code">writeEmptyNode</code>, <code class="pml-inline-code">writeTextNode</code>, <code class="pml-inline-code">writeComment</code>, etc. can be used to write pXML to any destination (file, string, URL, etc.). The writer takes care of using escape sequences when needed.</p>
+                        <p class="pml-paragraph">Indenting must be done manually. A future version might include a <i class="pml-italic">pretty printing</i> mode.</p>
+                    </section>
+                    <section id="ch__18" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Summary</h2>
+                        <p class="pml-paragraph">The pXML parser can be used to:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">read pXML documents</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">convert pXML to XML</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">convert XML to pXML</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">use XML technology with pXML documents (validate, query, change, and transform documents)</p>
+                            </li>
+                        </ul>
+                        <p class="pml-paragraph">To maximize versatility, the parser produces an event stream which can be consumed by customized event handlers.</p>
+                        <p class="pml-paragraph">The core library also contains a writer to write pXML document programmatically.</p>
+                    </section>
+                </article>
+                <aside class="pml-doc-right">
+                </aside>
+            </div>
+            <footer class="pml-doc-footer">
+            </footer>
+        </div>
+
+    </body>
+</html>

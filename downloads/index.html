@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PDML Downloads</title> 
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="content-language" content="en-us">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Practical Data and Markup Language (PDML). PDML is a text format (specification and implementation) to store any kind of data and markup code.">
+		<meta name="keywords" content="data, markup code, language, text format, PDML">
+
+		<link rel="stylesheet" href="../css/pdml.css">
+		<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+
+ 
+
+	</head>
+
+	<body>
+		<script>
+			window.onload = function() {
+				const path = window.location.pathname;
+				// console.log ( path );
+				var tab_name = "none";
+				if ( path.includes ( "/about" ) ) {
+					tab_name = "about";
+				} else if ( path.includes ( "/docs" ) ) {
+					tab_name = "docs";
+				} else if ( path.includes ( "/downloads" ) ) {
+					tab_name = "downloads";
+				} else if ( path.includes ( "/help" ) ) {
+					tab_name = "help";
+				}
+				if ( tab_name !== "none" ) {
+					document.getElementById(tab_name).style.background = "lightgrey";
+				}
+			};
+		</script>
+
+		<div id="left_margin"></div>
+		
+		<div id="page">
+		
+			<a href="../index.html" class="no_link_decoration">
+			<div id="header">
+				<div id="header_name">Practical Data and Markup Language (PDML)</div>
+				<div id="header_slogan">the world's simplest format to store data and markup code</div>
+			</div>
+			</a>
+
+			<div id="menu">
+				<div class="menu-item" id="about">
+					<a href="../docs/faq/index.html" target="_blank" class="menu-link">About</a>
+				</div>
+				<div class="menu-item" id="docs">
+					<a href="../docs/index.html" class="menu-link">Docs</a>
+				</div>
+				<div class="menu-item" id="downloads">
+					<a href="../downloads/index.html" class="menu-link">Downloads</a>
+				</div>
+				<div class="menu-item" id="help">
+					<a href="../help/index.html" class="menu-link">Help</a>
+				</div>
+			</div>
+
+			<div id="menu_content_separator"></div>
+
+			<div id="content">
+
+				<h2>Downloads</h2>
+
+				<p><a href="jars/dev.pxml.core-0.8.0.jar" class="sub_menu_link_button">dev.pxml.core-0.8.0.jar<br />(Java .jar file to use pXML)</a></p>
+
+				<p><a href="https://github.com/pxml-lang/java_parser" class="sub_menu_link_button">Java Parser Source Code</a></p>
+
+				<p><a href="https://github.com/pxml-lang/java_examples" class="sub_menu_link_button">Java Parser Usage Examples</a></p>
+
+			</div>
+
+			
+			<div id="footer"></div>
+		
+		</div>
+		
+		<div id="right_margin"></div>
+	</body>
+</html>

@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="generator" content="PML 1.4.0 (www.pml-lang.dev)" />
+        <title>Suggestion For a Better XML/HTML Syntax</title>
+        <link rel="stylesheet" href="css/pml-default.css">
+        <link rel="stylesheet" href="css/pml-print-default.css" media="print">
+
+    </head>
+    <body>
+
+        <div class="pml-doc-wrapper">
+            <header class="pml-doc-header">
+            </header>
+            <div class="pml-doc-content">
+                <aside class="pml-doc-left">
+                    <nav class="pml-toc">
+                        <h2 class="pml-toc-title">Table of Contents</h2>
+                        <div class="pml-toc-tree" id="TOCTree">
+                            <ul>
+                                <li class="pml-toc-leaf-node"><a href="#ch__1">Introduction</a></li>
+                                <li class="pml-toc-branch-node">
+                                    <details>
+                                        <summary><a href="#ch__2">Existing Alternatives</a></summary>
+                                        <ul>
+                                            <li class="pml-toc-leaf-node"><a href="#JSON_alternative">JSON</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__3">YAML</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__4">Other</a></li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li class="pml-toc-branch-node">
+                                    <details>
+                                        <summary><a href="#ch__5">New Syntax</a></summary>
+                                        <ul>
+                                            <li class="pml-toc-branch-node">
+                                                <details>
+                                                    <summary><a href="#ch__6">Elements</a></summary>
+                                                    <ul>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__7">Simple Element</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__8">Empty Element</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__9">Child Elements</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__10">Closing Tags</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#name_rules">Name Rules</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#node_escape_rules">Escape Rules</a></li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li class="pml-toc-branch-node">
+                                                <details>
+                                                    <summary><a href="#ch__11">Attributes</a></summary>
+                                                    <ul>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__12">Overview</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__13">Names</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__14">Values</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__15">Escape rules</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__16">New lines</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__17">Differences between XML and pXML</a></li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__18">Comments</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__19">Other</a></li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li class="pml-toc-branch-node">
+                                    <details>
+                                        <summary><a href="#ch__20">History</a></summary>
+                                        <ul>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__21">pXML Predecessor</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#lenient_PML">Lenient Syntax in PML</a></li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__22">Implementation</a></li>
+                                <li class="pml-toc-branch-node">
+                                    <details>
+                                        <summary><a href="#ch__23">Examples</a></summary>
+                                        <ul>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__24">Simple Config File</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__25">HTML Code</a></li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__26">Syntax Comparison</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__27">Summary And Conclusion</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__28">Article History</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </aside>
+                <article class="pml-doc-text">
+                    <div class="pml-doc-title-wrapper">
+                        <h1 class="pml-doc-title">Suggestion For a Better XML/HTML Syntax</h1>
+                        <div class="pml-doc-authors">Christian Neumanns</div>
+                        <time class="pml-doc-date-time" datetime="2021-04-20">2021-04-20</time>
+                    </div>
+                    <figure style="text-align: center">
+                        <img alt="From XML to pXML" class="pml-image" src="images/n_v.png" width="400" />
+                    </figure>
+                    <section id="ch__1" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Introduction</h2>
+                        <p class="pml-paragraph">XML is a great technology with many useful, standardized, and well-supported extensions like XML schemas, XPath, XQuery, XSLT, etc. However, XML has a reputation of being <i class="pml-italic">too verbose</i>. This doesn't come as a surprise if we look at one of the <a href="https://www.w3.org/TR/xml/#sec-origin-goals" class="pml-link">design goals</a> stated in the official <a href="https://www.w3.org/TR/xml/" class="pml-link">W3C XML Recommendation</a>:</p>
+                        <blockquote class="pml-quote">
+                            <div class="pml-quote-text-block">
+                                <div class="pml-quote-text-prefix"></div>
+                                <div class="pml-quote-text">
+                                    <p class="pml-paragraph">Terseness in XML markup is of minimal importance.</p>
+                                </div>
+                                <div class="pml-quote-text-suffix"></div>
+                            </div>
+                            <div class="pml-quote-source">XML specification</div>
+                        </blockquote>
+                        <p class="pml-paragraph">An interesting question arises: &quot;Couldn't we keep the technology, but just improve the syntax to make XML and HTML easier to read and write for humans?&quot;</p>
+                        <p class="pml-paragraph">This article shows that the answer to this question is a resounding &quot;Yes, we can!&quot;.</p>
+                        <p class="pml-paragraph">We'll have a look at a suggestion for a new syntax that is less verbose, easy to read and write, and works well for all kinds of XML documents, including HTML code.</p>
+                        <div class="pml-admonition">
+                            <div class="pml-admonition-label">Note</div>
+                            <div class="pml-admonition-content">
+                                <p class="pml-paragraph">Readers of this article are supposed to have a basic knowledge of XML, HTML, and JSON.</p>
+                                <p class="pml-paragraph">As this article is about XML, the term &quot;HTML&quot; used here implicitly refers to XML-compliant HTML (i.e. XHTML).</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="ch__2" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Existing Alternatives</h2>
+                        <p class="pml-paragraph">Before trying to invent anything new we should of course first have a deep look at what exists already.</p>
+                        <p class="pml-paragraph">This chapter answers the question: Is there any existing markup language with a more human-friendly syntax than XML/HTML, but also well suited for big, complex, and changing documents?</p>
+                        <section id="JSON_alternative" class="pml-chapter">
+                            <h3 class="pml-chapter-title">JSON</h3>
+                            <p class="pml-paragraph">In the last years, JSON has overtaken XML in terms of popularity.</p>
+                            <p class="pml-paragraph">To understand why (in the context of <i class="pml-italic">syntax</i>), let's have a look at a simple data structure in JSON:</p>
+                            <pre class="pml-code"><code>{
+    &quot;person&quot;: {
+        &quot;name&quot;: &quot;Albert&quot;,
+        &quot;married&quot;: true,
+        &quot;address&quot;: {
+            &quot;street&quot;: &quot;Kramgasse&quot;,
+            &quot;city&quot;: &quot;Bern&quot;
+        },
+        &quot;phones&quot;: [ &quot;123&quot;, &quot;456&quot;]
+    }
+}    </code></pre>
+                            <p class="pml-paragraph">In XML, the code could look like this:</p>
+                            <pre id="albert_example" class="pml-code"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;person&gt;
+    &lt;name&gt;Albert&lt;/name&gt;
+    &lt;married&gt;true&lt;/married&gt;
+    &lt;address&gt;
+        &lt;street&gt;Kramgasse&lt;/street&gt;
+        &lt;city&gt;Bern&lt;/city&gt;
+    &lt;/address&gt;
+    &lt;phones&gt;
+        &lt;phone&gt;123&lt;/phone&gt;
+        &lt;phone&gt;456&lt;/phone&gt;
+    &lt;/phones&gt;
+&lt;/person&gt;</code></pre>
+                            <p class="pml-paragraph">Many people prefer the JSON syntax. It is easier to read and less verbose than the XML version. Not counting indentation spaces, the above JSON code requires 144 characters to type. The XML code has 276 characters. That's an increase of 92%!</p>
+                            <p class="pml-paragraph">Examples like the above one lead to an intriguing question:</p>
+                            <ul class="pml-list">
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">&quot;Couldn't we just stop using XML and use JSON instead for everything?&quot;</p>
+                                </li>
+                            </ul>
+                            <p class="pml-paragraph">For example, could we use the JSON syntax to write HTML documents?</p>
+                            <p class="pml-paragraph">Let's try.</p>
+                            <p class="pml-paragraph">Here is a simple HTML snippet:</p>
+                            <pre class="pml-code"><code>&lt;p&gt;foo bar&lt;/p&gt;</code></pre>
+                            <p class="pml-paragraph">In JSON, we could express this as follows:</p>
+                            <pre class="pml-code"><code>{ &quot;p&quot;: &quot;foo bar&quot; }</code></pre>
+                            <p class="pml-paragraph">Let's write <code class="pml-inline-code">foo</code> in <i class="pml-italic">italics</i>, and <code class="pml-inline-code">bar</code> in <b class="pml-bold">bold</b>.</p>
+                            <p class="pml-paragraph">HTML:</p>
+                            <pre class="pml-code"><code>&lt;p&gt;&lt;i&gt;foo&lt;/i&gt; &lt;b&gt;bar&lt;/b&gt;&lt;/p&gt;</code></pre>
+                            <p class="pml-paragraph">JSON:</p>
+                            <pre class="pml-code"><code>{ &quot;p&quot;: [ { &quot;i&quot;:&quot;foo&quot; }, &quot; &quot;, { &quot;b&quot;: &quot;bar&quot; } ] }</code></pre>
+                            <p class="pml-paragraph">Now we want to display everything in red:</p>
+                            <p class="pml-paragraph">HTML:</p>
+                            <pre class="pml-code"><code>&lt;p style=&quot;color:red;&quot;&gt;&lt;i&gt;foo&lt;/i&gt; &lt;b&gt;bar&lt;/b&gt;&lt;/p&gt;</code></pre>
+                            <p class="pml-paragraph">JSON:</p>
+                            <pre class="pml-code"><code>{ &quot;p&quot;: { &quot;style&quot;: &quot;color:red;&quot;, &quot;content&quot;: [ { &quot;i&quot;: &quot;foo&quot; }, &quot; &quot;, { &quot;b&quot;: &quot;bar&quot; } ] } }</code></pre>
+                            <p class="pml-paragraph">We can prettify to make the code easier to read:</p>
+                            <pre class="pml-code"><code>{
+    &quot;p&quot;:{
+        &quot;style&quot;:&quot;color:red;&quot;,
+        &quot;content&quot;:[
+            {
+                &quot;i&quot;:&quot;foo&quot;
+            },
+            &quot; &quot;,
+            {
+                &quot;b&quot;:&quot;bar&quot;
+            }
+        ]
+    }
+}    </code></pre>
+                            <p class="pml-paragraph">But now the HTML one-liner has mutated into a '14 lines monster with lots of horizontal and vertical whitespace'.</p>
+                            <p class="pml-paragraph">Not quite what we are looking for.</p>
+                            <p class="pml-paragraph">Besides the obvious fact that the complexity of the JSON code increases quickly, there is another worrying observation:</p>
+                            <ul class="pml-list">
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">In the first example, the <code class="pml-inline-code">p</code> element's value was a string: <code class="pml-inline-code">&quot;p&quot;: &quot;...&quot;</code>.</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">In the second example, the value becomes a JSON array: <code class="pml-inline-code">&quot;p&quot;: [...]</code>.</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">In the last example, it mutates to a JSON object: <code class="pml-inline-code">&quot;p&quot;: {...}</code>.</p>
+                                </li>
+                            </ul>
+                            <p class="pml-paragraph">Such changes can easily lead to maintenance nightmares. Code that inspects the data structure must be updated each time the code changes. For example if we wanted to extract the text of element <code class="pml-inline-code">p</code>, we would need to write different code for the three cases.</p>
+                            <p class="pml-paragraph">XML doesn't have this problem. The content of <code class="pml-inline-code">p</code> is always a list of child elements.</p>
+                            <p class="pml-paragraph">At this point you hopefully agree that we can stop further investigation and move on. The JSON syntax is a bad fit for describing markup code like HTML documents in a human-friendly way. That doesn't mean of course that 'JSON is bad'. JSON is a good choice in many cases. It is a native part of JavasSript, well-supported in most programming languages, and there are lots of libraries and tools available for JSON. However, in the context of our search for a better markup syntax, JSON (as well as all variations of it) is not an option. Later we'll have a look at a more complete HTML example that confirms our conclusion.</p>
+                        </section>
+                        <section id="ch__3" class="pml-chapter">
+                            <h3 class="pml-chapter-title">YAML</h3>
+                            <p class="pml-paragraph">One way to minimize verbosity is to use indentation to define structure. <a href="https://yaml.org/" class="pml-link">YAML</a> is probably the most popular language that uses this technique.</p>
+                            <p class="pml-paragraph">Here is a reprint of a JSON example we saw previously:</p>
+                            <pre class="pml-code"><code>{
+    &quot;person&quot;: {
+        &quot;name&quot;: &quot;Albert&quot;,
+        &quot;married&quot;: true,
+        &quot;address&quot;: {
+            &quot;street&quot;: &quot;Kramgasse&quot;,
+            &quot;city&quot;: &quot;Bern&quot;
+        },
+        &quot;phones&quot;: [ &quot;123&quot;, &quot;456&quot;]
+    }
+}    </code></pre>
+                            <p class="pml-paragraph">In YAML, this becomes:</p>
+                            <pre class="pml-code"><code>person:
+    name: Albert
+    married: true
+    address:
+        street: Kramgasse
+        city: Bern
+    phones:
+        - 123
+        - 456</code></pre>
+                            <p class="pml-paragraph">Nice!</p>
+                            <p class="pml-paragraph">Easy to read and write.</p>
+                            <p class="pml-paragraph">At first sight it might seem that we could use such a noise-less syntax for all kinds of data structures, including markup code.</p>
+                            <p class="pml-paragraph">It turns out that would be a very bad idea. The problem with YAML and all other languages that use indentation to define structure is this: It works well for small, simple structures (such as config files). But if we need to manage big documents with deeply nested structures then it quickly becomes error-prone and unmaintainable.</p>
+                            <p class="pml-paragraph">Moreover, while using indentation to define structure effectively reduces verbosity, it also leads to much more lines of code for certain types of documents. The reason is that each child element <i class="pml-italic">must</i> be written on a new line.</p>
+                            <p class="pml-paragraph">To illustrate this, let's see how the simple HTML one-liner we used in the previous chapter would be written in YAML. Here is a reprint of the HTML:</p>
+                            <pre class="pml-code"><code>&lt;p style=&quot;color:red;&quot;&gt;&lt;i&gt;foo&lt;/i&gt; &lt;b&gt;bar&lt;/b&gt;&lt;/p&gt;</code></pre>
+                            <p class="pml-paragraph">In YAML the code would look like this:</p>
+                            <pre class="pml-code"><code>p:
+    style: 'color:red;'
+    content:
+        - i: foo
+        - ' '
+        - b: bar</code></pre>
+                            <p class="pml-paragraph">There are other arguments against whitespace-sensitive documents, such as the problems with mixing spaces and tabs, and code snippets that cannot be shared between different documents with different levels of indentation. These inconveniences are well known - there is no need for repetition here.</p>
+                            <p class="pml-paragraph">Finally, the whitespace-significant approach forces us to use whitespace according to the rules (which can get very complex). It takes away the freedom to use whitespace to make documents more appealing and understandable.</p>
+                            <p class="pml-paragraph">As for JSON, this doesn't mean that 'YAML is bad'. YAML is well suited in <i class="pml-italic">some</i> cases. What I want to say is that the idea of using whitespace-sensitivity in a markup language like HTML is doomed to fail. It's understandable that, according to <a href="https://en.wikipedia.org/wiki/YAML#History_and_name" class="pml-link">Wikipedia</a>, the meaning of the acronym YAML was changed from &quot;Yet Another Markup Language&quot; to &quot;YAML Ain't Markup Language&quot;.</p>
+                            <p class="pml-paragraph">XML/HTML ignores whitespace, and that's the right choice.</p>
+                        </section>
+                        <section id="ch__4" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Other</h3>
+                            <p class="pml-paragraph">Several other markup languages exist, but I am not aware of any syntax that would be well suited to replace the XML syntax. If you know of a good alternative then please leave a comment.</p>
+                            <p class="pml-paragraph">There are also many tools and editor plugins aiming to alleviate the pain of writing XML code by hand. However, the gist of this article is not to <i class="pml-italic">alleviate</i> the pain. We want to <i class="pml-italic">remove</i> it.</p>
+                        </section>
+                    </section>
+                    <section id="ch__5" class="pml-chapter">
+                        <h2 class="pml-chapter-title">New Syntax</h2>
+                        <p class="pml-paragraph">In this chapter I will suggest a new, alternative syntax for XML/HTML documents. The new syntax should be practical for humans and machines. So let's call it <i class="pml-italic">practicalXML</i>, or just <b class="pml-bold"><i class="pml-italic">pXML</i></b>.</p>
+                        <section id="ch__6" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Elements</h3>
+                            <section id="ch__7" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Simple Element</h4>
+                                <p class="pml-paragraph">Let's start with the following HTML snippet - a simple element that contains only text:</p>
+                                <pre class="pml-code"><code>&lt;i&gt;foo&lt;/i&gt;</code></pre>
+                                <p class="pml-paragraph">The first thing we need to do is to get rid of the closing tag syntax (<code class="pml-inline-code">&lt;/i&gt;</code>) - the biggest culprit of XML's verbosity. We can do this by just closing the element with <code class="pml-inline-code">&gt;</code>, like this:</p>
+                                <pre class="pml-code"><code>&lt;i&gt;foo&gt;</code></pre>
+                                <p class="pml-paragraph">This creates an imbalance of <code class="pml-inline-code">&lt;</code> and <code class="pml-inline-code">&gt;</code> symbols. But that's easy to fix. We replace the <code class="pml-inline-code">&gt;</code> in the opening tag with a space - the easiest character to read and write on any keyboard. The code becomes:</p>
+                                <pre class="pml-code"><code>&lt;i foo&gt;</code></pre>
+                                <p class="pml-paragraph">Let's think about the brackets. We could use <code class="pml-inline-code">&lt;&gt;</code>, as in XML/HTML. But there are other options: <code class="pml-inline-code">[]</code>, <code class="pml-inline-code">{}</code>, and <code class="pml-inline-code">()</code>. We need to consider two points:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">How easy are they to type?</p>
+                                        <p class="pml-paragraph"><code class="pml-inline-code">[]</code> clearly wins, because on most keyboards (including Dvorak keyboards) all other brackets require the <code class="pml-inline-code">Shift</code> key to be hold down.</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">How often do they occur in normal text?</p>
+                                        <p class="pml-paragraph">This is important because the brackets have to be escaped in normal text. I didn't find any reliable statistics, but my guess would be that <code class="pml-inline-code">()</code> is used often, while the others are used rarely, maybe in this order: <code class="pml-inline-code">{}</code>, <code class="pml-inline-code">[]</code>, and <code class="pml-inline-code">&lt;&gt;</code>.</p>
+                                    </li>
+                                </ul>
+                                <p class="pml-paragraph">The best option is to use <code class="pml-inline-code">[]</code>, because this pair is easy to write (no need for <code class="pml-inline-code">Shift</code> on most keyboards), and square brackets rarely occur in normal text. Moreover, it creates a clear distinction between the new pXML syntax (<code class="pml-inline-code">[]</code>), XML/HTML (<code class="pml-inline-code">&lt;&gt;</code>), and source code (which often uses <code class="pml-inline-code">{}</code>).</p>
+                                <p class="pml-paragraph">Hence, the final pXML code becomes:</p>
+                                <pre class="pml-code"><code>[i foo]</code></pre>
+                                <p class="pml-paragraph">... which is easier to read and write than:</p>
+                                <pre class="pml-code"><code>&lt;i&gt;foo&lt;/i&gt;</code></pre>
+                                <p class="pml-paragraph">Another advantage of the new syntax is that bracket matching in text editors (available in most modern versions) becomes more useful. For XML/HTML, the <code class="pml-inline-code">&lt;</code> of the opening tag matches only the <code class="pml-inline-code">&gt;</code> of the <i class="pml-italic">opening</i> tag, which is of little use. In VSCode it looks like this:</p>
+                                <figure style="text-align: left">
+                                    <img alt="XML bracket matching in VSCode" class="pml-image pml-bordered" src="images/bracket_matching_XML.png" width="120" />
+                                </figure>
+                                <p class="pml-paragraph">In pXML the <code class="pml-inline-code">[</code> of the opening tag matches the <code class="pml-inline-code">]</code> of the <i class="pml-italic">closing</i> tag, which is much more helpful, especially in case of elements with lots of nested content. VSCode example:</p>
+                                <figure style="text-align: left">
+                                    <img alt="pXML bracket matching in VSCode" class="pml-image pml-bordered" src="images/bracket_matching_PXML.png" width="120" />
+                                </figure>
+                            </section>
+                            <section id="ch__8" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Empty Element</h4>
+                                <p class="pml-paragraph">An empty XML element is an element that has no attributes and no child nodes.</p>
+                                <p class="pml-paragraph">A typical example is the <code class="pml-inline-code">br</code> element used to insert a new line in an HTML document. Here is the code:</p>
+                                <pre class="pml-code"><code>&lt;br /&gt;  &lt;!--     XML-compliant --&gt;
+&lt;br&gt;    &lt;!-- not XML-compliant --&gt;</code></pre>
+                                <p class="pml-paragraph">In pXML, this is written as:</p>
+                                <pre class="pml-code"><code>[br]</code></pre>
+                            </section>
+                            <section id="ch__9" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Child Elements</h4>
+                                <p class="pml-paragraph">An XML element can optionally contain one or more child elements. They are embedded within the opening and closing tags. Here is an example:</p>
+                                <pre class="pml-code"><code>&lt;table&gt;
+    &lt;tr&gt;&lt;td&gt;Cell 1.1&lt;/td&gt;&lt;td&gt;Cell 1.2&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Cell 2.1&lt;/td&gt;&lt;td&gt;Cell 2.2&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+                                <p class="pml-paragraph">There is no reason to change this in pXML. The above example is written like this:</p>
+                                <pre class="pml-code"><code>[table
+    [tr [td Cell 1.1][td Cell 1.2]]
+    [tr [td Cell 2.1][td Cell 2.2]]
+]</code></pre>
+                            </section>
+                            <section id="ch__10" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Closing Tags</h4>
+                                <p class="pml-paragraph">When nested elements are closed, we often see HTML code like this:</p>
+                                <pre class="pml-code"><code>&lt;/img&gt;&lt;/div&gt;&lt;/section&gt;</code></pre>
+                                <p class="pml-paragraph">If indentation is used, it looks like this:</p>
+                                <pre class="pml-code"><code>        &lt;/img&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+                                <p class="pml-paragraph">In pXML the code without indentation becomes:</p>
+                                <pre class="pml-code"><code>]]]</code></pre>
+                                <p class="pml-paragraph">With indentation:</p>
+                                <pre class="pml-code"><code>        ]
+    ]
+]</code></pre>
+                                <p class="pml-paragraph">While the new syntax obviously improves writing-speed and reduces the size of code, it also creates two inconveniences:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">The code becomes less understandable, especially in case of big, nested elements.</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">In case of a missing <code class="pml-inline-code">]</code> (i.e. we forget to close an element) or a superfluous <code class="pml-inline-code">]</code>, the error message generated by the parser risks being less helpful. For example, imagine a superfluous <code class="pml-inline-code">]</code> in the middle of a big document. The parser will only be able to detect the error at the end of the document, and report a superfluous <code class="pml-inline-code">]</code> at the last line.</p>
+                                        <p class="pml-paragraph">Note, however, that this problem can be largely mitigated when elements are indented, and the parser emits a warning if the indentation of the opening <code class="pml-inline-code">[</code> and closing <code class="pml-inline-code">]</code> are different.</p>
+                                    </li>
+                                </ul>
+                                <p class="pml-paragraph">To eliminate these inconveniences we should support an <i class="pml-italic">alternative</i>, more verbose syntax to close elements.</p>
+                                <p class="pml-paragraph">Obvious options like <code class="pml-inline-code">[/tag]</code> or <code class="pml-inline-code">tag]</code> don't work, because they create an imbalance of brackets, or they require special rules for exceptional corner cases. I finally opted for the following alternative syntax:</p>
+                                <pre class="pml-code"><code>][/tag]</code></pre>
+                                <p class="pml-paragraph">Hence, the above code to close three elements can optionally be written like this:</p>
+                                <pre class="pml-code"><code>][/img] ][/div] ][/section]</code></pre>
+                                <p class="pml-paragraph">... or this</p>
+                                <pre class="pml-code"><code>        ][/img]
+    ][/div]
+][/section]</code></pre>
+                                <p class="pml-paragraph">This is a bit more verbose than the XML syntax, because there is one more character per closing tag. But it is also a bit easier to write because the <code class="pml-inline-code">Shift</code> key doesn't have to be used twice. In practice the verbose syntax is only needed to close big tags with many levels of child elements. So I think the alternative pXML syntax to close tags is a good compromise. It's there if you need it, and it works well (no corner cases that require special rules).</p>
+                            </section>
+                            <section id="name_rules" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Name Rules</h4>
+                                <p class="pml-paragraph">For compatibility reasons, the rules for element names in pXML must be the same as in <a href="https://www.w3schools.com/xml/xml_elements.asp" class="pml-link">XML</a>. Element names:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">are case-sensitive</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">must start with a letter or underscore</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">cannot start with &quot;xml&quot;</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">can contain letters, digits, hyphens, underscores, and periods</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">cannot contain spaces</p>
+                                    </li>
+                                </ul>
+                            </section>
+                            <section id="node_escape_rules" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Escape Rules</h4>
+                                <p class="pml-paragraph">pXML uses the backslash (<code class="pml-inline-code">\ </code>) as escape character.</p>
+                                <p class="pml-paragraph">Three characters must always be escaped in text:</p>
+                                <table class="pml-table">
+                                    <thead class="pml-table-header">
+                                        <tr><th class="pml-table-header-cell">Character</th><th class="pml-table-header-cell">Escape Token</th></tr>
+                                    </thead>
+                                    <tbody class="pml-table-body">
+                                        <tr><td class="pml-table-body-cell">[</td><td class="pml-table-body-cell">\[</td></tr>
+                                        <tr><td class="pml-table-body-cell">]</td><td class="pml-table-body-cell">\]</td></tr>
+                                        <tr><td class="pml-table-body-cell">\</td><td class="pml-table-body-cell">\\</td></tr>
+                                    </tbody>
+                                </table>
+                                <p class="pml-paragraph">The following code shows how the text <code class="pml-inline-code">Watch out for &lt;, &gt;, &quot;, ', &amp;, [, ], and \ characters</code> must be escaped in XML and pXML:</p>
+                                <pre class="pml-code"><code>XML:  &lt;note&gt;Watch out for &amp;lt;, &amp;gt;, &amp;quot;, &amp;apos;, &amp;amp;, [, ], and \ characters&lt;/note&gt;
+
+pXML: [note Watch out for &lt;, &gt;, &quot;, ', &amp;, \[, \], and \\ characters]</code></pre>
+                                <p class="pml-paragraph">Any Unicode character can be inserted by using the <code class="pml-inline-code">\uhhhh</code> syntax commonly used in programming languages. For example the text:</p>
+                                <pre class="pml-code"><code>Hell\u006f</code></pre>
+                                <p class="pml-paragraph">is parsed as:</p>
+                                <pre class="pml-code"><code>Hello</code></pre>
+                                <p class="pml-paragraph">XML entities are currently not supported in pXML.</p>
+                                <p class="pml-paragraph">In XML, <code class="pml-inline-code">&quot;a &amp;lt; 1&quot;</code> is parsed as <code class="pml-inline-code">a &lt; 1</code>. In pXML it is parsed as <code class="pml-inline-code">&quot;a &amp;lt; 1&quot;</code></p>
+                                <p class="pml-paragraph">However, if a pXML document is converted to an XML document (or XML to pXML), the conversion automatically applies the correct escape rules. For example, the following pXML text:</p>
+                                <pre class="pml-code"><code>\[ &lt;</code></pre>
+                                <p class="pml-paragraph">... will be converted to the following XML text:</p>
+                                <pre class="pml-code"><code>[ &amp;lt;</code></pre>
+                                <p class="pml-paragraph">... and vice versa.</p>
+                            </section>
+                        </section>
+                        <section id="ch__11" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Attributes</h3>
+                            <section id="ch__12" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Overview</h4>
+                                <p class="pml-paragraph">Besides elements, XML also supports attributes. Here is an example of an XML element with attributes:</p>
+                                <pre class="pml-code"><code>&lt;div id=&quot;unplug_warning&quot; class=&quot;warning big-text&quot;&gt;Unplug power cord before opening!&lt;/div&gt;</code></pre>
+                                <p class="pml-paragraph">In pXML, the same code looks like this:</p>
+                                <pre class="pml-code"><code>[div ( id=unplug_warning class=&quot;warning big-text&quot; ) Unplug power cord before opening!]</code></pre>
+                                <p class="pml-paragraph">As can be seen, the two syntaxes are similar. There are two obvious differences:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">In pXML, attributes are embedded in parentheses: <code class="pml-inline-code">(...)</code>. The syntax is like function argument assignments in some programming languages.</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">In pXML, attribute values don't always need to be quoted (e.g. <code class="pml-inline-code">id=unplug_warning</code>).</p>
+                                    </li>
+                                </ul>
+                            </section>
+                            <section id="ch__13" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Names</h4>
+                                <p class="pml-paragraph">In XML, attribute names are not quoted (unlike in JSON), and they must respect the same rules as we <a href="#name_rules" class="pml-xref">previously</a> saw for element tag names.</p>
+                                <p class="pml-paragraph">To stay compatible with XML, pXML applies the same rules. Attribute names:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">must start with a letter or underscore</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">can contain letters, digits, hyphens, underscores, and periods (no spaces)</p>
+                                    </li>
+                                </ul>
+                            </section>
+                            <section id="ch__14" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Values</h4>
+                                <p class="pml-paragraph">In XML, attribute values must always be quoted with <code class="pml-inline-code">&quot;</code>. Example: <code class="pml-inline-code">name = &quot;Bob&quot;</code>.</p>
+                                <p class="pml-paragraph">In pXML, values can be unquoted, double-quoted, or single-quoted.</p>
+                                <p class="pml-paragraph"><b class="pml-bold">Unquoted value</b></p>
+                                <p class="pml-paragraph">Values are <i class="pml-italic">not required</i> to be quoted if they don't contain:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">whitespace: <code class="pml-inline-code">&lt;space&gt;, &lt;tab&gt;, &lt;carriage return&gt;, &lt;line feed&gt;</code></p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">square brackets: <code class="pml-inline-code">[ and ]</code></p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">parenthesis: <code class="pml-inline-code">( and )</code></p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">quotes: <code class="pml-inline-code">&quot; and '</code></p>
+                                    </li>
+                                </ul>
+                                <p class="pml-paragraph">Examples:</p>
+                                <pre class="pml-code"><code>name = Bob
+port = 8080
+path = C:\Users\Alice</code></pre>
+                                <p class="pml-paragraph"><b class="pml-bold">Double-quoted and single-quoted value</b></p>
+                                <p class="pml-paragraph">If a value contains any of the characters not allowed in unquoted values, then the value <i class="pml-italic">must</i> be surrounded by double-quotes (<code class="pml-inline-code">&quot;</code>) or single-quotes (<code class="pml-inline-code">'</code>).</p>
+                                <p class="pml-paragraph">Examples:</p>
+                                <pre class="pml-code"><code>food = &quot;healthy orange&quot;                 // contains space
+expression = &quot;array[17]&quot;                // contains square brackets
+conclusion = &quot;It's ok.&quot;                 // contains '
+statement = 'He said: &quot;All is well&quot;.'   // contains &quot;</code></pre>
+                            </section>
+                            <section id="ch__15" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Escape rules</h4>
+                                <p class="pml-paragraph">Escape sequences are not supported in unquoted attribute values. Therefore parsing unquoted values is a bit faster.</p>
+                                <p class="pml-paragraph">Escaping is supported for double-quoted and single-quoted values. The following rules are applied:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">A backslash (<code class="pml-inline-code">\ </code>) is used to start an escape sequence.</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Double quotes must be escaped in double-quoted values with <code class="pml-inline-code">\&quot;</code>. Example:</p>
+                                        <pre class="pml-code"><code>statement = &quot;He said: \&quot;All is well\&quot;.&quot;    // He said: &quot;All is well&quot;.</code></pre>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Single quotes must be escaped in single-quoted values with <code class="pml-inline-code">\'</code>. Example:</p>
+                                        <pre class="pml-code"><code>conclusion = 'It\'s ok.'    // It's ok.</code></pre>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">A backslash must be escaped with <code class="pml-inline-code">\\ </code>. Example:</p>
+                                        <pre class="pml-code"><code>path = &quot;C:\\Users\\Alice&quot;    // C:\Users\Alice</code></pre>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">The following values can <i class="pml-italic">optionally</i> be escaped:</p>
+                                        <table class="pml-table">
+                                            <thead class="pml-table-header">
+                                                <tr><th class="pml-table-header-cell">Name</th><th class="pml-table-header-cell">Syntax</th></tr>
+                                            </thead>
+                                            <tbody class="pml-table-body">
+                                                <tr><td class="pml-table-body-cell">square brackets</td><td class="pml-table-body-cell">\[ \]</td></tr>
+                                                <tr><td class="pml-table-body-cell">tab</td><td class="pml-table-body-cell">\t</td></tr>
+                                                <tr><td class="pml-table-body-cell">carriage return</td><td class="pml-table-body-cell">\r</td></tr>
+                                                <tr><td class="pml-table-body-cell">line feed</td><td class="pml-table-body-cell">\n</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Any Unicode character can be inserted by using the <code class="pml-inline-code">\uhhhh</code> syntax commonly used in programming languages. Example:</p>
+                                        <pre class="pml-code"><code>word = &quot;Hell\u006f&quot;    // Hello</code></pre>
+                                    </li>
+                                </ul>
+                            </section>
+                            <section id="ch__16" class="pml-chapter">
+                                <h4 class="pml-chapter-title">New lines</h4>
+                                <p class="pml-paragraph">For better readability, attribute assignments can be written on separate lines, like this:</p>
+                                <pre class="pml-code"><code>[image (
+    source = images/kid.png
+    title  = &quot;Kid is flabbergasted&quot;
+    width  = 800px
+    height = 600px
+)]</code></pre>
+                                <p class="pml-paragraph">Whitespace between attribute assignments is ignored.</p>
+                                <p class="pml-paragraph">Quoted values can contain new lines. Example:</p>
+                                <pre class="pml-code"><code>statement = 'He said:       // He said:
+&quot;All is well!&quot;'             // &quot;All is well!&quot; </code></pre>
+                                <p class="pml-paragraph">If new lines are inserted literally in the code, as in the above example, then the actual new line character(s) parsed depend on the operating system, as well as the editor/program configuration used to create the code. By default:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">On Unix/Linux, a new line is a single &lt;line feed&gt; character</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">On Windows, a new line is composed of two characters: a &lt;carriage return&gt; and &lt;line feed&gt;</p>
+                                    </li>
+                                </ul>
+                                <p class="pml-paragraph">On both systems, this default behavior might be overridden. For example, a Windows editor can be configured to produce a single &lt;line feed&gt; character for new lines inserted in the code.</p>
+                                <p class="pml-paragraph">To force a specific new line in pXML code, we can use an escape sequence in the code, e.g.:</p>
+                                <pre class="pml-code"><code>statement = 'He said:\r\n&quot;All is well!&quot;'    // Windows new line forced
+statement = 'He said:\n&quot;All is well!&quot;'      // Unix new line forced</code></pre>
+                            </section>
+                            <section id="ch__17" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Differences between XML and pXML</h4>
+                                <p class="pml-paragraph">In pXML, writing:</p>
+                                <pre class="pml-code"><code>[e (a1=v1 a2=v2)]</code></pre>
+                                <p class="pml-paragraph">is semantically equivalent to:</p>
+                                <pre class="pml-code"><code>[e [a1 v1][a2 v2]]</code></pre>
+                                <p class="pml-paragraph">In both cases, node <code class="pml-inline-code">e</code> is a node with two child nodes: <code class="pml-inline-code">a1</code> and <code class="pml-inline-code">a2</code>. The API to access the content of <code class="pml-inline-code">e</code> is the same in both cases.</p>
+                                <p class="pml-paragraph">pXML attributes just provide an alternative <i class="pml-italic">syntax</i> for child nodes.</p>
+                                <p class="pml-paragraph">The alternative syntax is useful because it is better suited for sets of child nodes that contain only text.</p>
+                                <p class="pml-paragraph">Here is a node not using attributes:</p>
+                                <pre class="pml-code"><code>[image [source ball.png][width 300px][height 200px]]</code></pre>
+                                <p class="pml-paragraph">The same node defined with attributes looks like this:</p>
+                                <pre class="pml-code"><code>[image (source=ball.png width=300px height=200px)]</code></pre>
+                                <p class="pml-paragraph">The second version (using attributes) is slightly shorter, easier to read and write, and more familiar to people used to the XML attributes syntax. However, both versions are parsed into the same tree structure.</p>
+                                <p class="pml-paragraph">This contrasts with XML, where attributes and elements are different. In XML, the API used to access attributes is different from the API for child elements. Hence, a program that reads an XML structure must know if a value is an attribute or an element. Moreover, if a value that was initially defined as an attribute, is later defined as an element (or vice versa), then the program that reads the value must be updated. This is not necessary in pXML.</p>
+                            </section>
+                        </section>
+                        <section id="ch__18" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Comments</h3>
+                            <p class="pml-paragraph">An XML comment looks like this:</p>
+                            <pre class="pml-code"><code>&lt;!-- text of comment --&gt;</code></pre>
+                            <p class="pml-paragraph">We can simplify by using <code class="pml-inline-code">[-</code> to start a comment, and <code class="pml-inline-code">-]</code> to stop it. Here is the pXML version:</p>
+                            <pre class="pml-code"><code>[- text of comment -]</code></pre>
+                            <p class="pml-paragraph">There is no ambiguity with <code class="pml-inline-code">[-</code> being the start of an element with name <code class="pml-inline-code">-</code> because, according to the <a href="#name_rules" class="pml-xref">rules</a>, an element name cannot contain hyphens (<code class="pml-inline-code">-</code>).</p>
+                            <p class="pml-paragraph"><i class="pml-italic">Nested</i> comments are often useful in practice. For example, it's common to comment a block of code that contains already a comment. Therefore pXML supports nested comments (unlike XML). Here is an example:</p>
+                            <pre class="pml-code"><code>[- text of outer comment
+    [- text of inner comment -]
+-]</code></pre>
+                            <div class="pml-admonition">
+                                <div class="pml-admonition-label">Note</div>
+                                <div class="pml-admonition-content">
+                                    <p class="pml-paragraph">Applications that convert pXML to XML code must be careful to not convert inner comments, because XML doesn't support nested comments. The above comment cannot be converted to:</p>
+                                    <pre class="pml-code"><code>&lt;!-- text of outer comment
+    &lt;!-- text of inner comment --&gt;
+--&gt;</code></pre>
+                                    <p class="pml-paragraph">It should be converted to:</p>
+                                    <pre class="pml-code"><code>&lt;!-- text of outer comment
+    [- text of inner comment -]
+--&gt;</code></pre>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="ch__19" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Other</h3>
+                            <p class="pml-paragraph">The following XML syntax constructs are not covered in this introductory article: XML entities, namespaces, CDATA sections, and processing instructions. They might be the subject of a follow-up article.</p>
+                        </section>
+                    </section>
+                    <section id="ch__20" class="pml-chapter">
+                        <h2 class="pml-chapter-title">History</h2>
+                        <section id="ch__21" class="pml-chapter">
+                            <h3 class="pml-chapter-title">pXML Predecessor</h3>
+                            <p class="pml-paragraph">When I started to ponder about the new syntax, I didn't think at all about creating a better XML/HTML syntax. What I <i class="pml-italic">wanted</i> was a new syntax to write articles (published on a blog) and books. Initially I used Docbook, then Asciidoctor to write articles. I also tried out Markdown, and had a look at other syntaxes like RestructedText. To make a long story short: I felt frustrated with some impracticalities of existing solutions, and finally decided to design a new syntax called <i class="pml-italic">Practical Markup Language (<b class="pml-bold">PML</b>)</i>. If you want to know more about my motivation to create PML, you can read <a href="https://www.pml-lang.dev/docs/articles/practical-document-markup-language/index.html" class="pml-link">We Need a New Document Markup Language - Here is Why</a> (published in March 2019). (Note: For readers still using a word processor, I also wrote <a href="https://www.pml-lang.dev/docs/articles/advantages-markup-language-vs-word-processor/index.html" class="pml-link">Advantages of Document Markup Languages vs WYSIWYG Editors</a>)</p>
+                            <p class="pml-paragraph">Nowadays, I write all my articles in PML (including this one). To publish them I created a <i class="pml-italic">PML to HTML Converter</i> which reads a PML file and creates an HTML file. You can have a look at the PML source of this article <a href="https://github.com/ppl-lang/blog/tree/main/2021-03-Suggestion_for_better_XML_HTML/PML_source" class="pml-link">here</a>, and you can see the original version of it <a href="https://www.ppl-lang.dev/blog/suggestion-for-better-xml-html/index.html" class="pml-link">here</a> (i.e. the result produced by the <i class="pml-italic">PML to HTML Converter</i>). Right-click on the original article, and click 'View Page Source' if you want to have a look at the HTML code produced by the <i class="pml-italic">PML to HTML Converter</i>. The converter produces indented, clean and simple HTML code, like hand-coded. The <i class="pml-italic">PML to HTML Converter</i> is open-sourced under the GPL2, and written in <a href="https://www.ppl-lang.dev" class="pml-link">PPL</a> (<i class="pml-italic">Practical Programming Language</i>). The source code is on <a href="https://www.github.com/pml-lang/converter" class="pml-link">GitHub</a>.</p>
+                            <p class="pml-paragraph">After creating PML, I suddenly realized that it's syntax could also be used to write XML/HTML documents - a nice side effect. This article is my first step in making my idea public.</p>
+                            <p class="pml-paragraph">One could say that PML is to pXML like HTML is to XML. PML uses the pXML syntax, but only predefined, semantic PML tags are allowed.</p>
+                        </section>
+                        <section id="lenient_PML" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Lenient Syntax in PML</h3>
+                            <p class="pml-paragraph">An important aspect of PML is the parser's ability to work in <i class="pml-italic">lenient mode</i>. This mode supports targeted syntax simplifications, aiming to eliminate as much &quot;noise&quot; as possible. It should be <i class="pml-italic">easy</i> to write articles and books in PML. Here is an example to illustrate the advantage of the <i class="pml-italic">lenient syntax</i>:</p>
+                            <p class="pml-paragraph">This is the code of a simple PML document, written in strict pXML:</p>
+                            <pre class="pml-code"><code>[doc (title=Test)
+    [ch (title=&quot;An Unusual Surprise&quot;)
+        [p Look at the following picture:]
+        [image (source=images/strawberries.jpg)]
+        [p Text of paragraph 2]
+        [p Text of paragraph 3]
+    ]
+]</code></pre>
+                            <p class="pml-paragraph">In lenient PML mode (always activated), the text can be shortened to:</p>
+                            <pre id="pml_lenient_example" class="pml-code"><code>[doc Test
+    [ch An Unusual Surprise
+        Look at the following picture:
+        [image images/strawberries.jpg]
+        
+        Text of paragraph 2
+
+        Text of paragraph 3
+    ]
+]</code></pre>
+                            <p class="pml-paragraph">Let's briefly see how this works:</p>
+                            <ul class="pml-list">
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph"><code class="pml-inline-code">doc (title=Test)</code> becomes <code class="pml-inline-code">doc Test</code>:</p>
+                                    <p class="pml-paragraph">Some elements (for example <code class="pml-inline-code">doc</code>) have a <i class="pml-italic">default attribute</i>. For that attribute only the value needs to be specified - instead of writing <code class="pml-inline-code">(name=value)</code> we can simply write <code class="pml-inline-code">value</code></p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph"><code class="pml-inline-code">[p Text of paragraph 2]</code> becomes <code class="pml-inline-code">Text of paragraph 2</code>:</p>
+                                    <p class="pml-paragraph">Free text not contained in an element is automatically embedded in a <code class="pml-inline-code">p</code> (paragraph) element.</p>
+                                    <p class="pml-paragraph">Text separated by two new lines automatically creates a paragraph break.</p>
+                                </li>
+                            </ul>
+                            <p class="pml-paragraph">If you want to try the above code, you can proceed like this:</p>
+                            <ul class="pml-list">
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph"><a href="https://www.pml-lang.dev/downloads/install.html" class="pml-link">Download</a> the <i class="pml-italic">PML to HTML Converter</i></p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Create file <code class="pml-inline-code">example.pml</code> in any directory, with the PML code shown above (the strict pXML version will not work).</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Copy a picture to <code class="pml-inline-code">resources/images/strawberries.jpg</code></p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Open a terminal in the directory of file <code class="pml-inline-code">example.pml</code> and type</p>
+                                    <pre class="pml-input">pmlc example.pml</pre>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Open file <code class="pml-inline-code">output/example.html</code> in your browser.</p>
+                                    <p class="pml-paragraph">The result looks like this:</p>
+                                    <figure style="text-align: left">
+                                        <img alt="HTML page created by PML" class="pml-image pml-bordered" src="images/lenient_example.png" width="400" />
+                                    </figure>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Right-click on the text, and select 'View Page Source' if you want to see the HTML code produced by the <i class="pml-italic">PML to HTML Converter</i>.</p>
+                                </li>
+                            </ul>
+                        </section>
+                    </section>
+                    <section id="ch__22" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Implementation</h2>
+                        <p class="pml-paragraph">After using the PML syntax for some time to create real articles (not just tests), I was somewhat confident that the pXML syntax should work well for XML documents too. However, to eliminate doubts, I wanted a <i class="pml-italic">proof of concept</i> for pXML, before publishing this article. Therefore, I created a parser that reads the pXML syntax presented in this article. The parser is written in Java and has no dependencies. I will open-source it.</p>
+                        <p class="pml-paragraph">The following features are currently implemented:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Convert pXML into XML (pXML/XML escape rules are applied)</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Convert XML into pXML (pXML/XML escape rules are applied)</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Read a pXML document into an <code class="pml-inline-code">org.w3c.dom.Document</code> Java object.</p>
+                                <p class="pml-paragraph">This is the most powerful feature. Since we have a Java <code class="pml-inline-code">Document</code> object we can use all of XML's <a href="https://en.wikipedia.org/wiki/XML#Related_specifications" class="pml-link">related specifications</a> with a pXML document. A few examples are:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">validate a document with XML Schema (W3C), RELAX NG, or Schematron</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">programmatically traverse the document</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">insert, modify, and delete elements and attributes, and save the result as a new XML or pXML document</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">query the document (search for values, compute aggregates, etc.) with XQuery/XPath</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">convert the document using an XSL transformer (e.g. create a differently structured XML document, create a plain text document, etc.)</p>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p class="pml-paragraph">Here is a &quot;Hello World&quot; example of a pXML to XML conversion:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Suppose we created file <code class="pml-inline-code">hello.pxml</code> with this content (an empty root element with name <code class="pml-inline-code">hello</code>):</p>
+                                <pre class="pml-code"><code>[hello]</code></pre>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">The following Java code converts this pXML file into an XML file named <code class="pml-inline-code">hello.xml</code>:</p>
+                                <pre class="pml-input">PXMLToXMLConverter.PXMLFileToXMLFile ( new File(&quot;hello.pxml&quot;), new File(&quot;hello.xml&quot;) );</pre>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">The resulting <code class="pml-inline-code">hello.xml</code> file looks like this:</p>
+                                <pre class="pml-code"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;hello /&gt;            </code></pre>
+                            </li>
+                        </ul>
+                        <p class="pml-paragraph">The opposite (i.e. converting an XML file to a pXML file) can be done with:</p>
+                        <pre class="pml-input">XMLToPXMLConverter.XMLFileToPXMLFile ( new File(&quot;hello.xml&quot;), new File(&quot;hello.pxml&quot;) );</pre>
+                        <p class="pml-paragraph">Once the pXML parser is ready to be open-sourced (planned for May 2021), I'll publish a dedicated article with more examples.</p>
+                        <p class="pml-paragraph">I'm also working on a dedicated pXML website with a syntax specification and the grammar expressed in EBNF and railroad diagrams. Everybody is very welcome to participate in an open-source project.</p>
+                    </section>
+                    <section id="ch__23" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Examples</h2>
+                        <p class="pml-paragraph">A picture is worth a thousand words. So let's look at two common examples: a simple config file, and HTML code. We will compare code written in JSON, XML, pXML, and PML.</p>
+                        <section id="ch__24" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Simple Config File</h3>
+                            <p class="pml-paragraph">A simple config file is just a (possibly nested) map of key/value pairs.</p>
+                            <p class="pml-paragraph"><b class="pml-bold">JSON</b></p>
+                            <p class="pml-paragraph">Here is an example in JSON:</p>
+                            <pre class="pml-code"><code>{
+    &quot;size&quot;:&quot;XL&quot;,
+    &quot;colors&quot;:{
+        &quot;background&quot;:&quot;black&quot;,
+        &quot;foreground&quot;:&quot;light green&quot;
+    },
+    &quot;transparent&quot;:true
+}</code></pre>
+                            <p class="pml-paragraph">Remarks:</p>
+                            <p class="pml-paragraph">The need for quoting names and values is a bit annoying.</p>
+                            <p class="pml-paragraph">Another inconvenience is the comma required at the end of each assignment, <i class="pml-italic">except the last one</i>. Each time we add a parameter at the end of a list, there is a risk of forgetting to add a comma at the existing second-last line.</p>
+                            <p class="pml-paragraph"><b class="pml-bold">XML</b></p>
+                            <p class="pml-paragraph">The same config data look like this in XML:</p>
+                            <pre class="pml-code"><code>&lt;config&gt;
+    &lt;size&gt;XL&lt;/size&gt;
+    &lt;colors&gt;
+        &lt;background&gt;black&lt;/background&gt;
+        &lt;foreground&gt;light green&lt;/foreground&gt;
+    &lt;/colors&gt;
+    &lt;transparent&gt;true&lt;/transparent&gt;
+&lt;/config&gt;</code></pre>
+                            <p class="pml-paragraph">Remark: The closing tags are noisy.</p>
+                            <p class="pml-paragraph">Alternative syntax, using attributes:</p>
+                            <pre class="pml-code"><code>&lt;config&gt;
+    &lt;size&gt;XL&lt;/size&gt;
+    &lt;colors background=&quot;black&quot; foreground=&quot;light green&quot; /&gt;
+    &lt;transparent&gt;true&lt;/transparent&gt;
+&lt;/config&gt;</code></pre>
+                            <p class="pml-paragraph">Remark: Both syntaxes are not API-compatible. The change of using attributes instead of elements requires an update of the code that accesses the values of <code class="pml-inline-code">colors</code>.</p>
+                            <p class="pml-paragraph"><b class="pml-bold">pXML</b></p>
+                            <p class="pml-paragraph">The pXML version looks like this:</p>
+                            <pre class="pml-code"><code>[config
+    [size XL]
+    [colors
+        [background black]
+        [foreground light green]
+    ]
+    [transparent true]
+]</code></pre>
+                            <p class="pml-paragraph">Alternative syntax, using attributes:</p>
+                            <pre class="pml-code"><code>[config
+    [size XL]
+    [colors (background=black foreground=&quot;light green&quot;)]
+    [transparent true]
+]</code></pre>
+                            <p class="pml-paragraph">Remark: Both syntaxes are API-compatible. The change of using attributes instead of elements does not require an update of the code that accesses the values of <code class="pml-inline-code">colors</code>.</p>
+                            <p class="pml-paragraph"><b class="pml-bold">Verbosity</b></p>
+                            <p class="pml-paragraph">To compare the verbosity of the three syntaxes, let's consider the length of the markup code needed for one parameter (excluding whitespace):</p>
+                            <table class="pml-table">
+                                <thead class="pml-table-header">
+                                    <tr><th class="pml-table-header-cell">Language</th><th class="pml-table-header-cell">Markup</th><th class="pml-table-header-cell">Length</th><th class="pml-table-header-cell">Range</th><th class="pml-table-header-cell">Remark</th></tr>
+                                </thead>
+                                <tbody class="pml-table-body">
+                                    <tr><td class="pml-table-body-cell">JSON</td><td class="pml-table-body-cell">&quot;&quot;:&quot;&quot;,</td><td class="pml-table-body-cell">6</td><td class="pml-table-body-cell">3 to 6</td><td class="pml-table-body-cell">-2 for integer, boolean, and null values (because they are not quoted); -1 for the last parameter (because it doesn't have a trailing comma)</td></tr>
+                                    <tr><td class="pml-table-body-cell">XML element</td><td class="pml-table-body-cell">&lt;&gt;&lt;/size&gt;</td><td class="pml-table-body-cell">9</td><td class="pml-table-body-cell">min. 6</td><td class="pml-table-body-cell">The length depends on the number of characters in the name</td></tr>
+                                    <tr><td class="pml-table-body-cell">XML attribute</td><td class="pml-table-body-cell">=&quot;&quot;</td><td class="pml-table-body-cell">3</td><td class="pml-table-body-cell">always 3</td><td class="pml-table-body-cell"></td></tr>
+                                    <tr><td class="pml-table-body-cell">pXML element</td><td class="pml-table-body-cell">[]</td><td class="pml-table-body-cell">2</td><td class="pml-table-body-cell">always 2</td><td class="pml-table-body-cell"></td></tr>
+                                    <tr><td class="pml-table-body-cell">pXML attribute</td><td class="pml-table-body-cell">= or =&quot;&quot;</td><td class="pml-table-body-cell">1 or 3</td><td class="pml-table-body-cell">1 or 3</td><td class="pml-table-body-cell">The length is 1 if the value doesn't need to be quoted</td></tr>
+                                </tbody>
+                            </table>
+                            <p class="pml-paragraph"><b class="pml-bold">Conclusion</b></p>
+                            <p class="pml-paragraph">The most verbose syntax is XML (especially for long parameter names). The least verbose one is pXML. Less noise implies 'easy to read and write for humans'.</p>
+                        </section>
+                        <section id="ch__25" class="pml-chapter">
+                            <h3 class="pml-chapter-title">HTML Code</h3>
+                            <p class="pml-paragraph">Now we'll look at some HTML code - the most common use of XML. To keep the example short, we'll just look at an HTML snippet, leaving off the HTML header and footer.</p>
+                            <p class="pml-paragraph"><b class="pml-bold">HTML</b></p>
+                            <p class="pml-paragraph">The following code represents a chapter with three paragraphs and a picture:</p>
+                            <pre id="html_chapter_example" class="pml-code"><code>&lt;section&gt;
+    &lt;h2&gt;Harmonic States&lt;/h2&gt;
+
+    &lt;p&gt;The &lt;i&gt;initial&lt;/i&gt; state looks like this:&lt;/p&gt;
+    &lt;img src=&quot;images/state_1.png&quot; /&gt;
+
+    &lt;p&gt;After just a few &lt;i&gt;&lt;b&gt;micro&lt;/b&gt;seconds&lt;/i&gt; the state changes.&lt;/p&gt;
+    
+    &lt;p&gt;More text ...&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+                            <p class="pml-paragraph"><b class="pml-bold">JSON</b></p>
+                            <p class="pml-paragraph">In a <a href="#JSON_alternative" class="pml-xref">previous</a> chapter we saw already that JSON is not a good fit to write HTML-like code. Nevertheless, let's a have look at the JSON version of our HTML snippet - just to confirm our previous conclusion:</p>
+                            <pre class="pml-code"><code>{ &quot;section&quot;: [
+    { &quot;h2&quot;: &quot;Harmonic States&quot; },
+
+    { &quot;p&quot;: [ &quot;The &quot;, { &quot;i&quot;: &quot;initial&quot; }, &quot; state looks like this:&quot; ] },
+    { &quot;img&quot;: { &quot;src&quot;: &quot;images/state_1.png&quot; } },
+
+    { &quot;p&quot;: [ &quot;After just a few &quot;, { &quot;i&quot;: [ { &quot;b&quot;: &quot;micro&quot; }, &quot;seconds&quot; ] }, &quot; the state changes.&quot; ] },
+    { &quot;p&quot;: &quot;More text ...&quot; }
+] }</code></pre>
+                            <p class="pml-paragraph">If we prettify, the 7 lines of code turn into 38 (!) lines with more whitespace than text:</p>
+                            <pre class="pml-code"><code>{
+    &quot;section&quot;:[
+        {
+            &quot;h2&quot;:&quot;Harmonic States&quot;
+        },
+        {
+            &quot;p&quot;:[
+                &quot;The &quot;,
+                {
+                    &quot;i&quot;:&quot;initial&quot;
+                },
+                &quot; state looks like this:&quot;
+            ]
+        },
+        {
+            &quot;img&quot;:{
+                &quot;src&quot;:&quot;images/state_1.png&quot;
+            }
+        },
+        {
+            &quot;p&quot;:[
+                &quot;After just a few &quot;,
+                {
+                    &quot;i&quot;:[
+                        {
+                            &quot;b&quot;:&quot;micro&quot;
+                        },
+                        &quot;seconds&quot;
+                    ]
+                },
+                &quot; the state changes.&quot;
+            ]
+        },
+        {
+            &quot;p&quot;:&quot;More text ...&quot;
+        }
+    ]
+}</code></pre>
+                            <p class="pml-paragraph">Who would enjoy writing and maintaining code like this? Yet this is just a simple toy example. Imagine a code base with real-world, big and complex HTML code!</p>
+                            <p class="pml-paragraph"><b class="pml-bold">pXML</b></p>
+                            <p class="pml-paragraph">This is the pXML version:</p>
+                            <pre class="pml-code"><code>[section
+    [h2 Harmonic States]
+
+    [p The [i initial] state looks like this:]
+    [img (src=images/state_1.png)]
+
+    [p After just a few [i [b micro]seconds] the state changes.]
+    
+    [p More text ...]
+]</code></pre>
+                            <p class="pml-paragraph"><b class="pml-bold">PML</b></p>
+                            <p class="pml-paragraph">As said already, PML has a <a href="#lenient_PML" class="pml-xref">lenient syntax mode</a> that allows for succinct markup code:</p>
+                            <pre class="pml-code"><code>[ch Harmonic States
+
+    The [i initial] state looks like this:
+    [image images/state_1.png]
+
+    After just a few [i [b micro]seconds] the state changes.
+    
+    More text ...
+]</code></pre>
+                            <div class="pml-admonition">
+                                <div class="pml-admonition-label">Note</div>
+                                <div class="pml-admonition-content">
+                                    <p class="pml-paragraph">If we embed the above code in a <code class="pml-inline-code">doc</code> element (as <a href="#pml_lenient_example" class="pml-xref">shown before</a>), save the code into file <code class="pml-inline-code">test.pml</code>, and run the <i class="pml-italic">PML to HTML Converter</i> with the OS command <code class="pml-inline-code">pmlc test.pml</code>, a complete HTML file is created (with header and footer). Here is an excerpt of this file (CSS code removed):</p>
+                                    <pre class="pml-code"><code>&lt;section id=&quot;ch__1&quot;&gt;
+    &lt;h2&gt;Harmonic States&lt;/h2&gt;
+    &lt;p&gt;The &lt;i&gt;initial&lt;/i&gt; state looks like this:&lt;/p&gt;
+    &lt;figure&gt;
+        &lt;img src=&quot;images/state_1.png&quot; /&gt;
+    &lt;/figure&gt;
+    &lt;p&gt;After just a few &lt;i&gt;&lt;b&gt;micro&lt;/b&gt;seconds&lt;/i&gt; the state changes.&lt;/p&gt;
+    &lt;p&gt;More text ...&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+                                    <p class="pml-paragraph">As can be seen, it is very similar to the <a href="#html_chapter_example" class="pml-xref">initial HTML code</a> we would write by hand.</p>
+                                </div>
+                            </div>
+                            <p class="pml-paragraph"><b class="pml-bold">Verbosity</b></p>
+                            <p class="pml-paragraph">Let's look at numbers. How much effort does it take to write the code in the four languages? If we extract the markup code (i.e. remove whitespace and text displayed in the browser) we get this, from worst to best:</p>
+                            <pre class="pml-code"><code>JSON: {&quot;section&quot;:[{&quot;h2&quot;:&quot;&quot;},{&quot;p&quot;:[&quot;&quot;,{&quot;i&quot;:&quot;&quot;},&quot;&quot;]},{&quot;img&quot;:{&quot;src&quot;:&quot;&quot;}},{&quot;p&quot;:[&quot;&quot;,{&quot;i&quot;:[{&quot;b&quot;:&quot;&quot;},&quot;&quot;]},&quot;&quot;]},{&quot;p&quot;:&quot;&quot;}]}
+
+HTML: &lt;section&gt;&lt;h2&gt;&lt;/h2&gt;&lt;p&gt;&lt;i&gt;&lt;/i&gt;&lt;/p&gt;&lt;imgsrc=&quot;&quot;/&gt;&lt;p&gt;&lt;i&gt;&lt;b&gt;&lt;/b&gt;&lt;/i&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;/section&gt;
+
+pXML: [section[h2][p[i]][img(src=)][p[i[b]]][p]]
+
+PML:  [ch[i][image][i[b]]]</code></pre>
+                            <p class="pml-paragraph">Counting the number of characters gives us the following table:</p>
+                            <table class="pml-table">
+                                <thead class="pml-table-header">
+                                    <tr><th class="pml-table-header-cell">Language</th><th class="pml-table-header-cell">Markup length</th><th class="pml-table-header-cell">Percentage of HTML</th></tr>
+                                </thead>
+                                <tbody class="pml-table-body">
+                                    <tr><td class="pml-table-body-cell">JSON</td><td class="pml-table-body-cell">108</td><td class="pml-table-body-cell">132%</td></tr>
+                                    <tr><td class="pml-table-body-cell">HTML</td><td class="pml-table-body-cell">82</td><td class="pml-table-body-cell">100%</td></tr>
+                                    <tr><td class="pml-table-body-cell">pXML</td><td class="pml-table-body-cell">42</td><td class="pml-table-body-cell">51%</td></tr>
+                                    <tr><td class="pml-table-body-cell">PML</td><td class="pml-table-body-cell">20</td><td class="pml-table-body-cell">24%</td></tr>
+                                </tbody>
+                            </table>
+                            <p class="pml-paragraph">A graph of these numbers looks like this:</p>
+                            <figure style="text-align: left">
+                                <img alt="Number of characters in JSON, HTML, pXML, and PML" class="pml-image" src="images/bar_graph_characters.png" width="500" />
+                            </figure>
+                            <p class="pml-paragraph">Of course this is not a representative result. Other HTML examples would lead to more or less different numbers. However, it clearly shows the impact of syntax. Syntax affects complexity, space and time, and usability. Succinct syntax makes it easier and more enjoyable to read and write code.</p>
+                        </section>
+                    </section>
+                    <section id="ch__26" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Syntax Comparison</h2>
+                        <p class="pml-paragraph">Here is a brief comparison of the XML vs pXML syntax:</p>
+                        <p class="pml-paragraph">Empty element:</p>
+                        <pre class="pml-code"><code>XML:  &lt;br /&gt;
+pXML: [br]</code></pre>
+                        <p class="pml-paragraph">Element with text content:</p>
+                        <pre class="pml-code"><code>XML:  &lt;summary&gt;text&lt;/summary&gt;
+pXML: [summary text]</code></pre>
+                        <p class="pml-paragraph">Element with child elements:</p>
+                        <pre class="pml-code"><code>XML:  &lt;ul&gt;
+          &lt;li&gt;
+              &lt;div&gt;A &lt;i&gt;friendly&lt;/i&gt; dog&lt;/div&gt;
+          &lt;/li&gt;
+      &lt;/ul&gt;
+
+pXML: [ul
+          [li
+              [div A [i friendly] dog]
+          ]
+      ]</code></pre>
+                        <p class="pml-paragraph">Attributes:</p>
+                        <pre class="pml-code"><code>XML:  &lt;div id=&quot;unplug_warning&quot; class=&quot;warning big-text&quot;&gt;Unplug power cord before opening!&lt;/div&gt;
+pXML: [div (id=unplug_warning class=&quot;warning big-text&quot;)Unplug power cord before opening!]</code></pre>
+                        <p class="pml-paragraph">Escaping:</p>
+                        <pre class="pml-code"><code>XML:  &lt;note&gt;Watch out for &amp;lt;, &amp;gt;, &amp;quot;, &amp;apos;, &amp;amp;, [, ], and \ characters&lt;/note&gt;
+pXML: [note Watch out for &lt;, &gt;, &quot;, ', &amp;, \[, \], and \\ characters]    </code></pre>
+                        <p class="pml-paragraph">Comments:</p>
+                        <pre class="pml-code"><code>Single comment:
+XML:  &lt;!-- text --&gt;
+pXML: [- text -]
+
+Nested comments:
+XML:  not supported
+pXML: [- text [- nested -] -]</code></pre>
+                    </section>
+                    <section id="ch__27" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Summary And Conclusion</h2>
+                        <p class="pml-paragraph">As demonstrated, it <i class="pml-italic">is</i> possible to simplify the XML syntax and make it more accessible for humans.</p>
+                        <p class="pml-paragraph">The pXML syntax introduced in this article essentially suggests three changes:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Replace the XML syntax:</p>
+                                <pre class="pml-code"><code>&lt;name&gt;value&lt;/name&gt;</code></pre>
+                                <p class="pml-paragraph">... with:</p>
+                                <pre class="pml-code"><code>[name value]</code></pre>
+                                <figure style="text-align: left">
+                                    <img alt="From XML to pXML" class="pml-image" src="images/n_v.png" width="400" />
+                                </figure>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Embed attributes between parenthesis and allow unquoted values if possible.</p>
+                                <p class="pml-paragraph">The XML code:</p>
+                                <pre class="pml-code"><code>name1=&quot;value&quot; name2=&quot;value with spaces&quot;</code></pre>
+                                <p class="pml-paragraph">... becomes:</p>
+                                <pre class="pml-code"><code>(name1=value name2=&quot;value with spaces&quot;)</code></pre>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Support for nested comments (not supported in XML)</p>
+                            </li>
+                        </ul>
+                        <p class="pml-paragraph">Although the pXML syntax is less verbose and different from XML, all great additions that are part of the XML ecosystem can still be used. Once a pXML document is parsed into an XML tree, documents can be validated, queried, modified, and transformed.</p>
+                        <p class="pml-paragraph">Well-designed syntax increases productivity, reduces errors, eases maintenance, and improves space and time efficiency.</p>
+                        <p class="pml-paragraph">Syntax matters!</p>
+                    </section>
+                    <section id="ch__28" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Article History</h2>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">2021-03-10: First version</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">2021-04-20:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">added attributes syntax</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">removed optional name prefix <code class="pml-inline-code">#</code> (used to differentiate between data and metadata)</p>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                </article>
+                <aside class="pml-doc-right">
+                </aside>
+            </div>
+            <footer class="pml-doc-footer">
+            </footer>
+        </div>
+
+    </body>
+</html>

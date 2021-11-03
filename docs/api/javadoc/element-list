@@ -1,0 +1,12 @@
+dev.pxml.core
+dev.pxml.core.data.node
+dev.pxml.core.data.node.name
+dev.pxml.core.data.node.value
+dev.pxml.core.reader.error
+dev.pxml.core.reader.parser
+dev.pxml.core.reader.parser.eventHandler
+dev.pxml.core.reader.reader
+dev.pxml.core.reader.tokenizer
+dev.pxml.core.utilities
+dev.pxml.core.utilities.annotations
+dev.pxml.core.writer

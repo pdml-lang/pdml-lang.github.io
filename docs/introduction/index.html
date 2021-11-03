@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="generator" content="PML 2.1.0 (www.pml-lang.dev)" />
+        <title>Introduction to PDML</title>
+        <link rel="stylesheet" href="css/pml-default.css">
+        <link rel="stylesheet" href="css/pml-print-default.css" media="print">
+
+    </head>
+    <body>
+
+        <div class="pml-doc-wrapper">
+            <header class="pml-doc-header">
+            </header>
+            <div class="pml-doc-content">
+                <aside class="pml-doc-left">
+                    <nav class="pml-toc">
+                        <h2 class="pml-toc-title">Table of Contents</h2>
+                        <div class="pml-toc-tree" id="TOCTree">
+                            <ul>
+                                <li class="pml-toc-leaf-node"><a href="#ch__1">Introduction</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__2">Basic Examples</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__3">Versatility</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__4">History of PDML</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </aside>
+                <article class="pml-doc-text">
+                    <h1 class="pml-doc-title">Introduction to PDML</h1>
+                    <p class="pml-paragraph">Author: Christian Neumanns</p>
+                    <p class="pml-paragraph">Published: 2021-10-27</p>
+                    <section id="ch__1" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Introduction</h2>
+                        <p class="pml-paragraph">The <i class="pml-italic">Practical Data and Markup Language</i> (PDML) is a text format to store data.</p>
+                        <p class="pml-paragraph">PDML's design goals are:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">human-friendly (easy to read and write for people)</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">suitable for</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">data <i class="pml-italic">and</i> markup code</p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">small <i class="pml-italic">and</i> big, complex data structures</p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">a basic format that is easy to parse/deserialize and serialize</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">unique, powerful extensions</p>
+                            </li>
+                        </ul>
+                        <p class="pml-paragraph">A distinction is made between <i class="pml-italic">basic PDML</i> and <i class="pml-italic">extensions</i>. <i class="pml-italic">Basic PDML</i> is the absolute minimum needed to store data. Extensions are optional features to make PDML more practical.</p>
+                        <p class="pml-paragraph">This document only covers <i class="pml-italic">basic PDML</i>. However, chapter TODO  contains a summary of extensions, and a link to more information.</p>
+                    </section>
+                    <section id="ch__2" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Basic Examples</h2>
+                        <p class="pml-paragraph">To get an idea of what can be done with PDML, let's have a look at some basic, simple examples.</p>
+                        <div class="pml-header">Text Node</div>
+                        <p class="pml-paragraph">Suppose a config file in which parameter <code class="pml-inline-code">color</code> has the value <code class="pml-inline-code">green</code>.</p>
+                        <p class="pml-paragraph">In JSON we would use the following syntax:</p>
+                        <pre class="pml-code"><code>&quot;color&quot; = &quot;green&quot;</code></pre>
+                        <p class="pml-paragraph">In XML we could use an attribute:</p>
+                        <pre class="pml-code"><code>color = &quot;green&quot;</code></pre>
+                        <p class="pml-paragraph">... or an element:</p>
+                        <pre class="pml-code"><code>&lt;color&gt;green&lt;/color&gt;</code></pre>
+                        <p class="pml-paragraph">In PDML the syntax is:</p>
+                        <pre class="pml-code"><code>[color green]</code></pre>
+                        <p class="pml-paragraph">The above code is called a <i class="pml-italic">node</i> in PDML.</p>
+                        <p class="pml-paragraph">As we can see, a node is delimited by <code class="pml-inline-code">[]</code> - a pair of square brackets. A node starts with <code class="pml-inline-code">[</code>, and ends with <code class="pml-inline-code">]</code>.</p>
+                        <p class="pml-paragraph">A node has a <i class="pml-italic">name</i> and an optional <i class="pml-italic">value</i>. In our example, the name is <code class="pml-inline-code">color</code> and the value is <code class="pml-inline-code">green</code>.</p>
+                        <p class="pml-paragraph">A space character is used to separate the name from the value.</p>
+                        <div class="pml-header">Child Node</div>
+                        <p class="pml-paragraph">Besides text, a node's value can also be another node:</p>
+                        <pre class="pml-code"><code>[config [color green]]</code></pre>
+                        <p class="pml-paragraph">Here, the value of node <code class="pml-inline-code">config</code> is another node with name <code class="pml-inline-code">color</code>, and value <code class="pml-inline-code">green</code>.</p>
+                        <p class="pml-paragraph">For better readability we can also write:</p>
+                        <pre class="pml-code"><code>[config
+    [color green]
+]</code></pre>
+                        <div class="pml-header">Tree</div>
+                        <p class="pml-paragraph">The node's value can be a <i class="pml-italic">list</i> of nodes, and each child node can itself have any number of child nodes:</p>
+                        <pre class="pml-code"><code>[config
+    [color green]
+    [size
+        [width 200]
+        [height 100]
+    ]
+]</code></pre>
+                        <p class="pml-paragraph">Hence, PDML can be used to store simple or complex tree data.</p>
+                        <div class="pml-header">Text and Child Nodes Mixed</div>
+                        <p class="pml-paragraph">A node's value can be a <i class="pml-italic">mixture</i> of any number of text and child notes. This makes PDML convenient to store markup code.</p>
+                        <p class="pml-paragraph">Consider the following HTML code:</p>
+                        <pre class="pml-code"><code>&lt;p&gt;Life is &lt;i&gt;better&lt;/i&gt; if we are &lt;b&gt;kind&lt;/b&gt;.&lt;/p&gt;</code></pre>
+                        <p class="pml-paragraph">... which would be rendered as :</p>
+<p>Life is <i>better</i> if we are <b>kind</b>.</p>                        <p class="pml-paragraph">In PDML this is written as:</p>
+                        <pre class="pml-code"><code>[p Life is [i better] if we are [b kind].]</code></pre>
+                        <div class="pml-header">Empty Node</div>
+                        <p class="pml-paragraph">A node can be empty. It has a name, but no value:</p>
+                        <pre class="pml-code"><code>[color]</code></pre>
+                        <p class="pml-paragraph">In JSON this would be written as:</p>
+                        <pre class="pml-code"><code>&quot;color&quot; = null</code></pre>
+                        <p class="pml-paragraph">In XML:</p>
+                        <pre class="pml-code"><code>&lt;color&gt;&lt;/color&gt;</code></pre>
+                        <p class="pml-paragraph">or simply:</p>
+                        <pre class="pml-code"><code>&lt;color /&gt;</code></pre>
+                        <p class="pml-paragraph">There is not much more to say about PDML's basic syntax.</p>
+                        <p class="pml-paragraph">For a formal and complete definition please refer to the TODO .</p>
+                    </section>
+                    <p class="pml-paragraph"> </p>
+                    <section id="ch__3" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Versatility</h2>
+                        <p class="pml-paragraph">Despite PDML's utmost simplicity, it is well suited to store many different kinds of data, such as:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">configuration data</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">database tables</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">markup code</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">unstructured data</p>
+                            </li>
+                        </ul>
+                        <p class="pml-paragraph">Examples are shown in TODO.</p>
+                        <p class="pml-paragraph">You can also have a look at the TODO source code of this article which is written in <a href="https://www.pml-lang.dev/" class="pml-link">PML</a> and uses the PDML syntax.</p>
+                        <p class="pml-paragraph">PDML can be converted to XML, and XML to PDML. Hence, all powerful XML technology can be applied. For example it's possible to read a PDML into an XML DOM and:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">validate a document with <a href="https://www.w3schools.com/xml/schema_intro.asp" class="pml-link">XML Schema</a></p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">query a document with <a href="https://www.w3schools.com/xml/xquery_intro.asp" class="pml-link">XML Query</a></p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">change the document (add, remove, and modify nodes) and write a modified version back to XML or PDML</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">transform a document with <a href="https://www.w3schools.com/xml/xsl_intro.asp" class="pml-link">XSLT</a></p>
+                            </li>
+                        </ul>
+                        <p class="pml-paragraph">Examples of how to do this are shown in the article TODO .</p>
+                    </section>
+                    <p class="pml-paragraph"> </p>
+                    <section id="ch__4" class="pml-chapter">
+                        <h2 class="pml-chapter-title">History of PDML</h2>
+                        <p class="pml-paragraph">In 2018 I was a bit frustrated with existing markup languages (Markdown, Asciidoctor, HTML, Docbook, etc.) I used for my <a href="https://www.ppl-lang.dev/blog/index.html" class="pml-link">blog</a>.</p>
+                        <p class="pml-paragraph">After some &quot;pondering and using a pencil and eraser&quot; sessions, I finally came up with a new markup language which I called <i class="pml-italic">Practical Markup Language (PML)</i>. In march 2019 I published <a href="https://www.pml-lang.dev/docs/articles/practical-document-markup-language/index.html#PML_chapter" class="pml-link">We Need a New Document Markup Language - Here is Why</a>. This article illustrates the problems I encountered with popular markup languages, and shows how they are solved in PML. The article also contained a link to a first implementation, so that people could try out PML and send feedback.</p>
+                        <p class="pml-paragraph">Later I realized that, besides <i class="pml-italic">markup code</i>, the PML syntax could also be used to store all other kinds of structured and unstructured <i class="pml-italic">data</i>. In March 2021 I published <a href="https://pxml-lang.github.io/docs/articles/suggestion-for-better-xml-html/index.html" class="pml-link">Suggestion For a Better XML/HTML Syntax</a> (also published on <a href="https://www.codeproject.com/Articles/5296768/Suggestion-for-a-Better-XML-HTML-Syntax" class="pml-link">codeproject</a>). I named my idea <i class="pml-italic">practicalXML (pXML)</i>, because of the conceptual similarities between pXML and XML. Moreover, pXML could be converted to XML, and vice versa. All was published and documented at the (now obsolete) <a href="https://pxml-lang.github.io/" class="pml-link">pXML website</a>.</p>
+                        <p class="pml-paragraph">In October 2021 I decided to rename pXML to PDML. The reason was that pXML needed a lot of improvements (extensions) to make it suitable for PML (e.g. parameterized text, document splitting, raw text sections, etc). At the end, pXML was more than just an alternative syntax for XML. It had plugable and configurable types and extensions, as well as other features not available in XML. Thus the name was changed from <i class="pml-italic">practicalXML (pXML)</i> to <i class="pml-italic">Practical Data and Markup Language (PDML)</i>, and everything was published on the TODO .</p>
+                        <p class="pml-paragraph">In a nutshell: PDML originated in PML, and was temporarily called pXML.</p>
+                    </section>
+                </article>
+                <aside class="pml-doc-right">
+                </aside>
+            </div>
+            <footer class="pml-doc-footer">
+            </footer>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="generator" content="PML 2.1.0 (www.pml-lang.dev)" />
+        <title>Basic PDML Specification</title>
+        <link rel="stylesheet" href="css/pml-default.css">
+        <link rel="stylesheet" href="css/pml-print-default.css" media="print">
+
+    </head>
+    <body>
+
+        <div class="pml-doc-wrapper">
+            <header class="pml-doc-header">
+            </header>
+            <div class="pml-doc-content">
+                <aside class="pml-doc-left">
+                    <nav class="pml-toc">
+                        <h2 class="pml-toc-title">Table of Contents</h2>
+                        <div class="pml-toc-tree" id="TOCTree">
+                            <ul>
+                                <li class="pml-toc-leaf-node"><a href="#ch__1">Introduction</a></li>
+                                <li class="pml-toc-branch-node">
+                                    <details>
+                                        <summary><a href="#ch__7">Document Structure</a></summary>
+                                        <ul>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__2">Node</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__3">Name</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__4">Separator</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__5">Child Node</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__6">Empty Node</a></li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__8">Whitespace</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__9">Escape Characters</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__10">Encoding</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__11">Grammar</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__12">Examples</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </aside>
+                <article class="pml-doc-text">
+                    <h1 class="pml-doc-title">Basic PDML Specification</h1>
+                    <p class="pml-paragraph">Author: Christian Neumanns</p>
+                    <p class="pml-paragraph">Published: 2021-10-27</p>
+                    <section id="ch__1" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Introduction</h2>
+                        <p class="pml-paragraph">The <i class="pml-italic">Practical Data and Markup Language</i> (PDML) is a specification of a text format to store data.</p>
+                        <p class="pml-paragraph">A distinction is made between <i class="pml-italic">basic PDML</i> and <i class="pml-italic">extensions</i>. <i class="pml-italic">Basic PDML</i> is the minimum needed to store data. Extensions are optional features to make PDML more practical.</p>
+                        <p class="pml-paragraph">This document only covers <i class="pml-italic">basic PDML</i>.</p>
+                    </section>
+                    <section id="ch__7" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Document Structure</h2>
+                        <p class="pml-paragraph">A <i class="pml-italic">PDML document</i> is a tree of nodes.</p>
+                        <p class="pml-paragraph">The syntax for a node is defined as follows (in BNF):</p>
+                        <pre class="pml-code"><code>&quot;[&quot; name ( separator ? child_node + ) ? &quot;]&quot;</code></pre>
+                        <section id="ch__2" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Node</h3>
+                            <p class="pml-paragraph">A <i class="pml-italic">node</i> is enclosed by a pair of square brackets: <code class="pml-inline-code">[...]</code>. A node starts with <code class="pml-inline-code">[</code> and ends with <code class="pml-inline-code">]</code>.</p>
+                            <p class="pml-paragraph">Each document has one root node.</p>
+                        </section>
+                        <section id="ch__3" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Name</h3>
+                            <p class="pml-paragraph">Each node has a <i class="pml-italic">name</i>. A node name must match the regex <code class="pml-inline-code">[a-zA-Z_][a-zA-Z1-9_-\.]*</code>. This means that a name starts with a letter or an underscore (<code class="pml-inline-code">_</code>), optionally followed by any number of letters, digits, underscores (<code class="pml-inline-code">_</code>), hyphens (<code class="pml-inline-code">-</code>), or dots (<code class="pml-inline-code">.</code>).</p>
+                            <p class="pml-paragraph">Here are some examples of valid node names:</p>
+                            <pre class="pml-code"><code>color
+Index_12
+_ID_12.5-a</code></pre>
+                            <p class="pml-paragraph">A node name does not need to be unique. Different nodes in a tree can have the same name.</p>
+                        </section>
+                        <section id="ch__4" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Separator</h3>
+                            <p class="pml-paragraph">The <i class="pml-italic">separator</i> is a single whitespace character. The following whitespace characters are supported:</p>
+                            <ul class="pml-list">
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">a space (<code class="pml-inline-code">&quot; &quot;</code>)</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">a tab (<code class="pml-inline-code">&quot;\t&quot;</code>)</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">a Unix new line (<code class="pml-inline-code">&quot;\n&quot;</code>)</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">a Windows new line (<code class="pml-inline-code">&quot;\r\n&quot;</code>)</p>
+                                </li>
+                            </ul>
+                            <p class="pml-paragraph">The separator is required if the first child node is text. Example:</p>
+                            <pre class="pml-code"><code>[color green]</code></pre>
+                            <p class="pml-paragraph">The separator is optional if the first child node is a node. Hence this code:</p>
+                            <pre class="pml-code"><code>[b [i huge]]</code></pre>
+                            <p class="pml-paragraph">... can also be written as:</p>
+                            <pre class="pml-code"><code>[b[i huge]]</code></pre>
+                        </section>
+                        <section id="ch__5" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Child Node</h3>
+                            <p class="pml-paragraph">A node can optionally have any number of child nodes.</p>
+                            <p class="pml-paragraph">A <i class="pml-italic">child node</i> can be text (a sequence of Unicode characters) or another node (with optional child nodes).</p>
+                            <p class="pml-paragraph">Examples:</p>
+                            <ul class="pml-list">
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Node with one text child:</p>
+                                    <pre class="pml-code"><code>[color light green]</code></pre>
+                                    <p class="pml-paragraph">The node's name is <code class="pml-inline-code">color</code>. The node's single child node is the text <code class="pml-inline-code">light green</code>.</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Node with child node:</p>
+                                    <pre class="pml-code"><code>[config [color light green]]</code></pre>
+                                    <p class="pml-paragraph">The node <code class="pml-inline-code">config</code> has one child node. The child node's name is <code class="pml-inline-code">color</code>, its text is <code class="pml-inline-code">light green</code>.</p>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Tree of nodes:</p>
+                                    <pre class="pml-code"><code>[config
+    [color light green]
+    [size
+        [width 200]
+        [height 100]
+    ]
+]</code></pre>
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Node containing a mixture of text and nodes (markup code):</p>
+                                    <pre class="pml-code"><code>[p We can write words in [i italic], [b bold], or [b[i bold and italic]].]</code></pre>
+                                </li>
+                            </ul>
+                        </section>
+                        <section id="ch__6" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Empty Node</h3>
+                            <p class="pml-paragraph">If a node has no child nodes, it is called an <i class="pml-italic">empty node</i>.</p>
+                            <p class="pml-paragraph">Example:</p>
+                            <pre class="pml-code"><code>[new_line]</code></pre>
+                        </section>
+                    </section>
+                    <section id="ch__8" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Whitespace</h2>
+                        <p class="pml-paragraph">There are no whitespace handling rules defined in basic PDML.</p>
+                        <p class="pml-paragraph">Whitespace is preserved when a PDML document is parsed.</p>
+                        <p class="pml-paragraph">Consider the following PDML snippet:</p>
+                        <pre class="pml-code"><code>[a  foo   [b]
+    2 [c] [d]
+]</code></pre>
+                        <p class="pml-paragraph">In this example, node <code class="pml-inline-code">a</code> contains 7 child nodes:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">text <code class="pml-inline-code">{space}foo{space}{space}{space}</code></p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">empty node <code class="pml-inline-code">b</code></p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">text <code class="pml-inline-code">{new line}{space}{space}{space}{space}2{space}</code></p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">empty node <code class="pml-inline-code">c</code></p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">text <code class="pml-inline-code">{space}</code></p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">empty node <code class="pml-inline-code">d</code></p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">text <code class="pml-inline-code">{new line}</code></p>
+                            </li>
+                        </ul>
+                        <p class="pml-paragraph">Applications reading PDML documents (or customized PDML parsers) are free to implement any appropriate whitespace handling rules, such as:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">skip whitespace nodes</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">trim leading and/or trailing whitespace in text nodes</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">reduce whitespace sequences to a single space (similar to HTML)</p>
+                            </li>
+                        </ul>
+                    </section>
+                    <p class="pml-paragraph"> </p>
+                    <section id="ch__9" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Escape Characters</h2>
+                        <p class="pml-paragraph">As seen already, <code class="pml-inline-code">[</code> and <code class="pml-inline-code">]</code> are used as node delimiters. Therefore these two characters must be escaped when they are used in text nodes.</p>
+                        <p class="pml-paragraph">A backslash (<code class="pml-inline-code">\</code>) is used as escape character (as in C-like programming languages). Therefore the backslash must itself be escaped too.</p>
+                        <p class="pml-paragraph">The final rule is simple: Characters <code class="pml-inline-code">[</code>, <code class="pml-inline-code">]</code>, and <code class="pml-inline-code">\</code> must be preceded by <code class="pml-inline-code">\</code> when they are used in text nodes, as shown in the following table:</p>
+                        <table class="pml-table">
+                            <thead class="pml-table-header">
+                                <tr><th class="pml-table-header-cell">Character</th><th class="pml-table-header-cell">Escape sequence</th></tr>
+                            </thead>
+                            <tbody class="pml-table-body">
+                                <tr><td class="pml-table-body-cell">[</td><td class="pml-table-body-cell">\[</td></tr>
+                                <tr><td class="pml-table-body-cell">]</td><td class="pml-table-body-cell">\]</td></tr>
+                                <tr><td class="pml-table-body-cell">\</td><td class="pml-table-body-cell">\\</td></tr>
+                            </tbody>
+                        </table>
+                        <p class="pml-paragraph">Example:</p>
+                        <p class="pml-paragraph">Suppose node <code class="pml-inline-code">foo</code> contains the text: <code class="pml-inline-code">Characters [, ], and \ must be escaped.</code></p>
+                        <p class="pml-paragraph">This would be written as:</p>
+                        <pre class="pml-code"><code>[foo Characters \[, \], and \\ must be escaped.]</code></pre>
+                    </section>
+                    <section id="ch__10" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Encoding</h2>
+                        <p class="pml-paragraph">PDML documents are encoded in UTF-8.</p>
+                    </section>
+                    <section id="ch__11" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Grammar</h2>
+                        <p class="pml-paragraph">The grammar is defined in separate documents, in two variations:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">TODO </p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">TODO </p>
+                            </li>
+                        </ul>
+                    </section>
+                    <section id="ch__12" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Examples</h2>
+                        <p class="pml-paragraph">More examples of PDML code can be found TODO.</p>
+                    </section>
+                </article>
+                <aside class="pml-doc-right">
+                </aside>
+            </div>
+            <footer class="pml-doc-footer">
+            </footer>
+        </div>
+
+    </body>
+</html>

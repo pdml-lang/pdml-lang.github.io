@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="generator" content="PML 2.1.0 (www.pml-lang.dev)" />
+        <title>PDML Examples</title>
+        <link rel="stylesheet" href="css/pml-default.css">
+        <link rel="stylesheet" href="css/pml-print-default.css" media="print">
+
+    </head>
+    <body>
+
+        <div class="pml-doc-wrapper">
+            <header class="pml-doc-header">
+            </header>
+            <div class="pml-doc-content">
+                <aside class="pml-doc-left">
+                    <nav class="pml-toc">
+                        <h2 class="pml-toc-title">Table of Contents</h2>
+                        <div class="pml-toc-tree" id="TOCTree">
+                            <ul>
+                                <li class="pml-toc-leaf-node"><a href="#ch__1">Introduction</a></li>
+                                <li class="pml-toc-branch-node">
+                                    <details>
+                                        <summary><a href="#ch__8">Fundamental Examples</a></summary>
+                                        <ul>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__2">Hello</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__3">Text node</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__4">Node with one child node</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__5">Tree</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__6">Markup code</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__7">Escape characters in text</a></li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li class="pml-toc-branch-node">
+                                    <details>
+                                        <summary><a href="#ch__14">Real World Examples</a></summary>
+                                        <ul>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__9">Config File</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__10">Table Data</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__11">Database</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__12">Markup Code</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__13">AST</a></li>
+                                        </ul>
+                                    </details>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </aside>
+                <article class="pml-doc-text">
+                    <h1 class="pml-doc-title">PDML Examples</h1>
+                    <p class="pml-paragraph">Author: Christian Neumanns</p>
+                    <p class="pml-paragraph">Published: 2021-10-27</p>
+                    <section id="ch__1" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Introduction</h2>
+                        <p class="pml-paragraph">This document shows examples of PDML code.</p>
+                        <p class="pml-paragraph">Only <i class="pml-italic">basic PDML</i> is covered.</p>
+                    </section>
+                    <section id="ch__8" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Fundamental Examples</h2>
+                        <section id="ch__2" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Hello</h3>
+                            <pre class="pml-code"><code>[hello]</code></pre>
+                            <p class="pml-paragraph">The above code illustrates the simplest possible PDML document.</p>
+                            <p class="pml-paragraph">It's a root node with name <code class="pml-inline-code">hello</code> and no content (no child nodes). <code class="pml-inline-code">hello</code> is an empty root node.</p>
+                        </section>
+                        <section id="ch__3" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Text node</h3>
+                            <pre class="pml-code"><code>[teachers Bob]</code></pre>
+                            <p class="pml-paragraph">The node with name <code class="pml-inline-code">teachers</code> contains the text <code class="pml-inline-code">Bob</code>. The name and text are separated by a space character.</p>
+                            <p class="pml-paragraph">A node's text can contain spaces:</p>
+                            <pre class="pml-code"><code>[teachers Bob and Alice]</code></pre>
+                            <p class="pml-paragraph">Now node <code class="pml-inline-code">teachers</code> contains the text <code class="pml-inline-code">Bob and Alice</code></p>
+                            <p class="pml-paragraph">New lines and Unicode characters can also be used in a node's text:</p>
+                            <pre class="pml-code"><code>[info He said:
+    &quot;She said: 'All is well!'&quot; 😃]</code></pre>
+                        </section>
+                        <section id="ch__4" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Node with one child node</h3>
+                            <pre class="pml-code"><code>[config [color orange]]</code></pre>
+                            <p class="pml-paragraph">Node <code class="pml-inline-code">config</code> has one child node with name <code class="pml-inline-code">color</code> and text <code class="pml-inline-code">orange</code>.</p>
+                        </section>
+                        <section id="ch__5" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Tree</h3>
+                            <pre class="pml-code"><code>[config
+    [color orange]
+    [size
+        [width 200]
+        [height 200]
+    ]
+]</code></pre>
+                            <p class="pml-paragraph">Node <code class="pml-inline-code">config</code> has two child nodes: <code class="pml-inline-code">color</code> and <code class="pml-inline-code">size</code>. Node <code class="pml-inline-code">size</code> has two child nodes too: <code class="pml-inline-code">width</code> and <code class="pml-inline-code">height</code>.</p>
+                        </section>
+                        <section id="ch__6" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Markup code</h3>
+                            <p class="pml-paragraph">Suppose we want to render the following text in a browser:</p>
+                            <p class="pml-paragraph">We can write text in <i class="pml-italic">italic</i>, <b class="pml-bold">bold</b>, or <i class="pml-italic"><b class="pml-bold">italic and bold</b></i>.</p>
+                            <p class="pml-paragraph">In HTML we would write:</p>
+                            <pre class="pml-code"><code>&lt;div&gt;We can write text in &lt;i&gt;italic&lt;/i&gt;, &lt;b&gt;bold&lt;/b&gt;, or &lt;i&gt;&lt;b&gt;italic and bold&lt;/b&gt;&lt;/i&gt;.&lt;/div&gt;</code></pre>
+                            <p class="pml-paragraph">In PDML the code becomes:</p>
+                            <pre class="pml-code"><code>[div We can write text in [i italic], [b bold], or [i [b italic and bold]].]</code></pre>
+                        </section>
+                        <section id="ch__7" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Escape characters in text</h3>
+                            <p class="pml-paragraph">If node <code class="pml-inline-code">p</code> contains the text:</p>
+                            <p class="pml-paragraph">&nbsp;&nbsp;&nbsp;&nbsp;foo\bar[12]</p>
+                            <p class="pml-paragraph">... then [, ], and \ must be escaped:</p>
+                            <pre class="pml-code"><code>[p foo\\bar\[12\]]</code></pre>
+                        </section>
+                    </section>
+                    <section id="ch__14" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Real World Examples</h2>
+                        <section id="ch__9" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Config File</h3>
+                            <p class="pml-paragraph">Consider the following JSON config file used to define a database connection:</p>
+                            <div class="pml-caption">File config.json</div>
+                            <pre class="pml-code"><code>{
+    &quot;DB_config&quot;: {
+        &quot;provider&quot;: &quot;MySQL&quot;,
+        &quot;host&quot;: &quot;localhost&quot;,
+        &quot;port&quot;: &quot;3306&quot;,
+        &quot;database_name&quot;: &quot;bookstore&quot;,
+        &quot;credentials&quot;: {
+            &quot;user&quot;: &quot;Bob&quot;,
+            &quot;password&quot;: null
+        },
+        &quot;cache&quot;: false
+    }
+}</code></pre>
+                            <p class="pml-paragraph">The corresponding PDML config file looks like this:</p>
+                            <div class="pml-caption">File config.pdml</div>
+                            <pre class="pml-code"><code>[DB_config
+    [provider MySQL]
+    [host localhost]
+    [port 3306]
+    [database_name bookstore]
+    [credentials
+        [user Bob]
+        [password]
+    ]
+    [cache false]
+]</code></pre>
+                        </section>
+                        <section id="ch__10" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Table Data</h3>
+                            <p class="pml-paragraph">Say we have the following XML document to store a list of books:</p>
+                            <pre class="pml-code"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;books&gt;
+    &lt;book&gt;
+        &lt;isbn&gt;978-0135957059&lt;/isbn&gt;
+        &lt;title&gt;The Pragmatic Programmer: Your Journey to Mastery&lt;/title&gt;
+        &lt;price&gt;41.41&lt;/price&gt;
+    &lt;/book&gt;
+    &lt;book&gt;
+        &lt;isbn&gt;978-0735619678&lt;/isbn&gt;
+        &lt;title&gt;Code Complete: A Practical Handbook of Software Construction&lt;/title&gt;
+        &lt;price&gt;45.32&lt;/price&gt;
+    &lt;/book&gt;
+    &lt;book&gt;
+        &lt;isbn&gt;978-0134685991&lt;/isbn&gt;
+        &lt;title&gt;Effective Java&lt;/title&gt;
+        &lt;price&gt;44.10&lt;/price&gt;
+    &lt;/book&gt;
+&lt;/books&gt;</code></pre>
+                            <p class="pml-paragraph">Here are the same data stored in PDML:</p>
+                            <pre class="pml-code"><code>[books
+    [book
+        [isbn 978-0135957059]
+        [title The Pragmatic Programmer: Your Journey to Mastery]
+        [price 41.41]
+    ]
+    [book
+        [isbn 978-0735619678]
+        [title Code Complete: A Practical Handbook of Software Construction]
+        [price 45.32]
+    ]
+    [book
+        [isbn 978-0134685991]
+        [title Effective Java]
+        [price 44.10]
+    ]
+]</code></pre>
+                        </section>
+                        <section id="ch__11" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Database</h3>
+                            <p class="pml-paragraph">Sometimes it makes sense to use text files (instead of a powerful database engine) to store simple, small databases. Each table could be stored in a separate file, or a single file could be used to store all data. Text files are also useful to export data.</p>
+                            <p class="pml-paragraph">The following code illustrates a small database stored in PDML format:</p>
+                            <pre class="pml-code"><code>[mini_ERP_data
+    [customers
+        [customer ...]
+        [customer ...]
+        [customer ...]
+    ]
+    [suppliers
+        [supplier ...]
+        [supplier ...]
+    ]
+    [products
+        [product ...]
+        [product ...]
+        [product ...]
+        [product ...]
+    ]
+]</code></pre>
+                        </section>
+                        <section id="ch__12" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Markup Code</h3>
+                            <p class="pml-paragraph"><a href="https://www.pml-lang.dev/" class="pml-link">PML</a> is a markup language that uses the PDML format.</p>
+                            <p class="pml-paragraph">This document is written in PML. You can have a look at the TODO  of this document.</p>
+                            <p class="pml-paragraph">Here is an excerpt that shows the PML code of this chapter:</p>
+                            <pre class="pml-code"><code>TODO
+[ch [title Markup Code]
+
+    [link url=https://www.pml-lang.dev/ text=PML] is a markup language that uses the PDML format.
+
+    This document is written is PML. You can have a look at the TODO [- [link url=https://www.pml-lang.dev/ text=full PML source code] -] of this document.
+
+    Here is an excerpt showing the PML code of this chapter:
+    [code
+        ...
+    code]
+]</code></pre>
+                        </section>
+                        <section id="ch__13" class="pml-chapter">
+                            <h3 class="pml-chapter-title">AST</h3>
+                            <p class="pml-paragraph">Every PDML document is a tree of data. Hence all kinds of structured and unstructured data can be stored.</p>
+                            <p class="pml-paragraph">An example would be an abstract syntax tree (AST). Suppose we want to represent the arithmetic expression</p>
+                            <p class="pml-paragraph"><code class="pml-inline-code">(1 + 2) * (3 + 4 + 5)</code></p>
+                            <p class="pml-paragraph">This can be done with the following PDML code:</p>
+                            <pre class="pml-code"><code>[exp
+    [op *
+        [op +
+            [num 1]
+            [num 2]
+        ]
+        [op +
+            [num 3]
+            [num 4]
+            [num 5]
+        ]
+    ]
+]</code></pre>
+                            <p class="pml-paragraph">If the code doesn't need to be read by humans, it can be written more succinctly, without indents:</p>
+                            <pre class="pml-code"><code>[exp[op *[op +[num 1][num 2]][op +[num 3][num 4][num 5]]]]</code></pre>
+                        </section>
+                    </section>
+                </article>
+                <aside class="pml-doc-right">
+                </aside>
+            </div>
+            <footer class="pml-doc-footer">
+            </footer>
+        </div>
+
+    </body>
+</html>

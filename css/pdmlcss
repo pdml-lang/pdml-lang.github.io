@@ -1,0 +1,181 @@
+html {
+	height: 100%;
+}
+
+body {
+	min-height: 100%;
+	margin: 0px;
+
+    display: flex;
+    flex-direction: row;
+
+	background-color: #f0f0f0;
+    font-family: Verdana, "Open Sans", sans-serif;
+	/* font-size: 16px; */
+}
+
+#left_margin {
+    flex-grow: 1;
+}
+
+#right_margin {
+    flex-grow: 1;
+}
+
+#page {
+    flex-grow: 1;
+    /*
+    display: flex;
+    flex-direction: column;
+    */
+
+	width: 960px;
+	max-width: 960px;
+
+	margin-top: 10px;
+	margin-bottom: 10px;
+
+    border: 1px solid lightgrey;
+	border-radius: 20px;
+	
+	background-color: white;
+}
+
+#header {
+    /* background-image: url("../images/PML_plane_200_200.png"); */
+    background-repeat: no-repeat;
+    background-size: 70px 70px;
+    background-position: 10px 10px; 
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 100px;
+    padding-right: 100px;
+    
+    text-align: center;
+}
+
+#header_name {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#header_slogan {
+    font-size: 0.8em;
+    letter-spacing: 0.15em;
+    padding-top: 5px;
+}
+
+#menu {
+    display: flex;
+    flex-direction: row;
+}
+
+.menu-item {
+    flex-grow: 1;
+
+	background-color: #f6f6f6;
+
+	border: 1px solid #ddd;
+    border-radius: 10px 10px 0px 0px;
+    
+    text-align: center;
+    
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+.menu-link {
+	
+	color: #333;
+	font-size: 0.9em;
+	font-weight: 700;
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+	text-decoration: none !important;
+}
+
+#menu_content_separator {
+    height: 3px;
+    background-color: orange;
+}
+
+#content {
+    padding: 2em;
+    line-height: 1.5em;
+}
+
+#footer {
+    flex-grow: 0;
+}
+
+.sub_menu_link_button {
+    display: block;
+    background-color: #f6f6f6;
+    text-decoration: none !important;
+    color: #333;
+    font-weight: 700;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: .7em 1em;
+    border: 1px solid #ddd;
+    border-radius: 0.5em;
+    box-shadow: 0 1px 3px rgba(0,0,0,.15);
+}
+
+.no_link_decoration {
+	text-decoration: none !important;
+	color: black;
+}
+
+.pml-node {
+    color: blue;
+}
+
+.pml-attribute {
+    color: purple;
+}
+
+.code_block {
+    background: #F8F8F8;
+    border-radius: 1em;
+    padding:1em;
+
+    font-family: Consolas, "DejaVu Sans Mono", monospace;
+    /* font-size: 1.2em; */
+}
+
+code {
+    background: #F8F8F8;
+    border-radius: 0.5em;
+    padding:0.2em;
+
+    font-family: Consolas, "DejaVu Sans Mono", monospace;
+    /* font-size: 1.2em; */
+}
+
+.ebnf-table {
+    /* font-family: Courier New; */
+    font-family: Consolas, "DejaVu Sans Mono", monospace;
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+}
+
+.ebnf-table tr {
+    /* vertical-align: top; */
+}
+
+.ebnf-table th {
+    border: 1px solid #ddd;
+    padding: 0.5em;
+}
+
+.ebnf-table td {
+    border: 1px solid #ddd;
+    padding: 0.5em;
+    vertical-align: top;
+}
