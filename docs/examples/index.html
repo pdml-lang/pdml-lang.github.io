@@ -52,11 +52,11 @@
                 <article class="pml-doc-text">
                     <h1 class="pml-doc-title">PDML Examples</h1>
                     <p class="pml-paragraph">Author: Christian Neumanns</p>
-                    <p class="pml-paragraph">Published: 2021-10-27</p>
+                    <p class="pml-paragraph">Published: 2021-11-16</p>
                     <section id="ch__1" class="pml-chapter">
                         <h2 class="pml-chapter-title">Introduction</h2>
-                        <p class="pml-paragraph">This document shows examples of PDML code.</p>
-                        <p class="pml-paragraph">Only <i class="pml-italic">basic PDML</i> is covered.</p>
+                        <p class="pml-paragraph">This document shows simple examples of PDML code.</p>
+                        <p class="pml-paragraph">Only <i class="pml-italic">basic PDML</i> is shown. PDML extensions are not used.</p>
                     </section>
                     <section id="ch__8" class="pml-chapter">
                         <h2 class="pml-chapter-title">Fundamental Examples</h2>
@@ -69,13 +69,16 @@
                         <section id="ch__3" class="pml-chapter">
                             <h3 class="pml-chapter-title">Text node</h3>
                             <pre class="pml-code"><code>[teachers Bob]</code></pre>
-                            <p class="pml-paragraph">The node with name <code class="pml-inline-code">teachers</code> contains the text <code class="pml-inline-code">Bob</code>. The name and text are separated by a space character.</p>
+                            <p class="pml-paragraph">The node with name <code class="pml-inline-code">teachers</code> contains the text <code class="pml-inline-code">Bob</code>. The node's name and text are separated by a space character.</p>
                             <p class="pml-paragraph">A node's text can contain spaces:</p>
                             <pre class="pml-code"><code>[teachers Bob and Alice]</code></pre>
                             <p class="pml-paragraph">Now node <code class="pml-inline-code">teachers</code> contains the text <code class="pml-inline-code">Bob and Alice</code></p>
                             <p class="pml-paragraph">New lines and Unicode characters can also be used in a node's text:</p>
                             <pre class="pml-code"><code>[info He said:
     &quot;She said: 'All is well!'&quot; 😃]</code></pre>
+                            <p class="pml-paragraph">In the above example node <code class="pml-inline-code">info</code> contains the text:</p>
+                            <pre class="pml-code"><code>He said:
+    &quot;She said: 'All is well!'&quot; 😃</code></pre>
                         </section>
                         <section id="ch__4" class="pml-chapter">
                             <h3 class="pml-chapter-title">Node with one child node</h3>
@@ -87,8 +90,8 @@
                             <pre class="pml-code"><code>[config
     [color orange]
     [size
-        [width 200]
-        [height 200]
+        [width 1618]
+        [height 1000]
     ]
 ]</code></pre>
                             <p class="pml-paragraph">Node <code class="pml-inline-code">config</code> has two child nodes: <code class="pml-inline-code">color</code> and <code class="pml-inline-code">size</code>. Node <code class="pml-inline-code">size</code> has two child nodes too: <code class="pml-inline-code">width</code> and <code class="pml-inline-code">height</code>.</p>
@@ -129,7 +132,7 @@
         &quot;cache&quot;: false
     }
 }</code></pre>
-                            <p class="pml-paragraph">The corresponding PDML config file looks like this:</p>
+                            <p class="pml-paragraph">In PDML the file looks like this:</p>
                             <div class="pml-caption">File config.pdml</div>
                             <pre class="pml-code"><code>[DB_config
     [provider MySQL]
@@ -185,7 +188,7 @@
                         </section>
                         <section id="ch__11" class="pml-chapter">
                             <h3 class="pml-chapter-title">Database</h3>
-                            <p class="pml-paragraph">Sometimes it makes sense to use text files (instead of a powerful database engine) to store simple, small databases. Each table could be stored in a separate file, or a single file could be used to store all data. Text files are also useful to export data.</p>
+                            <p class="pml-paragraph">Sometimes it makes sense to use text files (instead of a powerful database engine) to store simple, small databases. Each table could be stored in a separate file, or a single file could be used to store all tables. Text files are also useful to export data.</p>
                             <p class="pml-paragraph">The following code illustrates a small database stored in PDML format:</p>
                             <pre class="pml-code"><code>[mini_ERP_data
     [customers
@@ -207,20 +210,20 @@
                         </section>
                         <section id="ch__12" class="pml-chapter">
                             <h3 class="pml-chapter-title">Markup Code</h3>
-                            <p class="pml-paragraph"><a href="https://www.pml-lang.dev/" class="pml-link">PML</a> is a markup language that uses the PDML format.</p>
-                            <p class="pml-paragraph">This document is written in PML. You can have a look at the TODO  of this document.</p>
-                            <p class="pml-paragraph">Here is an excerpt that shows the PML code of this chapter:</p>
-                            <pre class="pml-code"><code>TODO
-[ch [title Markup Code]
+                            <p class="pml-paragraph"><a href="https://www.pml-lang.dev/" class="pml-link">PML</a> is a markup language that uses PDML's basic syntax and extensions.</p>
+                            <p class="pml-paragraph">This document is written in PML. You can have a look at its <a href="https://github.com/pdml-lang/examples-article" class="pml-link">PML markup code</a>.</p>
+                            <p class="pml-paragraph">Here is an excerpt showing the markup code for this chapter:</p>
+                            <pre class="pml-code"><code>[ch [title Markup Code]
 
-    [link url=https://www.pml-lang.dev/ text=PML] is a markup language that uses the PDML format.
+    [link url=https://www.pml-lang.dev/ text=PML] is a markup language that uses PDML's basic syntax and extensions.
 
-    This document is written is PML. You can have a look at the TODO [- [link url=https://www.pml-lang.dev/ text=full PML source code] -] of this document.
+    This document is written in PML. You can have a look at its [link url=https://github.com/pdml-lang/examples-article text=&quot;PML markup code&quot;].
 
-    Here is an excerpt showing the PML code of this chapter:
+    Here is an excerpt showing the markup code for this chapter:
+
     [code
         ...
-    code]
+    ]
 ]</code></pre>
                         </section>
                         <section id="ch__13" class="pml-chapter">

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="generator" content="PML 2.1.0 (www.pml-lang.dev)" />
-        <title>PDML FAQ</title>
+        <title>PDML Overview - FAQ</title>
         <link rel="stylesheet" href="css/pml-default.css">
         <link rel="stylesheet" href="css/pml-print-default.css" media="print">
 
@@ -21,7 +21,7 @@
                             <ul>
                                 <li class="pml-toc-leaf-node"><a href="#ch__1">What is PDML?</a></li>
                                 <li class="pml-toc-leaf-node"><a href="#ch__2">Why PDML?</a></li>
-                                <li class="pml-toc-leaf-node"><a href="#ch__3">How does PDML compare to other popular formats?</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__3">How does PDML compare to other, popular formats?</a></li>
                                 <li class="pml-toc-leaf-node"><a href="#ch__4">How does it work?</a></li>
                                 <li class="pml-toc-leaf-node"><a href="#ch__5">What can I do with PDML?</a></li>
                                 <li class="pml-toc-leaf-node"><a href="#ch__6">Is there a parser available for PDML?</a></li>
@@ -33,14 +33,13 @@
                     </nav>
                 </aside>
                 <article class="pml-doc-text">
-                    <h1 class="pml-doc-title">PDML FAQ</h1>
+                    <h1 class="pml-doc-title">PDML Overview - FAQ</h1>
                     <p class="pml-paragraph">Author: Christian Neumanns</p>
-                    <p class="pml-paragraph">Published: 2021-10-27</p>
-                    <p class="pml-paragraph"><a href="https://www.pml-lang.dev/" class="pml-link">back to website</a></p>
+                    <p class="pml-paragraph">Published: 2021-11-16</p>
                     <section id="ch__1" class="pml-chapter">
                         <h2 class="pml-chapter-title">What is PDML?</h2>
                         <p class="pml-paragraph">The <i class="pml-italic">Practical Data and Markup Language (PDML)</i> is a specification of a text format to store data and markup code.</p>
-                        <p class="pml-paragraph">PDML is conceptually similar to XML, but PDML's syntax is much less verbose, and there are other differences.</p>
+                        <p class="pml-paragraph">PDML is conceptually similar to XML, but PDML's syntax is less verbose, and there are other differences.</p>
                         <p class="pml-paragraph">A free, open-source reference implementation of a parser written in Java is available.</p>
                     </section>
                     <section id="ch__2" class="pml-chapter">
@@ -48,7 +47,7 @@
                         <p class="pml-paragraph">PDML's design goals are:</p>
                         <ul class="pml-list">
                             <li class="pml-list-element">
-                                <p class="pml-paragraph">human-friendly (succinct syntax, easy to read and write for people)</p>
+                                <p class="pml-paragraph">human-friendly (simple, succinct syntax, easy to read and write for people)</p>
                             </li>
                             <li class="pml-list-element">
                                 <p class="pml-paragraph">suitable for data <i class="pml-italic">and</i> markup code</p>
@@ -57,12 +56,12 @@
                                 <p class="pml-paragraph">suitable for small <i class="pml-italic">and</i> big documents</p>
                             </li>
                             <li class="pml-list-element">
-                                <p class="pml-paragraph">powerful, optional extensions to make PDML more practical</p>
+                                <p class="pml-paragraph">unique, powerful extensions to make PDML more practical</p>
                             </li>
                         </ul>
                     </section>
                     <section id="ch__3" class="pml-chapter">
-                        <h2 class="pml-chapter-title">How does PDML compare to other popular formats?</h2>
+                        <h2 class="pml-chapter-title">How does PDML compare to other, popular formats?</h2>
                         <p class="pml-paragraph">In a nutshell:</p>
                         <ul class="pml-list">
                             <li class="pml-list-element">
@@ -75,13 +74,13 @@
                                 <p class="pml-paragraph">Unlike YAML, PDML is suitable for <i class="pml-italic">big, complex</i> data structures.</p>
                             </li>
                             <li class="pml-list-element">
-                                <p class="pml-paragraph">PDML has a number of unique practical <i class="pml-italic">extensions</i> not found in XML, JSON, or YAML.</p>
+                                <p class="pml-paragraph">PDML has a number of unique, practical <i class="pml-italic">extensions</i> not found in XML, JSON, or YAML.</p>
                             </li>
                             <li class="pml-list-element">
                                 <p class="pml-paragraph">Basic PDML (without extensions) is <i class="pml-italic">easier to parse</i> than XML, JSON, or YAML.</p>
                             </li>
                         </ul>
-                        <p class="pml-paragraph">For a demonstration of these claims please read TODO .</p>
+                        <p class="pml-paragraph">For a demonstration of these claims please read <a href="https://pdml-lang.github.io/docs/suggestion-for-better-xml-html/index.html" class="pml-link">Suggestion For a Better XML/HTML Syntax</a>.</p>
                     </section>
                     <section id="ch__4" class="pml-chapter">
                         <h2 class="pml-chapter-title">How does it work?</h2>
@@ -95,7 +94,7 @@
     &lt;city&gt;Bern&lt;/city&gt;
     &lt;country&gt;Switzerland&lt;/country&gt;
 &lt;/person&gt;</code></pre>
-                        <p class="pml-paragraph">The same code would look like this in PDML:</p>
+                        <p class="pml-paragraph">The same data structure looks like this in PDML:</p>
                         <pre class="pml-code"><code>[person
     [name
         [first Albert]
@@ -104,7 +103,7 @@
     [city Bern]
     [country Switzerland]
 ]</code></pre>
-                        <p class="pml-paragraph">More examples can be found in TODO.</p>
+                        <p class="pml-paragraph">More examples can be found in the article <a href="https://pdml-lang.github.io/docs/examples/index.html" class="pml-link">PDML Examples</a>.</p>
                     </section>
                     <section id="ch__5" class="pml-chapter">
                         <h2 class="pml-chapter-title">What can I do with PDML?</h2>
@@ -121,19 +120,19 @@
                                 <p class="pml-paragraph">markup code (styled text, like HTML)</p>
                             </li>
                             <li class="pml-list-element">
-                                <p class="pml-paragraph">tables</p>
+                                <p class="pml-paragraph">tables and databases</p>
                             </li>
                             <li class="pml-list-element">
-                                <p class="pml-paragraph">databases</p>
+                                <p class="pml-paragraph">unstructured, heterogenous, or polymorphic data</p>
                             </li>
                         </ul>
-                        <p class="pml-paragraph">Examples are shown in TODO.</p>
-                        <p class="pml-paragraph">PDML can also be converted to XML, and XML to PDML. Hence, XML technology can be used with PDML documents. For example, you could programmatically validate, query, modify, or transform a document.</p>
-                        <p class="pml-paragraph">The article TODO  shows how to do this.</p>
+                        <p class="pml-paragraph">Simple examples of each category are shown in the article <a href="https://pdml-lang.github.io/docs/examples/index.html" class="pml-link">PDML Examples</a>.</p>
+                        <p class="pml-paragraph">PDML can be converted to XML, and XML to PDML. Hence, XML technology can be used with PDML documents. For example, you could programmatically validate, query, modify, or transform a document.</p>
+                        <p class="pml-paragraph">The article <a href="https://pdml-lang.github.io/docs/open-source-parser-for-practical-xml/index.html" class="pml-link">Open-Source Parser For PracticalXML (pXML)</a> shows how to do this.</p>
                     </section>
                     <section id="ch__6" class="pml-chapter">
                         <h2 class="pml-chapter-title">Is there a parser available for PDML?</h2>
-                        <p class="pml-paragraph">Yes. There is a free, open-source reference implementation written in Java. The MIT-licensed source code is available on TODO  .</p>
+                        <p class="pml-paragraph">Yes. There is a free, open-source reference implementation written in Java. The source code is available on <a href="https://github.com/pdml-lang/full-java-impl" class="pml-link">Github</a>.</p>
                         <p class="pml-paragraph">Parsers in other programming languages are welcomed to be published on this site.</p>
                     </section>
                     <section id="ch__7" class="pml-chapter">
@@ -142,8 +141,8 @@
                     </section>
                     <section id="ch__8" class="pml-chapter">
                         <h2 class="pml-chapter-title">Which license is used?</h2>
-                        <p class="pml-paragraph">The PDML <i class="pml-italic">specification</i> is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="pml-link">Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)</a>.</p>
-                        <p class="pml-paragraph">The <i class="pml-italic">reference implementation</i> is licensed under an <a href="https://opensource.org/licenses/MIT" class="pml-link">MIT License</a>.</p>
+                        <p class="pml-paragraph">The PDML <i class="pml-italic">specification</i> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="pml-link">Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)</a>.</p>
+                        <p class="pml-paragraph">A <i class="pml-italic">reference implementation</i> written in Java is licensed under <a href="https://opensource.org/licenses/GPL-2.0" class="pml-link">GNU General Public License version 2 (GPL 2.0)</a>.</p>
                     </section>
                     <section id="ch__9" class="pml-chapter">
                         <h2 class="pml-chapter-title">Who created PDML?</h2>
