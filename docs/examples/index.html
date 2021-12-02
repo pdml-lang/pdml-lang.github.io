@@ -22,26 +22,26 @@
                                 <li class="pml-toc-leaf-node"><a href="#ch__1">Introduction</a></li>
                                 <li class="pml-toc-branch-node">
                                     <details>
-                                        <summary><a href="#ch__8">Fundamental Examples</a></summary>
+                                        <summary><a href="#fundamental_examples">Fundamental Examples</a></summary>
                                         <ul>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__2">Hello</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__3">Text node</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__4">Node with one child node</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__5">Tree</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__6">Markup code</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__7">Escape characters in text</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#hello">Hello</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#text_node">Text node</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#child_node">Node with one child node</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#tree">Tree</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#simple_markup_code">Markup code</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#escape_chars">Escape characters in text</a></li>
                                         </ul>
                                     </details>
                                 </li>
                                 <li class="pml-toc-branch-node">
                                     <details>
-                                        <summary><a href="#ch__14">Real World Examples</a></summary>
+                                        <summary><a href="#real_world_examples">Real World Examples</a></summary>
                                         <ul>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__9">Config File</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__10">Table Data</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__11">Database</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__12">Markup Code</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__13">AST</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#config_file">Config File</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#table_data">Table Data</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#database">Database</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#markup_code">Markup Code</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ast">AST</a></li>
                                         </ul>
                                     </details>
                                 </li>
@@ -58,15 +58,15 @@
                         <p class="pml-paragraph">This document shows simple examples of PDML code.</p>
                         <p class="pml-paragraph">Only <i class="pml-italic">basic PDML</i> is shown. PDML extensions are not used.</p>
                     </section>
-                    <section id="ch__8" class="pml-chapter">
+                    <section id="fundamental_examples" class="pml-chapter">
                         <h2 class="pml-chapter-title">Fundamental Examples</h2>
-                        <section id="ch__2" class="pml-chapter">
+                        <section id="hello" class="pml-chapter">
                             <h3 class="pml-chapter-title">Hello</h3>
                             <pre class="pml-code"><code>[hello]</code></pre>
                             <p class="pml-paragraph">The above code illustrates the simplest possible PDML document.</p>
                             <p class="pml-paragraph">It's a root node with name <code class="pml-inline-code">hello</code> and no content (no child nodes). <code class="pml-inline-code">hello</code> is an empty root node.</p>
                         </section>
-                        <section id="ch__3" class="pml-chapter">
+                        <section id="text_node" class="pml-chapter">
                             <h3 class="pml-chapter-title">Text node</h3>
                             <pre class="pml-code"><code>[teachers Bob]</code></pre>
                             <p class="pml-paragraph">The node with name <code class="pml-inline-code">teachers</code> contains the text <code class="pml-inline-code">Bob</code>. The node's name and text are separated by a space character.</p>
@@ -80,13 +80,16 @@
                             <pre class="pml-code"><code>He said:
     &quot;She said: 'All is well!'&quot; 😃</code></pre>
                         </section>
-                        <section id="ch__4" class="pml-chapter">
+                        <section id="child_node" class="pml-chapter">
                             <h3 class="pml-chapter-title">Node with one child node</h3>
                             <pre class="pml-code"><code>[config [color orange]]</code></pre>
                             <p class="pml-paragraph">Node <code class="pml-inline-code">config</code> has one child node with name <code class="pml-inline-code">color</code> and text <code class="pml-inline-code">orange</code>.</p>
                         </section>
-                        <section id="ch__5" class="pml-chapter">
+                        <section id="tree" class="pml-chapter">
                             <h3 class="pml-chapter-title">Tree</h3>
+                            <pre class="pml-code"><code>[config[color orange][size[width 1618][height 1000]]]</code></pre>
+                            <p class="pml-paragraph">Node <code class="pml-inline-code">config</code> has two child nodes: <code class="pml-inline-code">color</code> and <code class="pml-inline-code">size</code>. Node <code class="pml-inline-code">size</code> has two child nodes too: <code class="pml-inline-code">width</code> and <code class="pml-inline-code">height</code>.</p>
+                            <p class="pml-paragraph">Readability and writeabilty can be considerable improved by using indents to visualize the structure:</p>
                             <pre class="pml-code"><code>[config
     [color orange]
     [size
@@ -94,9 +97,9 @@
         [height 1000]
     ]
 ]</code></pre>
-                            <p class="pml-paragraph">Node <code class="pml-inline-code">config</code> has two child nodes: <code class="pml-inline-code">color</code> and <code class="pml-inline-code">size</code>. Node <code class="pml-inline-code">size</code> has two child nodes too: <code class="pml-inline-code">width</code> and <code class="pml-inline-code">height</code>.</p>
+                            <p class="pml-paragraph">Now the AST has additional text nodes containing whitespace, but whitespace nodes like this are typically ignored by the application reading the config data.</p>
                         </section>
-                        <section id="ch__6" class="pml-chapter">
+                        <section id="simple_markup_code" class="pml-chapter">
                             <h3 class="pml-chapter-title">Markup code</h3>
                             <p class="pml-paragraph">Suppose we want to render the following text in a browser:</p>
                             <p class="pml-paragraph">We can write text in <i class="pml-italic">italic</i>, <b class="pml-bold">bold</b>, or <i class="pml-italic"><b class="pml-bold">italic and bold</b></i>.</p>
@@ -105,7 +108,7 @@
                             <p class="pml-paragraph">In PDML the code becomes:</p>
                             <pre class="pml-code"><code>[div We can write text in [i italic], [b bold], or [i [b italic and bold]].]</code></pre>
                         </section>
-                        <section id="ch__7" class="pml-chapter">
+                        <section id="escape_chars" class="pml-chapter">
                             <h3 class="pml-chapter-title">Escape characters in text</h3>
                             <p class="pml-paragraph">If node <code class="pml-inline-code">p</code> contains the text:</p>
                             <p class="pml-paragraph">&nbsp;&nbsp;&nbsp;&nbsp;foo\bar[12]</p>
@@ -113,9 +116,9 @@
                             <pre class="pml-code"><code>[p foo\\bar\[12\]]</code></pre>
                         </section>
                     </section>
-                    <section id="ch__14" class="pml-chapter">
+                    <section id="real_world_examples" class="pml-chapter">
                         <h2 class="pml-chapter-title">Real World Examples</h2>
-                        <section id="ch__9" class="pml-chapter">
+                        <section id="config_file" class="pml-chapter">
                             <h3 class="pml-chapter-title">Config File</h3>
                             <p class="pml-paragraph">Consider the following JSON config file used to define a database connection:</p>
                             <div class="pml-caption">File config.json</div>
@@ -146,7 +149,7 @@
     [cache false]
 ]</code></pre>
                         </section>
-                        <section id="ch__10" class="pml-chapter">
+                        <section id="table_data" class="pml-chapter">
                             <h3 class="pml-chapter-title">Table Data</h3>
                             <p class="pml-paragraph">Say we have the following XML document to store a list of books:</p>
                             <pre class="pml-code"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
@@ -186,7 +189,7 @@
     ]
 ]</code></pre>
                         </section>
-                        <section id="ch__11" class="pml-chapter">
+                        <section id="database" class="pml-chapter">
                             <h3 class="pml-chapter-title">Database</h3>
                             <p class="pml-paragraph">Sometimes it makes sense to use text files (instead of a powerful database engine) to store simple, small databases. Each table could be stored in a separate file, or a single file could be used to store all tables. Text files are also useful to export data.</p>
                             <p class="pml-paragraph">The following code illustrates a small database stored in PDML format:</p>
@@ -208,7 +211,7 @@
     ]
 ]</code></pre>
                         </section>
-                        <section id="ch__12" class="pml-chapter">
+                        <section id="markup_code" class="pml-chapter">
                             <h3 class="pml-chapter-title">Markup Code</h3>
                             <p class="pml-paragraph"><a href="https://www.pml-lang.dev/" class="pml-link">PML</a> is a markup language that uses PDML's basic syntax and extensions.</p>
                             <p class="pml-paragraph">This document is written in PML. You can have a look at its <a href="https://github.com/pdml-lang/examples-article" class="pml-link">PML markup code</a>.</p>
@@ -226,7 +229,7 @@
     ]
 ]</code></pre>
                         </section>
-                        <section id="ch__13" class="pml-chapter">
+                        <section id="ast" class="pml-chapter">
                             <h3 class="pml-chapter-title">AST</h3>
                             <p class="pml-paragraph">Every PDML document is a tree of data. Hence all kinds of structured and unstructured data can be stored.</p>
                             <p class="pml-paragraph">An example would be an abstract syntax tree (AST). Suppose we want to represent the arithmetic expression</p>
