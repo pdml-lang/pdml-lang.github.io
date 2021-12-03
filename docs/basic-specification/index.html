@@ -38,6 +38,8 @@
                                 <li class="pml-toc-leaf-node"><a href="#encoding">Encoding</a></li>
                                 <li class="pml-toc-leaf-node"><a href="#grammar">Grammar</a></li>
                                 <li class="pml-toc-leaf-node"><a href="#examples">Examples</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#license">License</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#versioning">Versioning</a></li>
                                 <li class="pml-toc-leaf-node"><a href="#website">Website</a></li>
                                 <li class="pml-toc-leaf-node"><a href="#source_code">Markup Code</a></li>
                             </ul>
@@ -52,7 +54,7 @@
                                 <p class="pml-paragraph"><b class="pml-bold">Version</b></p>
                             </td>
                             <td class="pml-table-body-cell">
-                                <p class="pml-paragraph">1.0.0</p>
+                                <p class="pml-paragraph">1.0.1</p>
                             </td>
                         </tr>
                         <tr class="pml-table-row">
@@ -60,7 +62,7 @@
                                 <p class="pml-paragraph"><b class="pml-bold">Published</b></p>
                             </td>
                             <td class="pml-table-body-cell">
-                                <p class="pml-paragraph">2021-12-02</p>
+                                <p class="pml-paragraph">2021-12-03</p>
                             </td>
                         </tr>
                         <tr class="pml-table-row">
@@ -68,7 +70,7 @@
                                 <p class="pml-paragraph"><b class="pml-bold">License</b></p>
                             </td>
                             <td class="pml-table-body-cell">
-                                <p class="pml-paragraph"><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="pml-link">CC BY-SA 4.0</a></p>
+                                <p class="pml-paragraph"><a href="https://creativecommons.org/licenses/by-nd/4.0//" class="pml-link">CC BY-ND 4.0</a></p>
                             </td>
                         </tr>
                         <tr class="pml-table-row">
@@ -91,8 +93,8 @@
                     <section id="ch__1" class="pml-chapter">
                         <h2 class="pml-chapter-title">Introduction</h2>
                         <p class="pml-paragraph">The <i class="pml-italic">Practical Data and Markup Language</i> (PDML) is a text format to store data.</p>
-                        <p class="pml-paragraph">A distinction is made between <i class="pml-italic">basic PDML</i> and <i class="pml-italic">extensions</i>. <i class="pml-italic">Basic PDML</i> is the minimum needed to store data. Extensions are optional features to make PDML more practical.</p>
-                        <p class="pml-paragraph">This document is the official specification for <i class="pml-italic">basic PDML</i>.</p>
+                        <p class="pml-paragraph">A distinction is made between <i class="pml-italic">Basic PDML</i> and <i class="pml-italic">PDML Extensions</i>. <i class="pml-italic">Basic PDML</i> is the minimum needed to store data. Extensions are optional features to make PDML more practical.</p>
+                        <p class="pml-paragraph">This document is the official specification for <i class="pml-italic">Basic PDML</i>.</p>
                     </section>
                     <section id="structure" class="pml-chapter">
                         <h2 class="pml-chapter-title">Document Structure</h2>
@@ -210,7 +212,7 @@ _ID_12.5-a</code></pre>
                             </tbody>
                         </table>
                         <p class="pml-paragraph">Other characters before or after the root node are illegal.</p>
-                        <p class="pml-paragraph">Within a PDML document, there are no whitespace handling rules defined in basic PDML. Whitespace is preserved when a PDML document is parsed.</p>
+                        <p class="pml-paragraph">Within a PDML document, there are no whitespace handling rules defined in <i class="pml-italic">Basic PDML</i>. Whitespace is preserved when a PDML document is parsed.</p>
                         <p class="pml-paragraph">Consider the following PDML snippet:</p>
                         <pre class="pml-code"><code>[a  foo   [b]
     2 [c] [d]
@@ -289,7 +291,7 @@ _ID_12.5-a</code></pre>
                         <div class="pml-admonition">
                             <div class="pml-admonition-label">Note</div>
                             <div class="pml-admonition-content">
-                                <p class="pml-paragraph">This document is the only official specification for <i class="pml-italic">basic PDML</i>.</p>
+                                <p class="pml-paragraph">This document is the only official specification for <i class="pml-italic">Basic PDML</i>.</p>
                                 <p class="pml-paragraph">The EBNF grammar and the railroad diagrams are just auxiliary assets to help readers better contextualize the specification.</p>
                             </div>
                         </div>
@@ -297,6 +299,15 @@ _ID_12.5-a</code></pre>
                     <section id="examples" class="pml-chapter">
                         <h2 class="pml-chapter-title">Examples</h2>
                         <p class="pml-paragraph">More examples of PDML code can be found in <a href="https://pdml-lang.github.io/docs/examples/index.html" class="pml-link">PDML Examples</a>.</p>
+                    </section>
+                    <section id="license" class="pml-chapter">
+                        <h2 class="pml-chapter-title">License</h2>
+                        <p class="pml-paragraph">This specification is licensed under <a href="https://creativecommons.org/licenses/by-nd/4.0//" class="pml-link">CC BY-ND 4.0</a>.</p>
+                        <p class="pml-paragraph">Permission is granted to create verbatim translations of this specification into other human languages.</p>
+                    </section>
+                    <section id="versioning" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Versioning</h2>
+                        <p class="pml-paragraph">This specification uses <a href="https://semver.org/" class="pml-link">Semantic Versioning</a>.</p>
                     </section>
                     <section id="website" class="pml-chapter">
                         <h2 class="pml-chapter-title">Website</h2>
