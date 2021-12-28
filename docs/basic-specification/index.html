@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="generator" content="PML 2.1.0 (www.pml-lang.dev)" />
+        <meta name="generator" content="PML 2.2.0 (www.pml-lang.dev)" />
         <title>Basic PDML Specification</title>
         <link rel="stylesheet" href="css/pml-default.css">
         <link rel="stylesheet" href="css/pml-print-default.css" media="print">
@@ -109,7 +109,7 @@
                         <section id="node_name" class="pml-chapter">
                             <h3 class="pml-chapter-title">Name</h3>
                             <p class="pml-paragraph">Each node has a <i class="pml-italic">name</i>.</p>
-                            <p class="pml-paragraph">A node name must match the regex <code class="pml-inline-code">[a-zA-Z_][a-zA-Z1-9_\.-]*</code>. This means that a name starts with a letter or an underscore (<code class="pml-inline-code">_</code>), optionally followed by any number of letters, digits, underscores (<code class="pml-inline-code">_</code>), hyphens (<code class="pml-inline-code">-</code>), or dots (<code class="pml-inline-code">.</code>).</p>
+                            <p class="pml-paragraph">A node name must match the regex <code class="pml-inline-code">[a-zA-Z_][a-zA-Z0-9_\.-]*</code>. This means that a name starts with a letter or an underscore (<code class="pml-inline-code">_</code>), optionally followed by any number of letters, digits, underscores (<code class="pml-inline-code">_</code>), hyphens (<code class="pml-inline-code">-</code>), or dots (<code class="pml-inline-code">.</code>).</p>
                             <p class="pml-paragraph">Here are some examples of valid node names:</p>
                             <pre class="pml-code"><code>color
 Index_12
@@ -254,7 +254,6 @@ _ID_12.5-a</code></pre>
                             </li>
                         </ul>
                     </section>
-                    <p class="pml-paragraph"> </p>
                     <section id="new_lines" class="pml-chapter">
                         <h2 class="pml-chapter-title">New Lines</h2>
                         <p class="pml-paragraph">New lines are defined differently in Unix/Linux and Windows. Unix uses a single <i class="pml-italic">line feed</i> (<code class="pml-inline-code">&quot;\n&quot;</code>). Windows uses a <i class="pml-italic">carriage return</i>, followed by a <i class="pml-italic">line feed</i> (<code class="pml-inline-code">&quot;\r\n&quot;</code>).</p>
@@ -272,7 +271,6 @@ _ID_12.5-a</code></pre>
                             </li>
                         </ul>
                     </section>
-                    <p class="pml-paragraph"> </p>
                     <section id="encoding" class="pml-chapter">
                         <h2 class="pml-chapter-title">Encoding</h2>
                         <p class="pml-paragraph">PDML documents are encoded in UTF-8.</p>
