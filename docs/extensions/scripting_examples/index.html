@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="generator" content="PML 2.2.0 (www.pml-lang.dev)" />
+        <title>PDML Scripting Examples</title>
+        <link rel="stylesheet" href="css/pml-default.css">
+        <link rel="stylesheet" href="css/pml-print-default.css" media="print">
+
+    </head>
+    <body>
+
+        <div class="pml-doc-wrapper">
+            <header class="pml-doc-header">
+            </header>
+            <div class="pml-doc-content">
+                <aside class="pml-doc-left">
+                    <nav class="pml-toc">
+                        <h2 class="pml-toc-title">Table of Contents</h2>
+                        <div class="pml-toc-tree" id="TOCTree">
+                            <ul>
+                                <li class="pml-toc-leaf-node"><a href="#ch__1">Introduction</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#expressions">Expressions</a></li>
+                                <li class="pml-toc-branch-node">
+                                    <details>
+                                        <summary><a href="#libraries">Libraries</a></summary>
+                                        <ul>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__2">Standard Javascript Library</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__3">Standard PDML Library</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__4">User-Defined Library</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__5">Shared Library</a></li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__6">Automated Text Updates</a></li>
+                                <li class="pml-toc-branch-node">
+                                    <details>
+                                        <summary><a href="#retrieve_data">Retrieving Text And Data</a></summary>
+                                        <ul>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__7">File</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__8">URL</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__9">OS Environment Variable</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__10">User Input</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__11">JSON document</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__12">PDML document</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__13">XML document</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__14">External Program</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__15">OS Script</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ch__16">Command Line Argument</a></li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__17">Creating Text And Data</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#customizing_syntax">Customizing Syntax</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#ch__18">Conditional Text Blocks</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#executing_OS_programs">Executing OS Programs</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#executing_OS_scripts">Executing OS Scripts</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </aside>
+                <article class="pml-doc-text">
+                    <h1 class="pml-doc-title">PDML Scripting Examples</h1>
+                    <div class="pml-division">
+                        <table class="pml-table">
+                            <tr class="pml-table-row">
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph"><b class="pml-bold">First Published</b></p>
+                                </td>
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph">2022-02-08</p>
+                                </td>
+                            </tr>
+                            <tr class="pml-table-row">
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph"><b class="pml-bold">Latest Update</b></p>
+                                </td>
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph">2022-02-08</p>
+                                </td>
+                            </tr>
+                            <tr class="pml-table-row">
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph"><b class="pml-bold">License</b></p>
+                                </td>
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph"><a href="https://creativecommons.org/licenses/by-nd/4.0/" class="pml-link">CC BY-ND 4.0</a></p>
+                                </td>
+                            </tr>
+                            <tr class="pml-table-row">
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph"><b class="pml-bold">Author and Copyright</b></p>
+                                </td>
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph">Christian Neumanns</p>
+                                </td>
+                            </tr>
+                            <tr class="pml-table-row">
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph"><b class="pml-bold">Website</b></p>
+                                </td>
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph"><a href="https://pdml-lang.github.io/" class="pml-link">https://pdml-lang.github.io/</a></p>
+                                </td>
+                            </tr>
+                            <tr class="pml-table-row">
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph"><b class="pml-bold">PML Markup Code</b></p>
+                                </td>
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph"><a href="https://github.com/pdml-lang/extensions-scripting-examples" class="pml-link">Github</a></p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <section id="ch__1" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Introduction</h2>
+                        <p class="pml-paragraph">This document shows examples of how PDML <a href="https://pdml-lang.github.io/docs/extensions/user_manual/index.html#script_nodes" class="pml-link">Script Nodes</a> can be used to simplify and automate many tasks related to creating data and markup documents.</p>
+                        <div class="pml-admonition">
+                            <div class="pml-admonition-label">Note</div>
+                            <div class="pml-admonition-content">
+                                <p class="pml-paragraph"><i class="pml-italic">Script Nodes</i> are a work in progress. Chapters planned to be written in the future just contain the text &quot;TODO&quot;.</p>
+                                <p class="pml-paragraph">All examples shown in this document have been tested with PDML's reference implementation and/or <a href="https://pml-lang.dev/" class="pml-link">PML</a>.</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="expressions" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Expressions</h2>
+                        <p class="pml-paragraph">Consider a PDML document containing a <code class="pml-inline-code">price</code> field like this:</p>
+                        <pre class="pml-code"><code>[price 2675.19]
+</code></pre>
+                        <p class="pml-paragraph">Suppose the price is calculated by the formula <code class="pml-inline-code">2.7183 * (981 + 3.1416)</code>, and the factors in this formula must be updated regularly. We also want the formula to be visible in the PDML document. We could write:</p>
+                        <pre class="pml-code"><code>[price 2.7183 * (981 + 3.1416)]
+</code></pre>
+                        <p class="pml-paragraph">But now the final value <code class="pml-inline-code">2675.19</code> isn't directly available anymore. An application reading this node would have to parse and evaluate the formula defined as text.</p>
+                        <p class="pml-paragraph">Not very practical!</p>
+                        <p class="pml-paragraph">A PDML <i class="pml-italic">expression</i> solves this problem. We can use an <code class="pml-inline-code">!exp</code> node and write:</p>
+                        <pre class="pml-code"><code>[price [!exp 2.7183 * (981 + 3.1416)]]
+</code></pre>
+                        <p class="pml-paragraph">Note how the price formula is simply embedded in an <code class="pml-inline-code">!exp</code> node (<code class="pml-inline-code">[!exp ...]</code>):</p>
+                        <pre class="pml-code"><code>[price [!exp 2.7183 * (981 + 3.1416)]]
+       ^^^^^                        ^ </code></pre>
+                        <p class="pml-paragraph">Now the PDML parser will <i class="pml-italic">evaluate</i> the expression, and the application reading the document will see the <code class="pml-inline-code">price</code> node as if it were written like this:</p>
+                        <pre class="pml-code"><code>[price 2675.19211128]</code></pre>
+                        <p class="pml-paragraph">Much better. But we still need to get rid of the superfluous decimal digits, and round the result to 2 decimals. We'll do that in the next chapter.</p>
+                    </section>
+                    <section id="libraries" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Libraries</h2>
+                        <section id="ch__2" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Standard Javascript Library</h3>
+                            <p class="pml-paragraph">Instead of having the evaluation of the price expanded to <code class="pml-inline-code">2675.19183945</code> we now want to round the price to 2 decimals. We can do this with the <i class="pml-italic">standard Javascript function</i> <a href="https://www.w3schools.com/jsref/jsref_tofixed.asp" class="pml-link">toFixed</a>:</p>
+                            <pre class="pml-code"><code>[price [!exp (2.7183 * (981 + 3.1416)).toFixed(2)]]
+</code></pre>
+                            <p class="pml-paragraph">Now the node expands to <code class="pml-inline-code">[price 2675.19]</code>.</p>
+                        </section>
+                        <section id="ch__3" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Standard PDML Library</h3>
+                            <p class="pml-paragraph">Suppose that instead of expanding to <code class="pml-inline-code">2675.19</code>, we would like to add a thousands separator, so that the price expands to <code class="pml-inline-code">2,675.19</code>, which is more readable for humans.</p>
+                            <p class="pml-paragraph">While there are some solutions to do that in Javascript, it is not trivial to do it in a reliable, portable way (as shown in this <a href="https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript" class="pml-link">Stackoverflow question</a>). Instead of using a standard Javascript function we can use a <i class="pml-italic">standard PDML function</i> that allows us to provide a specific format, and also rounds to the number of decimal places specified in the format. We'll use function <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#numberUtils-formatFloat" class="pml-link">formatFloat</a> defined in object <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#numberUtils" class="pml-link">numberUtils</a>:</p>
+                            <pre class="pml-code"><code>[price [!exp numberUtils.formatFloat ( 2.7183 * (981 + 3.1416), &quot;###,###,##0.00&quot;)]]
+</code></pre>
+                            <p class="pml-paragraph">Result: <code class="pml-inline-code">[price 2,675.19]</code>.</p>
+                        </section>
+                        <section id="ch__4" class="pml-chapter">
+                            <h3 class="pml-chapter-title">User-Defined Library</h3>
+                            <p class="pml-paragraph">If we have several <code class="pml-inline-code">price</code> nodes in our document, it quickly becomes cumbersome and error-prone to write the above code. We can therefore <i class="pml-italic">define a function</i> in a <code class="pml-inline-code">!def</code> node:</p>
+                            <pre class="pml-code"><code>[!def
+    ~~~
+    function roundPrice ( price ) {
+        return numberUtils.formatFloat ( price, &quot;###,###,##0.00&quot; );
+    }
+    ~~~
+]
+</code></pre>
+                            <p class="pml-paragraph">Now we can use function <code class="pml-inline-code">roundPrice</code> again and again in <code class="pml-inline-code">price</code> nodes. For example:</p>
+                            <pre class="pml-code"><code>[price [!exp roundPrice ( 2.7183 * (981 + 3.1416) )]]
+...
+[price [!exp roundPrice ( 123 * 321 )]]
+</code></pre>
+                            <p class="pml-paragraph">... which expands to:</p>
+                            <pre class="pml-code"><code>[price 2,675.19]
+...
+[price 39,483.00]</code></pre>
+                        </section>
+                        <section id="ch__5" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Shared Library</h3>
+                            <p class="pml-paragraph">If we need the function in other documents too, we can save the above <code class="pml-inline-code">!def</code> node in a file:</p>
+                            <div class="pml-caption">File resources/libraries/myPriceLibrary.def</div>
+                            <pre class="pml-code"><code>[!def
+    ~~~
+    function roundPrice ( price ) {
+        return numberUtils.formatFloat ( price, &quot;###,###,##0.00&quot; );
+    }
+    ~~~
+]
+</code></pre>
+                            <p class="pml-paragraph">Then we can import the library at the beginning of the document with an <code class="pml-inline-code">!ins-file</code> node (using a relative file path), and use the function as before:</p>
+                            <pre class="pml-code"><code>[!ins-file path=resources/libraries/myPriceLibrary.def]
+
+[price [!exp roundPrice ( 2.7183 * (981 + 3.1416) )]]
+...
+[price [!exp roundPrice ( 123 * 321 )]]
+</code></pre>
+                            <div class="pml-admonition">
+                                <div class="pml-admonition-label">Note</div>
+                                <div class="pml-admonition-content">
+                                    <p class="pml-paragraph">A library file like the above one is not limited to one function. We could of course add other useful functions, and maybe also some commonly used constants. Then we could share the library in a public repository like Github, Gitlab, etc.</p>
+                                </div>
+                            </div>
+                        </section>
+                        <p class="pml-paragraph">For more information about libraries please refer to <a href="https://pdml-lang.github.io/docs/extensions/user_manual/index.html#javascript_support" class="pml-link">Javascript Support</a>.</p>
+                    </section>
+                    <section id="ch__6" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Automated Text Updates</h2>
+                        <p class="pml-paragraph">Script nodes are often useful to automatically update text snippets in a document.</p>
+                        <p class="pml-paragraph">For example, consider a web article that needs to be updated regularly. At the beginning of the article the following meta data are displayed:</p>
+                        <pre class="pml-code"><code>First published: 2021-07-06
+Latest update: 2022-01-10</code></pre>
+                        <p class="pml-paragraph">Each time a new version is published, we would have to manually change the <code class="pml-inline-code">Latest update</code> field. This is cumbersome and error-prone. It should be done automatically.</p>
+                        <p class="pml-paragraph">We can do this by using an expression node:</p>
+                        <pre class="pml-code"><code>Latest update: [!exp timeUtils.currentLocalDate()]</code></pre>
+                        <p class="pml-paragraph">Now the date is updated whenever the document is parsed.</p>
+                        <div class="pml-admonition">
+                            <div class="pml-admonition-label">Note</div>
+                            <div class="pml-admonition-content">
+                                <p class="pml-paragraph">The above function applies the <a href="https://en.wikipedia.org/wiki/ISO_8601" class="pml-link">ISO 8601</a> standard to format the date (i.e. YYYY-MM-DD). <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#timeUtils" class="pml-link">timeUtils</a> provides other functions to get a specifically formatted date, time, or date/time pair.</p>
+                                <p class="pml-paragraph">For example, if we wanted to also display the time (without seconds) we could use function <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#timeUtils-currentLocalDateTimeMinutes" class="pml-link">currentLocalDateTimeMinutes</a>. That function would return text like this: <code class="pml-inline-code">2022-01-10 14:16</code></p>
+                            </div>
+                        </div>
+                        <p class="pml-paragraph">Instead of using an expression node, we could also use a <code class="pml-inline-code">!script</code> node that calls function <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#doc-insertText" class="pml-link">doc.insertText</a>:</p>
+                        <pre class="pml-code"><code>Latest update: [!script doc.insertText ( timeUtils.currentLocalDate() );]</code></pre>
+                        <div class="pml-admonition">
+                            <div class="pml-admonition-label">Note</div>
+                            <div class="pml-admonition-content">
+                                <p class="pml-paragraph">The above approach to update <code class="pml-inline-code">Latest update</code> might not be appropriate, because the date is updated each time the document is parsed, even if there are no real changes in the document.</p>
+                                <p class="pml-paragraph">A better approach would therefore be to scan the list of files used to create the document and retrieve the timestamp of the file with the most recent modification date.</p>
+                                <p class="pml-paragraph">One way to realize this would be to call an external program or OS script that provides the most recent timestamp. We'll later see how to call external programs and OS scripts.</p>
+                                <p class="pml-paragraph">A dedicated PDML library function to make this super-easy might be added in the future.</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="retrieve_data" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Retrieving Text And Data</h2>
+                        <p class="pml-paragraph">In this chapter we'll see how to retrieve text and data from external resources, and then insert them into the document.</p>
+                        <p class="pml-paragraph">Consider a versioned software application project. The application's documentation is composed of several <a href="https://pml-lang.dev/" class="pml-link">PML</a> documents (note: PML uses the PDML syntax). Ech document displays the application's version number at the beginning of the document, like this:</p>
+                        <pre class="pml-code"><code>Version: 7.4.0</code></pre>
+                        <p class="pml-paragraph">Hence, each time a new version of the application is published, the version number must be updated manually in all documents. This is cumbersome and error-prone, again. It's also a clear violation of the important <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" class="pml-link">Don't repeat yourself (DRY)</a> principle. That is, unless we use script nodes.</p>
+                        <p class="pml-paragraph">Script nodes allow us to automatically retrieve the version number from a single resource and insert it in the documents at parse-time.</p>
+                        <p class="pml-paragraph">In the following chapter we'll see how to retrieve the version number from a variety of different resources.</p>
+                        <section id="ch__7" class="pml-chapter">
+                            <h3 class="pml-chapter-title">File</h3>
+                            <p class="pml-paragraph">Suppose the version number is stored in a file:</p>
+                            <div class="pml-caption">File version.txt</div>
+                            <pre class="pml-code"><code>7.4.0</code></pre>
+                            <p class="pml-paragraph">To retrieve a file's text content we can use function <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#fileUtils-readText" class="pml-link">fileUtils.readText</a>. So we have to replace:</p>
+                            <pre class="pml-code"><code>Version: 7.4.0</code></pre>
+                            <p class="pml-paragraph">... with:</p>
+                            <pre class="pml-code"><code>Version: [!exp fileUtils.readText ( &quot;path/to/application/version.txt&quot; )]</code></pre>
+                            <div class="pml-admonition">
+                                <div class="pml-admonition-label">Note</div>
+                                <div class="pml-admonition-content">
+                                    <p class="pml-paragraph">The file's path can be absolute or relative. If it's relative, it's relative to the current working directory.</p>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="ch__8" class="pml-chapter">
+                            <h3 class="pml-chapter-title">URL</h3>
+                            <p class="pml-paragraph">To retrieve the version number from a URL, we can write:</p>
+                            <pre class="pml-code"><code>Version: [!exp URLUtils.readText ( &quot;http://www.example.com/version.txt&quot; )]</code></pre>
+                        </section>
+                        <section id="ch__9" class="pml-chapter">
+                            <h3 class="pml-chapter-title">OS Environment Variable</h3>
+                            <p class="pml-paragraph">The version number could also be retrieved from an environment variable of the operating system:</p>
+                            <pre class="pml-code"><code>Version: [!exp OSEnvUtils.getVar ( &quot;MY_APP_VERSION&quot; )]</code></pre>
+                        </section>
+                        <section id="ch__10" class="pml-chapter">
+                            <h3 class="pml-chapter-title">User Input</h3>
+                            <p class="pml-paragraph">If the running application has a console, the version number can be asked in the console:</p>
+                            <pre class="pml-code"><code>Version: [!exp OSConsole.askString ( &quot;Please enter version number: &quot; )]</code></pre>
+                            <p class="pml-paragraph">After the user has typed the version number, the console looks like this:</p>
+                            <pre class="pml-input">Please enter version number: 7.4.0</pre>
+                            <p class="pml-paragraph">Alternatively, the version number can be asked in a GUI:</p>
+                            <pre class="pml-code"><code>Version: [!exp GUIUtils.askString ( &quot;Please enter version number: &quot; )]</code></pre>
+                            <p class="pml-paragraph">A GUI dialog like the following one will be displayed:</p>
+                            <figure style="text-align: left">
+                                <img class="pml-image" src="images/Version_GUI.png" />
+                            </figure>
+                            <div class="pml-admonition">
+                                <div class="pml-admonition-label">Note</div>
+                                <div class="pml-admonition-content">
+                                    <p class="pml-paragraph">Displaying GUI dialogs works even if the application is run as a command line application.</p>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="ch__11" class="pml-chapter">
+                            <h3 class="pml-chapter-title">JSON document</h3>
+                            <p class="pml-paragraph">Suppose we have a JSON config file like this:</p>
+                            <div class="pml-caption">File config.json</div>
+                            <pre class="pml-code"><code>{
+    &quot;color&quot;: &quot;green&quot;,
+    &quot;version&quot;: &quot;7.4.0&quot;,
+    &quot;width&quot;: 100
+}
+</code></pre>
+                            <p class="pml-paragraph">We can retrieve the <code class="pml-inline-code">version</code> field from the config file and insert it in the document with a <code class="pml-inline-code">!script</code> node:</p>
+                            <pre class="pml-code"><code>[!script
+    ~~~
+    const JSONString = fileUtils.readText ( &quot;config.json&quot; );
+    const JSONData = JSON.parse ( JSONString );
+    const version = JSONData.version;
+    doc.insertText ( `Version: ${version}` );
+    ~~~
+]</code></pre>
+                            <p class="pml-paragraph">Alternatively, we could write more compact, but slightly less readable code by using an expression:</p>
+                            <pre class="pml-code"><code>Version: [!exp JSON.parse ( fileUtils.readText ( &quot;config.json&quot; ) ).version]</code></pre>
+                        </section>
+                        <section id="ch__12" class="pml-chapter">
+                            <h3 class="pml-chapter-title">PDML document</h3>
+                            <p class="pml-paragraph">TODO</p>
+                        </section>
+                        <section id="ch__13" class="pml-chapter">
+                            <h3 class="pml-chapter-title">XML document</h3>
+                            <p class="pml-paragraph">TODO</p>
+                        </section>
+                        <section id="ch__14" class="pml-chapter">
+                            <h3 class="pml-chapter-title">External Program</h3>
+                            <p class="pml-paragraph">Suppose that the version number is stored in a resource that would be difficult or impossible to access with Javascript. For example, the version number could be stored in a field of a database table, or in some source code file that must be parsed to retrieve the version number.</p>
+                            <p class="pml-paragraph">In such cases we can write an external program (written in <i class="pml-italic">any</i> programming language) that retrieves the version number, and writes it to STDOUT, or to a file. Then, in the PDML document we just need to execute that program, get the version number from STDOUT, and insert it into the document. We can call <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#OSCommand-textPipe" class="pml-link">OSCommand.textPipe</a> in a simple expression node to achieve this:</p>
+                            <pre class="pml-code"><code>Version: [!exp OSCommand.textPipe ( \[ &quot;path/to/my_app.exe&quot;, &quot;--arg1&quot;, &quot;foo&quot; \], null )]</code></pre>
+                            <p class="pml-paragraph">To test this out on Windows, you could create file <code class="pml-inline-code">my_app.bat</code> with the following content:</p>
+                            <pre class="pml-code"><code>@echo off
+echo 7.4.0
+</code></pre>
+                            <p class="pml-paragraph">You can then execute that batch file with:</p>
+                            <pre class="pml-code"><code>Version: [!exp OSCommand.textPipe ( \[ &quot;my_app.bat&quot; \], null )]</code></pre>
+                            <p class="pml-paragraph">... which will expand to:</p>
+                            <pre class="pml-code"><code>Version: 7.4.0</code></pre>
+                            <div class="pml-admonition">
+                                <div class="pml-admonition-label">Note</div>
+                                <div class="pml-admonition-content">
+                                    <p class="pml-paragraph">Characters <code class="pml-inline-code">[</code> and <code class="pml-inline-code">]</code> must be escaped in the above Javascript code. We can use an alternative syntax to eliminate the need for escaping in source code:</p>
+                                    <pre class="pml-code"><code>Version: [!exp
+    ~~~
+    OSCommand.textPipe ( [ &quot;my_app.bat&quot; ], null )
+    ~~~
+]</code></pre>
+                                    <p class="pml-paragraph">Please refer to chapter <a href="https://pdml-lang.github.io/docs/extensions/user_manual/index.html#script_nodes_syntax" class="pml-link">Syntax</a> for more information.</p>
+                                </div>
+                            </div>
+                            <p class="pml-paragraph">A real-life example to demonstrate the power of executing external programs will be shown later in chapter <a href="#executing_OS_programs" class="pml-xref">Executing OS Programs</a>.</p>
+                        </section>
+                        <section id="ch__15" class="pml-chapter">
+                            <h3 class="pml-chapter-title">OS Script</h3>
+                            <p class="pml-paragraph">Besides executing an external <i class="pml-italic">program</i>, we can also execute an OS <i class="pml-italic">script</i> to retrieve the version number. The following code illustrate how to do this on Windows:</p>
+                            <pre class="pml-code"><code>Version: [!exp WinCmdUtils.getInstructionsOutput ( &quot;@echo off &amp;&amp; echo 7.4.0&quot;, null, null )]</code></pre>
+                            <p class="pml-paragraph">This expands to:</p>
+                            <pre class="pml-code"><code>Version: 7.4.0</code></pre>
+                            <p class="pml-paragraph">More examples about running OS scripts on Windows or Linux will be shown in <a href="#executing_OS_scripts" class="pml-xref">Executing OS Scripts</a>.</p>
+                        </section>
+                        <section id="ch__16" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Command Line Argument</h3>
+                            <p class="pml-paragraph">TODO</p>
+                        </section>
+                    </section>
+                    <section id="ch__17" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Creating Text And Data</h2>
+                        <p class="pml-paragraph">Script nodes can be used to auto-generate text and/or data that would be cumbersome to create manually.</p>
+                        <p class="pml-paragraph">Suppose we want to display compound interest tables like the following one in a <a href="https://pml-lang.dev/" class="pml-link">PML</a> document.</p>
+                        <div style="margin-left:3em;" class="pml-division">
+                            <p class="pml-paragraph">Initial amount: 100</p>
+                            <p class="pml-paragraph">Interest rate: 1.5%</p>
+                            <table class="pml-table">
+                                <thead class="pml-table-header">
+                                    <tr><th class="pml-table-header-cell">Years</th><th class="pml-table-header-cell">Amount</th></tr>
+                                </thead>
+                                <tbody class="pml-table-body">
+                                    <tr><td class="pml-table-body-cell pml-text-align-right">0</td><td class="pml-table-body-cell pml-text-align-right">100</td></tr>
+                                    <tr><td class="pml-table-body-cell pml-text-align-right">1</td><td class="pml-table-body-cell pml-text-align-right">101.50</td></tr>
+                                    <tr><td class="pml-table-body-cell pml-text-align-right">2</td><td class="pml-table-body-cell pml-text-align-right">103.02</td></tr>
+                                    <tr><td class="pml-table-body-cell pml-text-align-right">3</td><td class="pml-table-body-cell pml-text-align-right">104.57</td></tr>
+                                    <tr><td class="pml-table-body-cell pml-text-align-right">4</td><td class="pml-table-body-cell pml-text-align-right">106.14</td></tr>
+                                    <tr><td class="pml-table-body-cell pml-text-align-right">5</td><td class="pml-table-body-cell pml-text-align-right">107.73</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="pml-paragraph">The above table could be created with the following PML code:</p>
+                        <pre class="pml-code"><code>Initial amount: 100
+
+Interest rate: 1.5%
+
+[table_data (halign=&quot;R,R&quot;)
+    Years | Amount
+    -
+    0 | 100
+    1 | 101.50
+    2 | 103.02
+    3 | 104.57
+    4 | 106.14
+    5 | 107.73
+table_data]</code></pre>
+                        <p class="pml-paragraph">Writing code like this manually quickly becomes boring and error-prone, especially if there are many such tables with different interest rates and many years to display.</p>
+                        <p class="pml-paragraph">The solution is to write a function to automagically <i class="pml-italic">generate the PML code</i>. As seen already, functions are defined within a <code class="pml-inline-code">!def</code> node. Let's also store this function in an external file, so that it doesn't distract in the PML document, can be reused in other documents, and shared with other people. The file looks like this:</p>
+                        <div class="pml-caption">File interestUtils.def</div>
+                        <pre class="pml-code"><code>[!def
+    ~~~
+    function interestTable ( initialAmount, interestRate, years ) {
+
+        let code = `    Initial amount: ${initialAmount}
+
+        Interest rate: ${interestRate}%
+
+        [table_data (halign=&quot;R,R&quot;)
+            Years | Amount
+            -
+        `;
+
+        var year = 0
+        var amount = initialAmount
+        for ( let year = 0; year &lt;= years; year++ ) {
+            const formattedAmount = numberUtils.formatFloat ( amount, &quot;###,###,###,##0.00&quot; );
+            code = code + `    ${year} | ${formattedAmount}
+        `;
+            amount = amount * ( 1 + interestRate / 100 );
+        }
+        
+        code = code + &quot;table_data]&quot;;
+
+        // can be uncommented for debugging
+        // stdout.writeLine ( code );
+
+        return code;
+    }
+    ~~~
+]
+</code></pre>
+                        <p class="pml-paragraph">We're not going to delve into the details of this code. It should be self-explanatory for Javascript programmers.</p>
+                        <p class="pml-paragraph">The above table can now be inserted in a PML document with the following code:</p>
+                        <pre class="pml-code"><code>[!ins-file path=interestUtils.def]
+
+[!exp interestTable ( 100, 1.5, 5 )]</code></pre>
+                        <p class="pml-paragraph">If we want to insert more tables with different parameters, we just need to insert more <code class="pml-inline-code">!exp</code> nodes. For example, the following code will generate an additional table for an initial amount of 10,000, an interest rate of 0.9%, and a period of 20 years:</p>
+                        <pre class="pml-code"><code>[!exp interestTable ( 10000, 0.9, 20 )]</code></pre>
+                    </section>
+                    <section id="customizing_syntax" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Customizing Syntax</h2>
+                        <p class="pml-paragraph">Whenever you want to simplify or customize the syntax in PDML documents, you can consider using script nodes.</p>
+                        <p class="pml-paragraph">Let's look at an example of syntax customization in <a href="https://pml-lang.dev/" class="pml-link">PML</a>.</p>
+                        <p class="pml-paragraph">Suppose we need to insert many icons that all must have the same dimensions, and a border. Using standard PML, the code would look like this:</p>
+                        <pre class="pml-code"><code>[image source=&quot;icon_1.png&quot; width=64 height=64 border=yes]
+...
+[image source=&quot;icon_2.png&quot; width=64 height=64 border=yes]
+</code></pre>
+                        <p class="pml-paragraph">Needless to say, nobody enjoys writing code like this again and again. The code is challenging to maintain, and clearly violates the important <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" class="pml-link">Don't repeat yourself (DRY)</a> principle.</p>
+                        <p class="pml-paragraph">To eliminate the pain we can write a function that inserts the PML code for us:</p>
+                        <pre class="pml-code"><code>[!def
+    ~~~
+    function icon ( path ) {
+        doc.insert ( `[image source=&quot;${path}&quot; width=64 height=64 border=yes]` );
+    }
+    ~~~
+]
+</code></pre>
+                        <p class="pml-paragraph">Now we can easily insert icons with the following code:</p>
+                        <pre class="pml-code"><code>[!exp icon(&quot;icon_1.png&quot;)]
+...
+[!exp icon(&quot;icon_2.png&quot;)]
+</code></pre>
+                        <p class="pml-paragraph">The code is now DRY and easy to maintain.</p>
+                        <p class="pml-paragraph">It expands to:</p>
+                        <pre class="pml-code"><code>[image source=&quot;icon_1.png&quot; width=64 height=64 border=yes]
+...
+[image source=&quot;icon_2.png&quot; width=64 height=64 border=yes]
+</code></pre>
+                        <p class="pml-paragraph">We could add more arguments to function <code class="pml-inline-code">icon</code> and do whatever we need to do with them, using the full power of a scripting language. For example, we could add argument <code class="pml-inline-code">borderColor</code> to auto-insert inline CSS that defines the color of the icon's border, and sets the width to 3 pixels:</p>
+                        <pre class="pml-code"><code>[!def
+    ~~~
+    function icon ( path, borderColor ) {
+        doc.insert ( `[image source=&quot;${path}&quot; width=64 height=64 html_style=&quot;border: 3px solid ${borderColor};&quot;]` );
+    }
+    ~~~
+]
+</code></pre>
+                        <p class="pml-paragraph">Now, this code:</p>
+                        <pre class="pml-code"><code>[!exp icon(&quot;ok.png&quot;, &quot;green&quot;)]
+
+[!exp icon(&quot;not_ok.png&quot;, &quot;red&quot;)]
+</code></pre>
+                        <p class="pml-paragraph">... would be rendered like this in the browser:</p>
+                        <figure style="text-align: left">
+                            <img class="pml-image" src="images/icons_example.png" width="64" />
+                        </figure>
+                    </section>
+                    <section id="ch__18" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Conditional Text Blocks</h2>
+                        <p class="pml-paragraph">Sometimes it is necessary to produce different editions of the same document, depending on the target audience, or other factors.</p>
+                        <p class="pml-paragraph">For example, an exam paper printed for students contains only questions, while the teachers' edition also contains the answers.</p>
+                        <p class="pml-paragraph">Here is a simple <a href="https://pml-lang.dev/" class="pml-link">PML</a> example to illustrate how this can be achieved.</p>
+                        <pre class="pml-code"><code>[doc [title Conditional Text Test]
+
+    [!def const forTeachers = true;]
+
+    Question: What is the answer?
+
+    [!script
+        ~~~
+        if ( forTeachers ) {
+            doc.insertText ( &quot;Answer: The answer is 42.&quot; );
+        }
+        ~~~
+    ]
+]
+</code></pre>
+                        <p class="pml-paragraph">When <code class="pml-inline-code">forTeachers</code> is set to <code class="pml-inline-code">true</code> (as in the code above), the document's content will be:</p>
+                        <pre class="pml-output">Question: What is the answer?
+
+Answer: The answer is 42.    </pre>
+                        <p class="pml-paragraph">When <code class="pml-inline-code">forTeachers</code> is <code class="pml-inline-code">false</code> the answer will not be printed:</p>
+                        <pre class="pml-output">Question: What is the answer?</pre>
+                        <div class="pml-admonition">
+                            <div class="pml-admonition-label">Note</div>
+                            <div class="pml-admonition-content">
+                                <p class="pml-paragraph">In a real-world scenario, the value of <code class="pml-inline-code">forTeachers</code> would probably not be hard-coded in the document, but it would be retrieved from an external resource. Examples of how to do that are shown in chapter <a href="#retrieve_data" class="pml-xref">Retrieving Text And Data</a>.</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="executing_OS_programs" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Executing OS Programs</h2>
+                        <p class="pml-paragraph">The most powerful feature of script nodes is the ability to run external programs and OS scripts. A dedicated API makes it very easy to:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">run any installed program written in <i class="pml-italic">any</i> programming language</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">optionally provide command line arguments to the program</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">optionally provide a string that is the application's input, read from its standard input device (stdin)</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">optionally retrieve the application's output written to stdout (or to a file), and insert it into the PDML document, or do whatever else needs to be done with the application's output</p>
+                            </li>
+                        </ul>
+                        <p class="pml-paragraph">Here are a few examples of what can be achieved, just to wet your appetite:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Use your preferred programming language, or an existing tool, to fetch data from an Excel sheet, a server, a local/remote database, or a webservice, then transform the data to a summary table and insert the result into the PDML document.</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Use Python to execute a deep learning algorithm and explore the result in the PDML document.</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Use a media creator application to create image, audio, and video files, and insert links to them in the PDML document. For example: use <a href="https://plantuml.com/" class="pml-link">PlantUML</a> to insert diagrams, or <a href="https://abcnotation.com/" class="pml-link">abc notation</a> to insert music notes, or a text-to-speech application to insert audio files.</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Use a source code highlighter that reads source code (or source code snippets) from a source code repository, and insert a highlighted version of the source code into the PDML document.</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Execute a VB or OS script to send an email and add a log entry each time a new version of a document is published.</p>
+                            </li>
+                        </ul>
+                        <p class="pml-paragraph">To illustrate how it works, let's use <a href="https://plantuml.com/" class="pml-link">PlantUML</a> to dynamically create diagrams and insert links to them into a <a href="https://pml-lang.dev/" class="pml-link">PML</a> markup document.</p>
+                        <p class="pml-paragraph">PlantUML is an open-source tool you can use to create many different kinds of diagrams from plain text languages. For example, this plain text:</p>
+                        <pre class="pml-code"><code>@startuml
+Alice -&gt; Bob: Hello
+Bob -&gt; Alice: Hi
+@enduml</code></pre>
+                        <p class="pml-paragraph">... generates the following sequence diagram:</p>
+                        <figure style="text-align: left">
+                            <img class="pml-image" src="images/alice_bob.png" />
+                        </figure>
+                        <p class="pml-paragraph">To create this image we could proceed as follows:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Create file <code class="pml-inline-code">alice_bob.txt</code> with the following content:</p>
+                                <div class="pml-caption">File <code class="pml-inline-code">alice_bob.txt</code></div>
+                                <pre class="pml-code"><code>@startuml
+Alice -&gt; Bob: Hello
+Bob -&gt; Alice: Hi
+@enduml</code></pre>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Execute the following command in a terminal:</p>
+                                <pre class="pml-input">java -jar plantuml.jar -i alice_bob.txt</pre>
+                                <div class="pml-admonition">
+                                    <div class="pml-admonition-label">Note</div>
+                                    <div class="pml-admonition-content">
+                                        <p class="pml-paragraph">The above command requires Java to be installed on your system. Moreover file <a href="https://sourceforge.net/projects/plantuml/files/plantuml.jar/download" class="pml-link">plantuml.jar</a> must be in your working directory.</p>
+                                        <p class="pml-paragraph">PlantUML is not the easiest one to install, but it's worth the effort because of its versatility.</p>
+                                        <p class="pml-paragraph">For more information see <a href="https://plantuml.com/command-line" class="pml-link">Command line</a>.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">File <code class="pml-inline-code">alice_bob.png</code> is created in your working directory:</p>
+                                <figure style="text-align: left">
+                                    <img class="pml-image" src="images/alice_bob.png" />
+                                </figure>
+                            </li>
+                        </ul>
+                        <p class="pml-paragraph">Now that we know the basics of PlantUML, let's see how we can use this in PML to dynamically generate many kinds of diagrams by just providing the appropriate text input.</p>
+                        <p class="pml-paragraph">In PML we would use the following markup code to insert an image in a document:</p>
+                        <pre class="pml-code"><code>[image source=images/alice_bob.png]</code></pre>
+                        <p class="pml-paragraph">By default PML uses directory <code class="pml-inline-code">resources</code> to look for images. As we use path <code class="pml-inline-code">images/alice_bob.png</code> in the above markup code, the image file must be stored as <code class="pml-inline-code">resources/images/alice_bob.png</code>.</p>
+                        <p class="pml-paragraph">Hence, we need to create a script that:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">creates file <code class="pml-inline-code">resources/images/alice_bob.txt</code> with content provided in the document</p>
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">executes PlantUML to create file <code class="pml-inline-code">resources/images/alice_bob.png</code></p>
+                            </li>
+                        </ul>
+                        <p class="pml-paragraph">Here is the code to achieve this:</p>
+                        <pre class="pml-code"><code>[!script
+    ~~~
+    const plantUMLCode = `@startuml
+    Alice -&gt; Bob: Hello
+    Bob -&gt; Alice: Hi
+    @enduml`;
+
+    const inputFile = &quot;resources/images/alice_bob.txt&quot;
+    fileUtils.writeText ( inputFile, plantUMLCode );
+
+    OSCommand.runAndWait ( [ &quot;java&quot;, &quot;-jar&quot;, &quot;plantuml.jar&quot;, &quot;-i&quot;, inputFile ] );
+    ~~~
+]
+</code></pre>
+                        <p class="pml-paragraph">As can be seen, we first create the input file with <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#fileUtils-writeText" class="pml-link">fileUtils.writeText</a>, and then we use <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#OSCommand-runAndWait" class="pml-link">OSCommand.runAndWait</a> to execute PlantUML.</p>
+                        <p class="pml-paragraph">The above script creates file <code class="pml-inline-code">resources/images/alice_bob.png</code>, which can then be used like an ordinary image file with:</p>
+                        <pre class="pml-code"><code>[image source=images/alice_bob.png]</code></pre>
+                        <p class="pml-paragraph">A much better approach, useful if we need to create <i class="pml-italic">several</i> images, is to create a reusable <i class="pml-italic">function</i> that creates the image and insert it in the document with a call to <code class="pml-inline-code">doc.insert</code>:</p>
+                        <pre class="pml-code"><code>[!def
+    ~~~
+    function insertPlantUMLImage ( name, plantUMLCode ) {
+
+        const inputFile = `resources/images/${name}.txt`;
+        fileUtils.writeText ( inputFile, plantUMLCode );
+
+        OSCommand.runAndWait ( [ &quot;java&quot;, &quot;-jar&quot;, &quot;plantuml.jar&quot;, &quot;-i&quot;, inputFile ] );
+
+        doc.insert ( `[image source = images/${name}.png]` );
+    }
+    ~~~
+]
+</code></pre>
+                        <p class="pml-paragraph">Because this function might be useful in other documents, we can store it in a separate file named <code class="pml-inline-code">PlantUMLUtils.def</code>.</p>
+                        <p class="pml-paragraph">Then we can import the function with an <code class="pml-inline-code">!ins-file</code> node and use it as follows:</p>
+                        <pre class="pml-code"><code>[!ins-file path = config/scripting/PlantUMLUtils.def]
+
+[!script insertPlantUMLImage ( &quot;alice_bob_2&quot;, `@startuml
+    Alice -&gt; Bob: Hello
+    Bob -&gt; Alice: Hi
+    @enduml` ); ]</code></pre>
+                        <p class="pml-paragraph">Besides state diagrams, PlantUML supports many other kinds of diagrams, such as mathematic formulas and mindmaps.</p>
+                        <div class="pml-admonition">
+                            <div class="pml-admonition-label">Note</div>
+                            <div class="pml-admonition-content">
+                                <p class="pml-paragraph">To use AsciiMath you need to download some files, as explained in chapter &quot;How is this working?&quot; on <a href="https://plantuml.com/ascii-math" class="pml-link">this page</a>.</p>
+                            </div>
+                        </div>
+                        <p class="pml-paragraph">Here is a fully functioning example of a PML document, to give you a glimpse of what can be achieved:</p>
+                        <div class="pml-caption">File PlantUML_Demo.pml</div>
+                        <pre class="pml-code"><code>[doc [title PlantUML Demo]
+
+    [!ins-file path = config/scripting/PlantUMLUtils.def]
+
+    Euler’s Identity, the most beautiful math equation:
+
+    [!script
+        ~~~
+        insertPlantUMLImage ( &quot;euler_identity&quot;,  `
+        @startmath
+        e^(ipi)+1=0
+        @endmath` );
+        ~~~
+    ]
+
+    Time dilation in Einstein's special relativity:
+
+    [!script
+        ~~~
+        insertPlantUMLImage ( &quot;time_dilation&quot;,  `
+        @startmath
+        t'=t1/sqrt(1-v^2/c^2)
+        @endmath` );
+        ~~~
+    ]
+
+    Brain boosters:
+
+    [!script
+        ~~~
+        insertPlantUMLImage ( &quot;brain_boosters&quot;,  `
+        @startmindmap
+        &lt;style&gt;
+        mindmapDiagram {
+        .level_1 {
+            BackgroundColor orange
+        }
+        .level_2 {
+            BackgroundColor yellow
+        }
+        }
+        &lt;/style&gt;
+        * brain boosters &lt;&lt;level_1&gt;&gt;
+        ** body &lt;&lt;level_2&gt;&gt;
+        *** eat healthy food
+        *** exercise regularly
+        *** sleep well
+        ** mind &lt;&lt;level_2&gt;&gt;
+        *** relax
+        *** socialize
+        *** meditate
+        ** environment &lt;&lt;level_2&gt;&gt;
+        *** clean air
+        *** quiet
+        *** kind people
+        @endmindmap` );
+        ~~~
+    ]
+]
+</code></pre>
+                        <p class="pml-paragraph">If <a href="https://pml-lang.dev/" class="pml-link">PML</a> is installed on your system, you can execute the following command to create a HTML file in directory <code class="pml-inline-code">output</code>:</p>
+                        <pre class="pml-input">pmlc PlantUML_Demo.pml</pre>
+                        <p class="pml-paragraph">Here is the result displayed in a browser:</p>
+                        <figure style="text-align: left">
+                            <img class="pml-image" src="images/PlantUML_Demo.png" width="500" />
+                        </figure>
+                    </section>
+                    <section id="executing_OS_scripts" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Executing OS Scripts</h2>
+                        <p class="pml-paragraph">Besides executing OS <i class="pml-italic">programs</i>, you can also execute OS <i class="pml-italic">scripts</i>, by simply providing the OS's script code. This works on Linux and Windows, but you need of course to provide the correct OS-dependent code.</p>
+                        <p class="pml-paragraph">Here is a simple example of inserting the result of a Windows <code class="pml-inline-code">dir</code> command into a <a href="https://pml-lang.dev/" class="pml-link">PML</a> <code class="pml-inline-code">monospace</code> node:</p>
+                        <pre class="pml-code"><code>[!script
+    ~~~
+    const cmd = `@echo off
+    dir C:\\temp`
+
+    const dirResult = WinCmdUtils.getInstructionsOutput ( cmd, null, null );
+    const escapedText = doc.escapeText ( dirResult )
+    doc.insert ( `[monospace ${escapedText} ]` );
+    ~~~
+]
+</code></pre>
+                        <p class="pml-paragraph">The (truncated) result looks like this:</p>
+                        <pre class="pml-code"><code>Volume in drive C is DriveC
+Volume Serial Number is A504-9999
+
+Directory of C:\temp
+
+19/01/2022  10:32    &lt;DIR&gt;          .
+11/10/2021  13:57                24 example.txt
+08/05/2021  11:13                49 c.txt
+...
+            19 File(s)        220.111 bytes
+            3 Dir(s)  630.814.339.072 bytes free</code></pre>
+                        <p class="pml-paragraph">The above code could also be written as a one-liner (NOT recommended):</p>
+                        <pre class="pml-code"><code>[!script
+    ~~~
+    doc.insert ( `[monospace ${doc.escapeText ( WinCmdUtils.getInstructionsOutput ( &quot;@echo off &amp;&amp; dir C:\\temp&quot;, null, null ) )} ]` );
+    ~~~
+]
+</code></pre>
+                    </section>
+                </article>
+                <aside class="pml-doc-right">
+                </aside>
+            </div>
+            <footer class="pml-doc-footer">
+            </footer>
+        </div>
+
+    </body>
+</html>
