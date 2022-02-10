@@ -24,9 +24,9 @@
                                     <details>
                                         <summary><a href="#utility_nodes">Utility Nodes</a></summary>
                                         <ul>
-                                            <li class="pml-toc-leaf-node"><a href="#set_node">!set</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#get_node">!get</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ins-file_node">!ins-file</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#set_node">u:set</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#get_node">u:get</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#ins-file_node">u:ins-file</a></li>
                                         </ul>
                                     </details>
                                 </li>
@@ -233,7 +233,7 @@
                                     <p class="pml-paragraph"><b class="pml-bold">First Published</b></p>
                                 </td>
                                 <td class="pml-table-body-cell">
-                                    <p class="pml-paragraph">2022-02-08</p>
+                                    <p class="pml-paragraph">2022-02-07</p>
                                 </td>
                             </tr>
                             <tr class="pml-table-row">
@@ -241,7 +241,7 @@
                                     <p class="pml-paragraph"><b class="pml-bold">Latest Update</b></p>
                                 </td>
                                 <td class="pml-table-body-cell">
-                                    <p class="pml-paragraph">2022-02-08</p>
+                                    <p class="pml-paragraph">2022-02-10</p>
                                 </td>
                             </tr>
                             <tr class="pml-table-row">
@@ -280,7 +280,7 @@
                     </div>
                     <section id="ch__1" class="pml-chapter">
                         <h2 class="pml-chapter-title">Introduction</h2>
-                        <p class="pml-paragraph">This manual enumerates and documents elements that are part of <i class="pml-italic"><a href="https://pdml-lang.github.io/docs/extensions/user_manual/index.html#action_nodes" class="pml-link">action nodes</a> in PDML extensions</i>.</p>
+                        <p class="pml-paragraph">This manual enumerates and documents elements that are part of PDML's <a href="https://pdml-lang.github.io/docs/extensions/user_manual/index.html#extension_nodes" class="pml-link">extension nodes</a>.</p>
                         <p class="pml-paragraph">The following elements are documented:</p>
                         <ul class="pml-list">
                             <li class="pml-list-element">
@@ -297,17 +297,18 @@
                     <section id="utility_nodes" class="pml-chapter">
                         <h2 class="pml-chapter-title">Utility Nodes</h2>
                         <p class="pml-paragraph">This chapter describes utility nodes.</p>
+                        <p class="pml-paragraph">Utility nodes are all part of the namespace prefix <code class="pml-inline-code">u</code>.</p>
                         <section id="set_node" class="pml-chapter">
-                            <h3 class="pml-chapter-title"><code class="pml-inline-code">!set</code></h3>
-                            <p class="pml-paragraph">A <code class="pml-inline-code">!set</code> node assigns a value to one or more parameters.</p>
-                            <p class="pml-paragraph">After defining a parameter, its value can be inserted in the document with a <a href="#get_node" class="pml-xref">!get</a> node.</p>
+                            <h3 class="pml-chapter-title"><code class="pml-inline-code">u:set</code></h3>
+                            <p class="pml-paragraph">A <code class="pml-inline-code">u:set</code> node assigns a value to one or more parameters.</p>
+                            <p class="pml-paragraph">After defining a parameter, its value can be inserted in the document with a <a href="#get_node" class="pml-xref">u:get</a> node.</p>
                             <p class="pml-paragraph">The syntax for assigning a value to a parameter is:</p>
                             <pre class="pml-code"><code>name = &quot;value&quot;</code></pre>
                             <p class="pml-paragraph">Hence, the following code assigns the value <code class="pml-inline-code">light green</code> to parameter <code class="pml-inline-code">color</code>:</p>
-                            <pre class="pml-code"><code>[!set color = &quot;light green&quot;]</code></pre>
+                            <pre class="pml-code"><code>[u:set color = &quot;light green&quot;]</code></pre>
                             <p class="pml-paragraph">The syntax rules for parameters are the same as those for <a href="https://pdml-lang.github.io/docs/extensions/user_manual/index.html#attributes" class="pml-link">attributes</a> (quoted/unquoted values, whitespace, character escapes, and lenient parsing):</p>
-                            <p class="pml-paragraph">For example, several parameters can be assigned in a single <code class="pml-inline-code">!set</code> node, whitespace between attributes is ignored, and some values can be unquoted:</p>
-                            <pre class="pml-code"><code>[!set
+                            <p class="pml-paragraph">For example, several parameters can be assigned in a single <code class="pml-inline-code">u:set</code> node, whitespace between attributes is ignored, and some values can be unquoted:</p>
+                            <pre class="pml-code"><code>[u:set
     width=200
     height=100
 ]</code></pre>
@@ -315,23 +316,24 @@
                             <p class="pml-paragraph">After assigning a value to a parameter, its value cannot be changed later in the document. Parameters are like constants in programming languages.</p>
                         </section>
                         <section id="get_node" class="pml-chapter">
-                            <h3 class="pml-chapter-title"><code class="pml-inline-code">!get</code></h3>
-                            <p class="pml-paragraph">A <code class="pml-inline-code">!get</code> node gets a parameter and inserts the parameter's value in the document. The parameter must have been defined with a <a href="#set_node" class="pml-xref">!set</a> node before it can be used in a <code class="pml-inline-code">!get</code> node.</p>
+                            <h3 class="pml-chapter-title"><code class="pml-inline-code">u:get</code></h3>
+                            <p class="pml-paragraph">A <code class="pml-inline-code">u:get</code> node gets a parameter and inserts the parameter's value in the document. The parameter must have been defined with a <a href="#set_node" class="pml-xref">u:set</a> node before it can be used in a <code class="pml-inline-code">u:get</code> node.</p>
                             <p class="pml-paragraph">The name of the parameter to be retrieved is defined by the node's text content. Hence, the following code inserts the value of parameter <code class="pml-inline-code">color</code> into the document:</p>
-                            <pre class="pml-code"><code>[!get color]</code></pre>
+                            <pre class="pml-code"><code>[u:get color]</code></pre>
                         </section>
                         <section id="ins-file_node" class="pml-chapter">
-                            <h3 class="pml-chapter-title"><code class="pml-inline-code">!ins-file</code></h3>
-                            <p class="pml-paragraph">An <code class="pml-inline-code">!ins-file</code> node reads a text file and inserts the text into the PDML document.</p>
+                            <h3 class="pml-chapter-title"><code class="pml-inline-code">u:ins-file</code></h3>
+                            <p class="pml-paragraph">A <code class="pml-inline-code">u:ins-file</code> node reads a text file and inserts the text into the PDML document.</p>
                             <p class="pml-paragraph">The file's path is specified by attribute <code class="pml-inline-code">path</code>.</p>
                             <p class="pml-paragraph">For example, the following code inserts the text stored in file <code class="pml-inline-code">foo.txt</code> into the document:</p>
-                            <pre class="pml-code"><code>[!ins-file path=foo.txt]</code></pre>
-                            <p class="pml-paragraph">The <code class="pml-inline-code">path</code> can be absolute or relative. If it's relative, it is relative to the directory of the PDML file in which <code class="pml-inline-code">!ins-file</code> is used. If <code class="pml-inline-code">!ins-file</code> is not used in a file, then the current working directory is used as root.</p>
+                            <pre class="pml-code"><code>[u:ins-file path=foo.txt]</code></pre>
+                            <p class="pml-paragraph">The <code class="pml-inline-code">path</code> can be absolute or relative. If it's relative, it is relative to the directory of the PDML file in which <code class="pml-inline-code">u:ins-file</code> is used. If <code class="pml-inline-code">u:ins-file</code> is not used in a file, then the current working directory is used as root.</p>
                         </section>
                     </section>
                     <section id="types" class="pml-chapter">
                         <h2 class="pml-chapter-title">Types</h2>
                         <p class="pml-paragraph">This chapter describes type nodes.</p>
+                        <p class="pml-paragraph">Type nodes are all part of the namespace prefix <code class="pml-inline-code">t</code>.</p>
                         <div class="pml-admonition">
                             <div class="pml-admonition-label">Note</div>
                             <div class="pml-admonition-content">
@@ -340,15 +342,15 @@
                         </div>
                         <section id="date" class="pml-chapter">
                             <h3 class="pml-chapter-title"><code class="pml-inline-code">date</code></h3>
-                            <p class="pml-paragraph">A <code class="pml-inline-code">!date</code> type denotes a node that contains text representing a date in the <a href="https://www.iso.org/iso-8601-date-and-time-format.html" class="pml-link">ISO 8601</a> format.</p>
+                            <p class="pml-paragraph">A <code class="pml-inline-code">t:date</code> type denotes a node that contains text representing a date in the <a href="https://www.iso.org/iso-8601-date-and-time-format.html" class="pml-link">ISO 8601</a> format.</p>
                             <p class="pml-paragraph">The format of the date must be: <code class="pml-inline-code">YYYY-MM-DD</code>. Example: <code class="pml-inline-code">1999-12-31</code>.</p>
                         </section>
                         <section id="string" class="pml-chapter">
                             <h3 class="pml-chapter-title"><code class="pml-inline-code">string</code></h3>
-                            <p class="pml-paragraph">A <code class="pml-inline-code">!string</code> type denotes a node that can only contain text.</p>
+                            <p class="pml-paragraph">A <code class="pml-inline-code">t:string</code> type denotes a node that can only contain text.</p>
                             <p class="pml-paragraph">Text within the node must be escaped, as in a standard node.</p>
                             <p class="pml-paragraph">For example, this code:</p>
-                            <pre class="pml-code"><code>[!string line \[1\]
+                            <pre class="pml-code"><code>[t:string line \[1\]
     line 2
 line 3
 ]</code></pre>
@@ -360,13 +362,13 @@ line 3</code></pre>
                         </section>
                         <section id="raw-text" class="pml-chapter">
                             <h3 class="pml-chapter-title"><code class="pml-inline-code">raw-text</code></h3>
-                            <p class="pml-paragraph">A <code class="pml-inline-code">!raw-text</code> type denotes a block of raw text.</p>
+                            <p class="pml-paragraph">A <code class="pml-inline-code">t:raw-text</code> type denotes a block of raw text.</p>
                             <p class="pml-paragraph">In this context, the term <i class="pml-italic">raw</i> means that the text is not interpreted by the parser. For example, the text <code class="pml-inline-code">[foo]</code> is not parsed as an empty node with name <code class="pml-inline-code">foo</code>. It is pared as the text <code class="pml-inline-code">&quot;[foo]&quot;</code>.</p>
                             <p class="pml-paragraph">There are three syntax variations supported, as shown in the following chapters:</p>
                             <section id="ch__2" class="pml-chapter">
                                 <h4 class="pml-chapter-title">Delimited Text Syntax</h4>
                                 <p class="pml-paragraph">Example:</p>
-                                <pre class="pml-code"><code>[!raw-text
+                                <pre class="pml-code"><code>[t:raw-text
     ~~~
     first text line
     ...
@@ -404,7 +406,7 @@ line 3</code></pre>
                                     </li>
                                 </ul>
                                 <p class="pml-paragraph">Hence, the following node:</p>
-                                <pre class="pml-code"><code>    [!raw-text
+                                <pre class="pml-code"><code>    [t:raw-text
         ~~~
         if ( list[index] == 0 ) {
             write_line ( &quot;The value is zero.&quot; )
@@ -419,7 +421,7 @@ line 3</code></pre>
                             <section id="ch__3" class="pml-chapter">
                                 <h4 class="pml-chapter-title">Block Text Syntax</h4>
                                 <p class="pml-paragraph">Example:</p>
-                                <pre class="pml-code"><code>[!raw-text
+                                <pre class="pml-code"><code>[t:raw-text
     first text line
     ...
     last text line
@@ -427,7 +429,7 @@ raw-text]</code></pre>
                                 <p class="pml-paragraph">When this syntax variation is used, the node is closed by repeating the node's name on a separate line, immediately followed by the node end symbol <code class="pml-inline-code">]</code>.</p>
                                 <p class="pml-paragraph">The text must be written between the node opening and the node closing lines.</p>
                                 <p class="pml-paragraph">The indent of the text line with the smallest indent is removed in all text lines. Hence, this code:</p>
-                                <pre class="pml-code"><code>    [!raw-text
+                                <pre class="pml-code"><code>    [t:raw-text
             line 1
         line 2
                 line 3
@@ -441,13 +443,13 @@ line 2
                             <section id="ch__4" class="pml-chapter">
                                 <h4 class="pml-chapter-title">Standard Text Syntax</h4>
                                 <p class="pml-paragraph">Example:</p>
-                                <pre class="pml-code"><code>[!raw-text first text line
+                                <pre class="pml-code"><code>[t:raw-text first text line
 ...
 last text line]</code></pre>
                                 <p class="pml-paragraph">When this syntax variation is used, the text must start on the same line as the node, just after the node's name.</p>
                                 <p class="pml-paragraph">The node is handled like a standard text node, not as raw text. All indent is preserved. Text must be escaped, as in a normal text node.</p>
                                 <p class="pml-paragraph">Hence, this code:</p>
-                                <pre class="pml-code"><code>[!raw-text line \[1\]
+                                <pre class="pml-code"><code>[t:raw-text line \[1\]
     line 2
         line 3
 ]</code></pre>
@@ -457,8 +459,8 @@ last text line]</code></pre>
         line 3
         </code></pre>
                                 <p class="pml-paragraph">This syntax variation is sometimes useful when PDML markup code needs to be parsed in a raw text node. Example:</p>
-                                <pre class="pml-code"><code>[!raw-text first line
-[!ins-file path=foo.txt]
+                                <pre class="pml-code"><code>[t:raw-text first line
+[u:ins-file path=foo.txt]
 last line
 ]</code></pre>
                             </section>
