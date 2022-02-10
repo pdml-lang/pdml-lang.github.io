@@ -163,7 +163,7 @@
                         </section>
                         <section id="ch__4" class="pml-chapter">
                             <h3 class="pml-chapter-title">User-Defined Library</h3>
-                            <p class="pml-paragraph">If we have several <code class="pml-inline-code">price</code> nodes in our document, it quickly becomes cumbersome and error-prone to write the above code. We can therefore <i class="pml-italic">define a function</i> in a <code class="pml-inline-code">s:def</code> node:</p>
+                            <p class="pml-paragraph">If we have several <code class="pml-inline-code">price</code> nodes in our document, it quickly becomes cumbersome and error-prone to write the above code. We can therefore <i class="pml-italic">define a function</i> in an <code class="pml-inline-code">s:def</code> node:</p>
                             <pre class="pml-code"><code>[s:def
     ~~~
     function roundPrice ( price ) {
@@ -194,7 +194,7 @@
     ~~~
 ]
 </code></pre>
-                            <p class="pml-paragraph">Then we can import the library at the beginning of the document with an <code class="pml-inline-code">u:ins-file</code> node (using a relative file path), and use the function as before:</p>
+                            <p class="pml-paragraph">Then we can import the library at the beginning of the document with a <code class="pml-inline-code">u:ins-file</code> node (using a relative file path), and use the function as before:</p>
                             <pre class="pml-code"><code>[u:ins-file path=resources/libraries/myPriceLibrary.def]
 
 [price [s:exp roundPrice ( 2.7183 * (981 + 3.1416) )]]
