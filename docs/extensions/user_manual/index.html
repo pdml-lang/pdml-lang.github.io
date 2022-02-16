@@ -245,8 +245,8 @@
                         <section id="ch__14" class="pml-chapter">
                             <h3 class="pml-chapter-title">Preliminary Example</h3>
                             <p class="pml-paragraph">To get the gist of extension nodes, let's have a look at the following example of an extension node:</p>
-                            <pre class="pml-code"><code>[u:ins-file path=chapter.txt]</code></pre>
-                            <p class="pml-paragraph">This node looks like a normal data node with name <code class="pml-inline-code">ins-file</code>, namespace <code class="pml-inline-code">u</code>, and an attribute <code class="pml-inline-code">path</code> with value <code class="pml-inline-code">chapter.txt</code>. However, the difference between a normal <i class="pml-italic">data</i> node and an <i class="pml-italic">extension</i> node is that an extension node represents an <i class="pml-italic">instruction to do something</i>.</p>
+                            <pre class="pml-code"><code>[u:ins_file path=chapter.txt]</code></pre>
+                            <p class="pml-paragraph">This node looks like a normal data node with name <code class="pml-inline-code">ins_file</code>, namespace <code class="pml-inline-code">u</code>, and an attribute <code class="pml-inline-code">path</code> with value <code class="pml-inline-code">chapter.txt</code>. However, the difference between a normal <i class="pml-italic">data</i> node and an <i class="pml-italic">extension</i> node is that an extension node represents an <i class="pml-italic">instruction to do something</i>.</p>
                             <p class="pml-paragraph">In the above example, PDML is instructed to insert the content of file <code class="pml-inline-code">chapter.txt</code> into the PDML document.</p>
                         </section>
                         <section id="ch__15" class="pml-chapter">
@@ -292,7 +292,7 @@
                                     <p class="pml-paragraph">A <code class="pml-inline-code">u:set</code> node assigns a text to a named parameter, and subsequent <code class="pml-inline-code">u:get</code> nodes can be used to insert the same text multiple times into the PDML document. This supports the important <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" class="pml-link">Don't repeat yourself (DRY)</a> principle.</p>
                                 </li>
                                 <li class="pml-list-element">
-                                    <p class="pml-paragraph">A <code class="pml-inline-code">u:ins-file</code> node reads a text file and inserts the text into the PDML document.</p>
+                                    <p class="pml-paragraph">A <code class="pml-inline-code">u:ins_file</code> node reads a text file and inserts the text into the PDML document.</p>
                                 </li>
                             </ul>
                             <p class="pml-paragraph">The full list of utility nodes is documented in chapter <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#utility_nodes" class="pml-link">Utility Nodes</a> of the reference manual.</p>
@@ -515,7 +515,7 @@ It's [i area] is 314.15926 cm[sup 2].</code></pre>
                                         <p class="pml-paragraph">It's <i class="pml-italic">area</i> is 314.15926 cm<sup class="pml-superscript">2</sup>.</p>
                                     </div>
                                     <p class="pml-paragraph">Instead of embedding definition nodes in a document (as shown above) you can also import definition nodes from external resources. This is useful if you need the same set of functions in different documents, or if you want to share them with other users, for example via Github or Gitlab.</p>
-                                    <p class="pml-paragraph">Definitions can be imported with an <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#ins-file_node" class="pml-link">u:ins-file</a> node, or any other method that inserts text into a document.</p>
+                                    <p class="pml-paragraph">Definitions can be imported with an <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#ins_file_node" class="pml-link">u:ins_file</a> node, or any other method that inserts text into a document.</p>
                                     <p class="pml-paragraph">For example, you can store the above definition node in file <code class="pml-inline-code">circle_library.def</code> (the file name and extension can be chosen freely). The file looks like this:</p>
                                     <div class="pml-caption">File circle_library.def</div>
                                     <pre class="pml-code"><code>[s:def
@@ -532,11 +532,11 @@ It's [i area] is 314.15926 cm[sup 2].</code></pre>
     ~~~
 ]
 </code></pre>
-                                    <p class="pml-paragraph">Here is an example of a fully functioning <a href="https://www.pml-lang.dev/" class="pml-link">PML</a> file that uses a <code class="pml-inline-code">u:ins-file</code> node to import the definitions:</p>
+                                    <p class="pml-paragraph">Here is an example of a fully functioning <a href="https://www.pml-lang.dev/" class="pml-link">PML</a> file that uses a <code class="pml-inline-code">u:ins_file</code> node to import the definitions:</p>
                                     <div class="pml-caption">File circle_demo.pml</div>
                                     <pre class="pml-code"><code>[doc [title Circle Demo]
 
-    [u:ins-file path=circle_library.def]
+    [u:ins_file path=circle_library.def]
 
     Suppose a circle of radius 10 cm.
     
@@ -555,7 +555,7 @@ It's [i area] is 314.15926 cm[sup 2].</code></pre>
                             </section>
                             <section id="script_nodes_syntax" class="pml-chapter">
                                 <h4 class="pml-chapter-title">Syntax</h4>
-                                <p class="pml-paragraph">All script nodes (<code class="pml-inline-code">s:exp</code>, <code class="pml-inline-code">s:script</code>, and <code class="pml-inline-code">s:def</code>) are of type <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#raw-text" class="pml-link">raw-text</a>. This means that an expression node with content <code class="pml-inline-code">list[1]</code> could be written in three ways:</p>
+                                <p class="pml-paragraph">All script nodes (<code class="pml-inline-code">s:exp</code>, <code class="pml-inline-code">s:script</code>, and <code class="pml-inline-code">s:def</code>) are of type <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#raw_text" class="pml-link">raw_text</a>. This means that an expression node with content <code class="pml-inline-code">list[1]</code> could be written in three ways:</p>
                                 <ul class="pml-list">
                                     <li class="pml-list-element">
                                         <pre class="pml-code"><code>[s:exp list\[1\]]</code></pre>
@@ -574,7 +574,7 @@ exp]</code></pre>
                                     </li>
                                 </ul>
                                 <p class="pml-paragraph">Note that the <code class="pml-inline-code">[</code> and <code class="pml-inline-code">]</code> characters must be escaped in the first version, but not in the other two.</p>
-                                <p class="pml-paragraph">For more information about the syntax rules, please refer to <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#raw-text" class="pml-link">raw-text</a></p>
+                                <p class="pml-paragraph">For more information about the syntax rules, please refer to <a href="https://pdml-lang.github.io/docs/extensions/reference_manual/index.html#raw_text" class="pml-link">raw_text</a></p>
                             </section>
                             <section id="javascript_support" class="pml-chapter">
                                 <h4 class="pml-chapter-title">Javascript Support</h4>

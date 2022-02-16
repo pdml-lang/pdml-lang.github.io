@@ -194,8 +194,8 @@
     ~~~
 ]
 </code></pre>
-                            <p class="pml-paragraph">Then we can import the library at the beginning of the document with a <code class="pml-inline-code">u:ins-file</code> node (using a relative file path), and use the function as before:</p>
-                            <pre class="pml-code"><code>[u:ins-file path=resources/libraries/myPriceLibrary.def]
+                            <p class="pml-paragraph">Then we can import the library at the beginning of the document with a <code class="pml-inline-code">u:ins_file</code> node (using a relative file path), and use the function as before:</p>
+                            <pre class="pml-code"><code>[u:ins_file path=resources/libraries/myPriceLibrary.def]
 
 [price [s:exp roundPrice ( 2.7183 * (981 + 3.1416) )]]
 ...
@@ -435,7 +435,7 @@ table_data]</code></pre>
 </code></pre>
                         <p class="pml-paragraph">We're not going to delve into the details of this code. It should be self-explanatory for Javascript programmers.</p>
                         <p class="pml-paragraph">The above table can now be inserted in a PML document with the following code:</p>
-                        <pre class="pml-code"><code>[u:ins-file path=interestUtils.def]
+                        <pre class="pml-code"><code>[u:ins_file path=interestUtils.def]
 
 [s:exp interestTable ( 100, 1.5, 5 )]</code></pre>
                         <p class="pml-paragraph">If we want to insert more tables with different parameters, we just need to insert more <code class="pml-inline-code">s:exp</code> nodes. For example, the following code will generate an additional table for an initial amount of 10,000, an interest rate of 0.9%, and a period of 20 years:</p>
@@ -644,8 +644,8 @@ Bob -&gt; Alice: Hi
 ]
 </code></pre>
                         <p class="pml-paragraph">Because this function might be useful in other documents, we can store it in a separate file named <code class="pml-inline-code">PlantUMLUtils.def</code>.</p>
-                        <p class="pml-paragraph">Then we can import the function with an <code class="pml-inline-code">u:ins-file</code> node and use it as follows:</p>
-                        <pre class="pml-code"><code>[u:ins-file path = config/scripting/PlantUMLUtils.def]
+                        <p class="pml-paragraph">Then we can import the function with an <code class="pml-inline-code">u:ins_file</code> node and use it as follows:</p>
+                        <pre class="pml-code"><code>[u:ins_file path = config/scripting/PlantUMLUtils.def]
 
 [s:script insertPlantUMLImage ( &quot;alice_bob_2&quot;, `@startuml
     Alice -&gt; Bob: Hello
@@ -662,7 +662,7 @@ Bob -&gt; Alice: Hi
                         <div class="pml-caption">File PlantUML_Demo.pml</div>
                         <pre class="pml-code"><code>[doc [title PlantUML Demo]
 
-    [u:ins-file path = config/scripting/PlantUMLUtils.def]
+    [u:ins_file path = config/scripting/PlantUMLUtils.def]
 
     Euler’s Identity, the most beautiful math equation:
 
