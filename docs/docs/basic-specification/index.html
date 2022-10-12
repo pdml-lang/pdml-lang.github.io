@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="generator" content="PML 2.2.0 (www.pml-lang.dev)" />
+        <meta name="generator" content="PML 3.1.0 (www.pml-lang.dev)" />
         <title>Basic PDML Specification</title>
         <link rel="stylesheet" href="css/pml-default.css">
         <link rel="stylesheet" href="css/pml-print-default.css" media="print">
@@ -46,55 +46,72 @@
                         </div>
                     </nav>
                 </aside>
-                <article class="pml-doc-text">
+                <article id="doc__" class="pml-doc-text" id="doc__">
                     <h1 class="pml-doc-title">Basic PDML Specification</h1>
                     <table class="pml-table">
-                        <tr class="pml-table-row">
+                        <tr class="pml-table-body-row">
                             <td class="pml-table-body-cell">
                                 <p class="pml-paragraph"><b class="pml-bold">Version</b></p>
+
                             </td>
                             <td class="pml-table-body-cell">
                                 <p class="pml-paragraph">1.0.1</p>
+
                             </td>
+
                         </tr>
-                        <tr class="pml-table-row">
+                        <tr class="pml-table-body-row">
                             <td class="pml-table-body-cell">
                                 <p class="pml-paragraph"><b class="pml-bold">Published</b></p>
+
                             </td>
                             <td class="pml-table-body-cell">
                                 <p class="pml-paragraph">2021-12-03</p>
+
                             </td>
+
                         </tr>
-                        <tr class="pml-table-row">
+                        <tr class="pml-table-body-row">
                             <td class="pml-table-body-cell">
                                 <p class="pml-paragraph"><b class="pml-bold">License</b></p>
+
                             </td>
                             <td class="pml-table-body-cell">
-                                <p class="pml-paragraph"><a href="https://creativecommons.org/licenses/by-nd/4.0//" class="pml-link">CC BY-ND 4.0</a></p>
+                                <p class="pml-paragraph"><a class="pml-link" href="https://creativecommons.org/licenses/by-nd/4.0//">CC BY-ND 4.0</a></p>
+
                             </td>
+
                         </tr>
-                        <tr class="pml-table-row">
+                        <tr class="pml-table-body-row">
                             <td class="pml-table-body-cell">
                                 <p class="pml-paragraph"><b class="pml-bold">Website</b></p>
+
                             </td>
                             <td class="pml-table-body-cell">
-                                <p class="pml-paragraph"><a href="https://pdml-lang.github.io/" class="pml-link">https://pdml-lang.github.io/</a></p>
+                                <p class="pml-paragraph"><a class="pml-link" href="https://pdml-lang.dev/">https://pdml-lang.dev/</a></p>
+
                             </td>
+
                         </tr>
-                        <tr class="pml-table-row">
+                        <tr class="pml-table-body-row">
                             <td class="pml-table-body-cell">
                                 <p class="pml-paragraph"><b class="pml-bold">Author</b></p>
+
                             </td>
                             <td class="pml-table-body-cell">
                                 <p class="pml-paragraph">Christian Neumanns</p>
+
                             </td>
+
                         </tr>
+
                     </table>
                     <section id="ch__1" class="pml-chapter">
                         <h2 class="pml-chapter-title">Introduction</h2>
                         <p class="pml-paragraph">The <i class="pml-italic">Practical Data and Markup Language</i> (PDML) is a text format to store data.</p>
                         <p class="pml-paragraph">A distinction is made between <i class="pml-italic">Basic PDML</i> and <i class="pml-italic">PDML Extensions</i>. <i class="pml-italic">Basic PDML</i> is the minimum needed to store data. Extensions are optional features to make PDML more practical.</p>
-                        <p class="pml-paragraph">This document is the official specification for <i class="pml-italic">Basic PDML</i>.</p>
+                        <p class="pml-paragraph">This document is the official specification for <i class="pml-italic">Basic PDML</i>. </p>
+
                     </section>
                     <section id="structure" class="pml-chapter">
                         <h2 class="pml-chapter-title">Document Structure</h2>
@@ -105,6 +122,7 @@
                             <h3 class="pml-chapter-title">Node</h3>
                             <p class="pml-paragraph">A <i class="pml-italic">node</i> is enclosed by a pair of square brackets: <code class="pml-inline-code">[...]</code>. A node starts with <code class="pml-inline-code">[</code> and ends with <code class="pml-inline-code">]</code>.</p>
                             <p class="pml-paragraph">Each document has exactly one root node.</p>
+
                         </section>
                         <section id="node_name" class="pml-chapter">
                             <h3 class="pml-chapter-title">Name</h3>
@@ -115,6 +133,7 @@
 Index_12
 _ID_12.5-a</code></pre>
                             <p class="pml-paragraph">A node name does not need to be unique. Different nodes in a tree can have the same name.</p>
+
                         </section>
                         <section id="node_separator" class="pml-chapter">
                             <h3 class="pml-chapter-title">Separator</h3>
@@ -122,13 +141,18 @@ _ID_12.5-a</code></pre>
                             <p class="pml-paragraph">The separator is a single whitespace character. The following whitespace characters are allowed:</p>
                             <table class="pml-table">
                                 <thead class="pml-table-header">
-                                    <tr><th class="pml-table-header-cell">Name</th><th class="pml-table-header-cell">C-style syntax</th><th class="pml-table-header-cell">Unicode</th></tr>
+                                    <tr class="pml-table-header-row">
+<th class="pml-table-header-cell">Name</th><th class="pml-table-header-cell">C-style syntax</th><th class="pml-table-header-cell">Unicode</th></tr>
                                 </thead>
                                 <tbody class="pml-table-body">
-                                    <tr><td class="pml-table-body-cell">Space</td><td class="pml-table-body-cell">&quot; &quot;</td><td class="pml-table-body-cell">U+0020</td></tr>
-                                    <tr><td class="pml-table-body-cell">Tab</td><td class="pml-table-body-cell">&quot;\t&quot;</td><td class="pml-table-body-cell">U+0009</td></tr>
-                                    <tr><td class="pml-table-body-cell">Unix new line</td><td class="pml-table-body-cell">&quot;\n&quot;</td><td class="pml-table-body-cell">U+000A</td></tr>
-                                    <tr><td class="pml-table-body-cell">Windows new line</td><td class="pml-table-body-cell">&quot;\r\n&quot;</td><td class="pml-table-body-cell">U+000D U+000A</td></tr>
+                                    <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">Space</td><td class="pml-table-body-cell">&quot; &quot;</td><td class="pml-table-body-cell">U+0020</td></tr>
+                                    <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">Tab</td><td class="pml-table-body-cell">&quot;\t&quot;</td><td class="pml-table-body-cell">U+0009</td></tr>
+                                    <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">Unix new line</td><td class="pml-table-body-cell">&quot;\n&quot;</td><td class="pml-table-body-cell">U+000A</td></tr>
+                                    <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">Windows new line</td><td class="pml-table-body-cell">&quot;\r\n&quot;</td><td class="pml-table-body-cell">U+000D U+000A</td></tr>
                                 </tbody>
                             </table>
                             <p class="pml-paragraph">The separator is required if the first child node is text. Example:</p>
@@ -137,6 +161,7 @@ _ID_12.5-a</code></pre>
                             <pre class="pml-code"><code>[b [i huge]]</code></pre>
                             <p class="pml-paragraph">... can also be written as:</p>
                             <pre class="pml-code"><code>[b[i huge]]</code></pre>
+
                         </section>
                         <section id="child_node" class="pml-chapter">
                             <h3 class="pml-chapter-title">Child Node</h3>
@@ -148,11 +173,13 @@ _ID_12.5-a</code></pre>
                                     <p class="pml-paragraph">Node with one text child:</p>
                                     <pre class="pml-code"><code>[color light green]</code></pre>
                                     <p class="pml-paragraph">The node's name is <code class="pml-inline-code">color</code>. The node's single child node is the text <code class="pml-inline-code">light green</code>.</p>
+
                                 </li>
                                 <li class="pml-list-element">
                                     <p class="pml-paragraph">Node with child node:</p>
                                     <pre class="pml-code"><code>[config [color light green]]</code></pre>
                                     <p class="pml-paragraph">The node <code class="pml-inline-code">config</code> has one child node. The child node's name is <code class="pml-inline-code">color</code>, its text is <code class="pml-inline-code">light green</code>.</p>
+
                                 </li>
                                 <li class="pml-list-element">
                                     <p class="pml-paragraph">Tree of nodes:</p>
@@ -163,19 +190,25 @@ _ID_12.5-a</code></pre>
         [height 100]
     ]
 ]</code></pre>
+
                                 </li>
                                 <li class="pml-list-element">
                                     <p class="pml-paragraph">Node containing a mixture of text and nodes (markup code):</p>
                                     <pre class="pml-code"><code>[p We can write words in [i italic], [b bold], or [b[i bold and italic]].]</code></pre>
+
                                 </li>
+
                             </ul>
+
                         </section>
                         <section id="empty_node" class="pml-chapter">
                             <h3 class="pml-chapter-title">Empty Node</h3>
                             <p class="pml-paragraph">If a node has no child nodes, it is called an <i class="pml-italic">empty node</i>.</p>
                             <p class="pml-paragraph">Example:</p>
                             <pre class="pml-code"><code>[new_line]</code></pre>
+
                         </section>
+
                     </section>
                     <section id="escape_rules" class="pml-chapter">
                         <h2 class="pml-chapter-title">Escape Characters</h2>
@@ -184,31 +217,41 @@ _ID_12.5-a</code></pre>
                         <p class="pml-paragraph">The final rule is simple: Characters <code class="pml-inline-code">[</code>, <code class="pml-inline-code">]</code>, and <code class="pml-inline-code">\</code> must be preceded by <code class="pml-inline-code">\</code> when they are used in text nodes, as shown in the following table:</p>
                         <table class="pml-table">
                             <thead class="pml-table-header">
-                                <tr><th class="pml-table-header-cell">Character</th><th class="pml-table-header-cell">Escape sequence</th></tr>
+                                <tr class="pml-table-header-row">
+<th class="pml-table-header-cell">Character</th><th class="pml-table-header-cell">Escape sequence</th></tr>
                             </thead>
                             <tbody class="pml-table-body">
-                                <tr><td class="pml-table-body-cell">[</td><td class="pml-table-body-cell">\[</td></tr>
-                                <tr><td class="pml-table-body-cell">]</td><td class="pml-table-body-cell">\]</td></tr>
-                                <tr><td class="pml-table-body-cell">\</td><td class="pml-table-body-cell">\\</td></tr>
+                                <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">[</td><td class="pml-table-body-cell">\[</td></tr>
+                                <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">]</td><td class="pml-table-body-cell">\]</td></tr>
+                                <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">\</td><td class="pml-table-body-cell">\\</td></tr>
                             </tbody>
                         </table>
                         <p class="pml-paragraph">Example:</p>
                         <p class="pml-paragraph">Suppose node <code class="pml-inline-code">foo</code> contains the text: <code class="pml-inline-code">Characters [, ], and \ must be escaped.</code></p>
                         <p class="pml-paragraph">This would be written as:</p>
                         <pre class="pml-code"><code>[foo Characters \[, \], and \\ must be escaped.]</code></pre>
+
                     </section>
                     <section id="whitespace" class="pml-chapter">
                         <h2 class="pml-chapter-title">Whitespace</h2>
                         <p class="pml-paragraph">The following whitespace characters before of after the root node are ignored:</p>
                         <table class="pml-table">
                             <thead class="pml-table-header">
-                                <tr><th class="pml-table-header-cell">Name</th><th class="pml-table-header-cell">C-style syntax</th><th class="pml-table-header-cell">Unicode</th></tr>
+                                <tr class="pml-table-header-row">
+<th class="pml-table-header-cell">Name</th><th class="pml-table-header-cell">C-style syntax</th><th class="pml-table-header-cell">Unicode</th></tr>
                             </thead>
                             <tbody class="pml-table-body">
-                                <tr><td class="pml-table-body-cell">Space</td><td class="pml-table-body-cell">' '</td><td class="pml-table-body-cell">U+0020</td></tr>
-                                <tr><td class="pml-table-body-cell">Tab</td><td class="pml-table-body-cell">'\t'</td><td class="pml-table-body-cell">U+0009</td></tr>
-                                <tr><td class="pml-table-body-cell">Carriage return</td><td class="pml-table-body-cell">'\r'</td><td class="pml-table-body-cell">U+000D</td></tr>
-                                <tr><td class="pml-table-body-cell">Line feed</td><td class="pml-table-body-cell">'\n'</td><td class="pml-table-body-cell">U+000A</td></tr>
+                                <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">Space</td><td class="pml-table-body-cell">' '</td><td class="pml-table-body-cell">U+0020</td></tr>
+                                <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">Tab</td><td class="pml-table-body-cell">'\t'</td><td class="pml-table-body-cell">U+0009</td></tr>
+                                <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">Carriage return</td><td class="pml-table-body-cell">'\r'</td><td class="pml-table-body-cell">U+000D</td></tr>
+                                <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">Line feed</td><td class="pml-table-body-cell">'\n'</td><td class="pml-table-body-cell">U+000A</td></tr>
                             </tbody>
                         </table>
                         <p class="pml-paragraph">Other characters before or after the root node are illegal.</p>
@@ -221,38 +264,51 @@ _ID_12.5-a</code></pre>
                         <ul class="pml-list">
                             <li class="pml-list-element">
                                 <p class="pml-paragraph">text <code class="pml-inline-code">{space}foo{space}{space}{space}</code></p>
+
                             </li>
                             <li class="pml-list-element">
                                 <p class="pml-paragraph">empty node <code class="pml-inline-code">b</code></p>
+
                             </li>
                             <li class="pml-list-element">
                                 <p class="pml-paragraph">text <code class="pml-inline-code">{new line}{space}{space}{space}{space}2{space}</code></p>
+
                             </li>
                             <li class="pml-list-element">
                                 <p class="pml-paragraph">empty node <code class="pml-inline-code">c</code></p>
+
                             </li>
                             <li class="pml-list-element">
                                 <p class="pml-paragraph">text <code class="pml-inline-code">{space}</code></p>
+
                             </li>
                             <li class="pml-list-element">
                                 <p class="pml-paragraph">empty node <code class="pml-inline-code">d</code></p>
+
                             </li>
                             <li class="pml-list-element">
                                 <p class="pml-paragraph">text <code class="pml-inline-code">{new line}</code></p>
+
                             </li>
+
                         </ul>
                         <p class="pml-paragraph">Applications reading PDML documents (or customized PDML parsers) are free to implement any appropriate whitespace handling rules, such as:</p>
                         <ul class="pml-list">
                             <li class="pml-list-element">
                                 <p class="pml-paragraph">skip whitespace nodes</p>
+
                             </li>
                             <li class="pml-list-element">
                                 <p class="pml-paragraph">trim leading and/or trailing whitespace in text nodes</p>
+
                             </li>
                             <li class="pml-list-element">
                                 <p class="pml-paragraph">replace whitespace sequences with a single space (similar to HTML)</p>
+
                             </li>
+
                         </ul>
+
                     </section>
                     <section id="new_lines" class="pml-chapter">
                         <h2 class="pml-chapter-title">New Lines</h2>
@@ -263,28 +319,36 @@ _ID_12.5-a</code></pre>
                                 <div class="pml-header">Reading Rule</div>
                                 <p class="pml-paragraph">When a PDML document is <i class="pml-italic">read</i>, Unix and Windows new lines are both supported, whether the application runs on Unix or Windows, even if a single document uses a mixture of Unix/Windows new lines.</p>
                                 <p class="pml-paragraph">For example, a parser reads <code class="pml-inline-code">&quot;\n&quot;</code> and <code class="pml-inline-code">&quot;\r\n&quot;</code> as a single new line.</p>
+
                             </li>
                             <li class="pml-list-element">
                                 <div class="pml-header">Writing Rule</div>
                                 <p class="pml-paragraph">When a PDML document is <i class="pml-italic">written</i>, the operating system's canonical new line is used.</p>
                                 <p class="pml-paragraph">For example, a writer running on Unix writes <code class="pml-inline-code">&quot;\n&quot;</code>. On Windows it writes <code class="pml-inline-code">&quot;\r\n&quot;</code>.</p>
+
                             </li>
+
                         </ul>
+
                     </section>
                     <section id="encoding" class="pml-chapter">
                         <h2 class="pml-chapter-title">Encoding</h2>
-                        <p class="pml-paragraph">PDML documents are encoded in UTF-8.</p>
+                        <p class="pml-paragraph">PDML documents are encoded in UTF-8. </p>
+
                     </section>
                     <section id="grammar" class="pml-chapter">
                         <h2 class="pml-chapter-title">Grammar</h2>
                         <p class="pml-paragraph">The grammar is defined in separate documents, in two variations:</p>
                         <ul class="pml-list">
                             <li class="pml-list-element">
-                                <p class="pml-paragraph"><a href="https://pdml-lang.github.io/docs/ebnf/index.html" class="pml-link">Extended Backus–Naur form (EBNF)</a></p>
+                                <p class="pml-paragraph"><a class="pml-link" href="https://pdml-lang.dev/docs/ebnf/index.html">Extended Backus–Naur form (EBNF)</a></p>
+
                             </li>
                             <li class="pml-list-element">
-                                <p class="pml-paragraph"><a href="https://pdml-lang.github.io/docs/railroad/index.html" class="pml-link">railroad diagrams</a></p>
+                                <p class="pml-paragraph"><a class="pml-link" href="https://pdml-lang.dev/docs/railroad/index.html">railroad diagrams</a></p>
+
                             </li>
+
                         </ul>
                         <div class="pml-admonition">
                             <div class="pml-admonition-label">Note</div>
@@ -293,29 +357,35 @@ _ID_12.5-a</code></pre>
                                 <p class="pml-paragraph">The EBNF grammar and the railroad diagrams are just auxiliary assets to help readers better contextualize the specification.</p>
                             </div>
                         </div>
+
                     </section>
                     <section id="examples" class="pml-chapter">
                         <h2 class="pml-chapter-title">Examples</h2>
-                        <p class="pml-paragraph">More examples of PDML code can be found in <a href="https://pdml-lang.github.io/docs/examples/index.html" class="pml-link">PDML Examples</a>.</p>
+                        <p class="pml-paragraph">More examples of PDML code can be found in <a class="pml-link" href="https://pdml-lang.dev/docs/examples/index.html">PDML Examples</a>. </p>
+
                     </section>
                     <section id="license" class="pml-chapter">
                         <h2 class="pml-chapter-title">License</h2>
-                        <p class="pml-paragraph">This specification is licensed under <a href="https://creativecommons.org/licenses/by-nd/4.0//" class="pml-link">CC BY-ND 4.0</a>.</p>
-                        <p class="pml-paragraph">Permission is granted to create verbatim translations of this specification into other human languages.</p>
+                        <p class="pml-paragraph">This specification is licensed under <a class="pml-link" href="https://creativecommons.org/licenses/by-nd/4.0//">CC BY-ND 4.0</a>.</p>
+                        <p class="pml-paragraph">Permission is granted to create verbatim translations of this specification into other human languages. </p>
+
                     </section>
                     <section id="versioning" class="pml-chapter">
                         <h2 class="pml-chapter-title">Versioning</h2>
-                        <p class="pml-paragraph">This specification uses <a href="https://semver.org/" class="pml-link">Semantic Versioning</a>.</p>
+                        <p class="pml-paragraph">This specification uses <a class="pml-link" href="https://semver.org/">Semantic Versioning</a>.</p>
+
                     </section>
                     <section id="website" class="pml-chapter">
                         <h2 class="pml-chapter-title">Website</h2>
-                        <p class="pml-paragraph">PDML's website is <a href="https://pdml-lang.github.io/" class="pml-link">https://pdml-lang.github.io/</a>.</p>
+                        <p class="pml-paragraph">PDML's website is <a class="pml-link" href="https://pdml-lang.dev/">https://pdml-lang.dev/</a>. </p>
+
                     </section>
                     <section id="source_code" class="pml-chapter">
                         <h2 class="pml-chapter-title">Markup Code</h2>
-                        <p class="pml-paragraph">This document is written in <a href="https://www.pml-lang.dev/" class="pml-link">PML</a> and uses the PDML syntax.</p>
-                        <p class="pml-paragraph">The markup code is available on <a href="https://github.com/pdml-lang/basic-specification/" class="pml-link">Github</a>.</p>
-                        <p class="pml-paragraph">Pull requests are welcome.</p>
+                        <p class="pml-paragraph">This document is written in <a class="pml-link" href="https://www.pml-lang.dev/">PML</a> and uses the PDML syntax.</p>
+                        <p class="pml-paragraph">The markup code is available on <a class="pml-link" href="https://github.com/pdml-lang/basic-specification/">Github</a>.</p>
+                        <p class="pml-paragraph">Pull requests are welcome. </p>
+
                     </section>
                 </article>
                 <aside class="pml-doc-right">

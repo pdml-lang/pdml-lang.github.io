@@ -1,5 +1,5 @@
 /*
-    PML version: 2.3.0
+    PML version: 3.0.0
     
     This is the default CSS style used for HTML files created with PML.
     
@@ -120,6 +120,7 @@ h1, h2, h3, h4, h5, h6 {
 /* table */
 
 .pml-table {
+    margin-top: 1em;
     border: 1px solid black;
 	border-collapse: collapse;
 }
@@ -264,6 +265,37 @@ h1, h2, h3, h4, h5, h6 {
 
 .pml-input, .pml-output {
     border: dotted 1px grey;
+}
+
+
+/* Footnotes */
+
+.pml-footnotes {
+    margin-left: 2em;
+}
+
+.pml-footnote-ref a {
+    text-decoration: none;
+}
+
+.pml-footnote-backlink a {
+    text-decoration: none;
+}
+
+.pml-footnote-ref a::before {
+    content: "[";
+}
+
+.pml-footnote-ref a::after {
+    content: "]";
+}
+
+.pml-footnote td p:first-child {
+    margin-top: 0;
+}
+
+.pml-footnote td p:last-child {
+    margin-bottom: 0;
 }
 
 

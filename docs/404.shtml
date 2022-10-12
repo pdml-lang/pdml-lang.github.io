@@ -7,6 +7,6 @@
 
 	<body>
    		<p>The page you are requesting is not or no more available (error 404).</p>
-	    <p>Please click <a href="https://pdml-lang.github.io/">here</a> to go to the index page.</p>
+	    <p>Please click <a href="https://pdml-lang.dev/">here</a> to go to the index page.</p>
 	</body>
 </html>
