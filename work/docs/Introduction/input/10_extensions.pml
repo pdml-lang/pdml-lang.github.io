@@ -179,7 +179,7 @@
             [el Characters [c \[] and [c \]] in the source code don't need to be escaped anymore.]
         ]
 
-        BTW, if we want to highlight source code, we can use attribute [c lang] of PML's [c code] node:
+        If a PML highlighter is used, we can use attribute [c lang] to specify the programming language:
         [code
             ===
                 [code (lang=Java)
