@@ -4,7 +4,7 @@
 # Directories and files starting with NOGIT_
 **/NOGIT_*
 
-bin/
+/bin/
 
 # files created by PMLC
 **/output/HTML
