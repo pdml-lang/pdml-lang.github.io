@@ -192,18 +192,6 @@
             ===
         ]
 
-        Finally, PML supports an alternative syntax (without the [c """] fences):
-        [code
-            ===
-                [code (lang=Java)
-                    for (int i=1; i <= 3; i++) {
-                        System.out.println ( "[Hello]" );
-                    }
-                code]
-            ===
-        ]
-        This syntax variant is also realized through a PDML type.
-
         A PDML implementation can provide a standard set of frequently used types (string, number, boolean, date, time, etc.). To maximize flexibility and customization for different domains, additional types can be added programmatically or by configuration data that can be included in the PDML document, or provided in an external (possibly shared) PDML document.
     ]
 ]
