@@ -1,0 +1,108 @@
+---
+[title PDML Grammar]
+[template HTML_page]
+---
+			<div id="content">
+
+                <!-- Should be adapted to conform to EBNF notation as defined in ISO/IEC 14977
+                        https://standards.iso.org/ittf/PubliclyAvailableStandards/s026153_ISO_IEC_14977_1996(E).zip
+                -->
+                
+				<h2>Basic PDML Grammar</h2>
+
+                <p>The following table illustrates PDML's grammar, expressed in an <a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form">EBNF</a>-like notation.</p>
+                
+                <p>Only <i>basic PDML</i> is covered. Optional extensions like attributes, namespaces etc. are not included.</p>
+
+                <p>The following grammar is not a specification. It is just an auxiliary asset to contextualize the <a href="../basic-specification/index.html">official specification</a>.</p>
+
+                <p>The grammar is also illustrated as <a href="../railroad/index.html">Railroad Diagrams</a>.</p>
+                
+                <table class="ebnf-table">
+
+                    <thead>
+                        <tr><th>Name</th><th></th><th>Rule</th><th>Examples</th></tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>node</td>
+                            <td>=</td>
+                            <td>&nbsp;&nbsp;empty_node<br />| non_empty_node</td>
+                            <td></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>empty_node</td>
+                            <td>=</td>
+                            <td>"[" name "]"</td>
+                            <td>[new_line]</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>non_empty_node</td>
+                            <td>=</td>
+                            <td>"[" name separator child_node + "]"<br /><br /><small>Note: The separator is optional if<br />the name is immediately followed by [.</small></td>
+                            <td>[color orange]<br />[config [color orange]]<br />[div A [i[b nice]] dog]</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>name</td>
+                            <td>=</td>
+                            <td>name_start_char name_char *<br /><br /><small>Regex: [a-zA-Z_][a-zA-Z0-9_\.-]*</small></td>
+                            <td>height<br />ins-file<br />_default<br />Index_12-a.2</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>name_start_char</td>
+                            <td>=</td>
+                            <td>&nbsp;&nbsp;"a" .. "z"<br />| "A" .. "Z"<br />| "_"</td>
+                            <td>a<br />Z<br />_</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>name_char</td>
+                            <td>=</td>
+                            <td>&nbsp;&nbsp;"a" .. "z"<br />| "A" .. "Z"<br />| "0" .. "9"<br />| "_"<br />| "-"<br />| "."</td>
+                            <td>a<br />Z<br />9<br />_<br />-<br />.</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>separator</td>
+                            <td>=</td>
+                            <td>&nbsp;&nbsp;" "<br />| "\t"<br />| "\n"<br />| "\r\n"</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>child_node</td>
+                            <td>=</td>
+                            <td>&nbsp;&nbsp;node<br />| text</td>
+                            <td>[b [i huge]]<br />[message All is well!]</td>
+                        </tr>
+
+                        <tr>
+                            <td>text</td>
+                            <td>=</td>
+                            <td>text_char +</td>
+                            <td>Bob<br />3.14<br />We want simplicity.<br />root\\config\["port"\]</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>text_char</td>
+                            <td>=</td>
+                            <td>&nbsp;&nbsp;any Unicode character,<br />&nbsp;&nbsp;except "[", "]", and "\"<br />| "\["<br />| "\]"<br />| "\\"</td>
+                            <td>a<br />😀<br />\[</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+<!--
+                <blockquote>
+                    <p>Note:</p>
+                    <p>A PDML <code>name</code> must follow the same rules as an XML name. The above regex (<code>[a-zA-Z][a-zA-Z0-9-_.]*</code>) is a simplified version of the <a href="https://www.w3.org/TR/REC-xml/#NT-NameStartChar">authoritative rules for XML names</a>. A simple description of the rules can be found in chapter "XML Naming Rules" of <a href="https://www.w3schools.com/xml/xml_elements.asp">XML Elements</a>.</p>
+                </blockquote>
+-->
+			</div>

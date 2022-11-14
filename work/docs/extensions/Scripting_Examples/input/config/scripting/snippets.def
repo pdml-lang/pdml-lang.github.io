@@ -1,0 +1,53 @@
+[s:def
+    ~~~
+    const defaultTagStartPrefix = "start:_";
+    const defaultTagEndPrefix   = "end:_";
+    const defaultTagStartSuffix = "_";
+    const defaultTagEndSuffix   = "_";
+    
+    function insertCodeSnippet ( filePath, tag ) {
+
+        const snippet = readTaggedSectionsInFile ( filePath, tag );
+        doc.insert ( `
+    [code
+    ${snippet}
+    code]
+    ` );
+    }
+
+    function readTaggedSectionsInFile ( filePath, tag ) {
+
+        const lines = fileUtils.readLines ( filePath );
+
+        const startTag = `${defaultTagStartPrefix}${tag}${defaultTagStartSuffix}`;
+        const endTag   =   `${defaultTagEndPrefix}${tag}${defaultTagEndSuffix}`;
+        
+        let result = "";
+        let lineIncluded = false;
+
+        for ( line of lines ) {
+            
+            if ( line.includes ( startTag ) ) {
+                lineIncluded = true;
+            } else if ( line.includes ( endTag ) ) {
+                lineIncluded = false;
+            } else {
+                if ( lineIncluded ) {
+                    // TODO: should use regex to consider suffix too
+                    const isTagLine = line.includes ( defaultTagStartPrefix ) || line.includes ( defaultTagEndPrefix )
+                    if ( ! isTagLine ) {
+                        result = result + line + OSConfig.newLine();
+                    }
+                }
+            }
+        }
+
+        if ( result.length === 0 ) {
+            stderr.writeLine ( `ERROR: Tag '${tag}' not found in file '${filePath}'.` );
+            return "ERROR";
+        }
+
+        return result;
+    }
+    ~~~
+]

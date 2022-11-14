@@ -1,0 +1,34 @@
+[root 
+
+    File:
+    Version: 7.4.0
+
+
+    URL:
+    [-
+    Version: [s:exp URLUtils.readText ( "http://www.example.com/version.txt" )]
+    Version: [s:exp URLUtils.readText ( "https://www.pml-lang.dev/index.html" )]
+    -]
+
+    OS env.:
+    Version: 7.4.0
+
+    OS console:
+    Version: 123
+
+    GUI:
+    Version: 234
+
+    JSON:
+    Version: 7.4.0
+
+    Version: 7.4.0
+
+    OS command:
+    Version: 7.4.0
+
+
+    OS script:
+    Version: 7.4.0
+
+]

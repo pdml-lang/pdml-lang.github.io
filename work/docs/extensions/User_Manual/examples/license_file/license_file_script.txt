@@ -1,0 +1,10 @@
+[s:script
+    ~~~
+    const licenseFile = "resources/license.txt"
+    if ( fileUtils.exists ( licenseFile ) ) {
+        doc.insert ( fileUtils.readText ( licenseFile ) );
+    } else {
+        stderr.writeLine ( "WARNING: No license file found!" );
+    }
+    ~~~
+]

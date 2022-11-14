@@ -1,0 +1,49 @@
+---
+[title Practical Data and Markup Language (PDML)]
+[template HTML_page]
+---
+
+<div id="content">
+
+    <p><i>The Practical Data and Markup Language <b>(PDML)</b></i> is a text format designed to store data and markup code.</p>
+
+    <p>PDML is easy to read and write for humans.</p>
+
+    <p>Here is an example of a simple XML document:</p>
+    
+    <pre class="code_block">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;person&gt;
+    &lt;name&gt;
+        &lt;first&gt;Albert&lt;/first&gt;
+        &lt;last&gt;Einstein&lt;/last&gt;
+    &lt;/name&gt;
+    &lt;city&gt;Bern&lt;/city&gt;
+    &lt;country&gt;Switzerland&lt;/country&gt;
+&lt;/person&gt;</pre>
+
+    <p>The same document looks like this in PDML:</p>
+    
+    <pre class="code_block">[person
+    [name
+        [first Albert]
+        [last Einstein]
+    ]
+    [city Bern]
+    [country Switzerland]
+]</pre>
+
+
+    <p>Markup code, such as this HTML code:</p>
+
+    <pre class="code_block">&lt;p&gt;We can write text in &lt;b&gt;bold&lt;/b&gt;, &lt;i&gt;italic&lt;/i&gt;, or &lt;b&gt;&lt;i&gt;bold and italic&lt;/b&gt;&lt;/i&gt;.&lt;/p&gt;</pre>
+
+    <p>... looks like this in PDML:</p>
+
+    <pre class="code_block">[p We can write text in [b bold], [i italic], or [b[i bold and italic]].]</pre>
+    
+
+    <p>Besides a simple and succinct syntax, PDML also provides unique, powerful extensions to make it more practical.</p>
+
+    <p>For a quick overview please visit the <a href="docs/faq/index.html">Overview page</a>.</p>
+
+</div>

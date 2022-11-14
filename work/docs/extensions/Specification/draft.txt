@@ -1,0 +1,92 @@
+Note:
+every extension should have the following sub-chapters:
+    What, Why, How
+    Rules
+    Examples
+
+
+PDML Extensions User Manual
+PDML Extensions Specification
+
+== Introduction
+
+Syntax Extensions
+    - Comments
+    - Attributes
+        Lenient Parsing
+    - Escape Sequences
+        - \t \r \n \(
+        - Unicode
+    Namespaces
+    Named Closing Tags
+    Virtual Root Node
+    Processing Instructions
+
+Parser Extensions
+    Text Location
+    Errors And Warnings
+        Cancelling/Non-Cancelling Errors, Warnings
+    Whitespace Handling
+    - Standalone Documents
+
+== Action Nodes
+    Introduction
+    Utility Nodes
+        link to Appendix A
+        Processing Instructions
+    Types
+    Embedded Scripting
+        Introduction
+        Nodes
+            Expression
+            Script
+            Definition
+        Syntax Rules
+            Text Block
+            Escaping
+        Javascript Support
+            Standard Libraries
+                Javascript
+                PDML
+                Java
+            External Libraries
+                Code Imports
+                ECMA Modules
+                Nodejs Modules
+        Error handling
+        Examples (link to PDML Scripting Examples)
+    Customized Action Nodes
+
+PDML/XML Bridge
+    PDML to XML
+    XML to PDML
+    XML Validation
+    XML Querying
+    XML Transformation
+    Examples (separate doc.?)
+
+== Reference Manual
+    Introduction
+    Utility Nodes
+        set
+        get
+        ins-file
+        ...
+    Types
+        raw-text
+        string ( check, pattern, min_length, max_length, length )
+        character ( check, pattern )
+        integer ( check, min, max )
+        yes_no
+        list ( check, item_type, min_length, max_length, length )
+        ...
+    Scripting Library
+        MVP: link to Github repo
+        doc
+        stdin
+        stdout
+        stderr
+        OSProcess
+        ...
+
+== Scripting Examples

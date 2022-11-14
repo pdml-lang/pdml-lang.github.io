@@ -1,0 +1,4 @@
+
+@startmath
+e^(ipi)+1=0
+@endmath

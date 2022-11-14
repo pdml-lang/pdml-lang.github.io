@@ -1,0 +1,26 @@
+
+@startmindmap
+<style>
+mindmapDiagram {
+.level_1 {
+    BackgroundColor orange
+}
+.level_2 {
+    BackgroundColor yellow
+}
+}
+</style>
+* brain boosters <<level_1>>
+** body <<level_2>>
+*** eat healthy food
+*** exercise regularly
+*** sleep well
+** mind <<level_2>>
+*** relax
+*** socialize
+*** meditate
+** environment <<level_2>>
+*** clean air
+*** quiet
+*** kind people
+@endmindmap

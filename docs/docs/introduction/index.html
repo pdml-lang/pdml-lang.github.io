@@ -90,7 +90,7 @@
                             </li>
 
                         </ul>
-                        <p class="pml-paragraph">A distinction is made between <i class="pml-italic">basic PDML</i> and <i class="pml-italic">extensions</i>. <i class="pml-italic">Basic PDML</i> is the absolute minimum needed to store data. Extensions are optional features to make PDML more practical.</p>
+                        <p class="pml-paragraph">A distinction is made between <i class="pml-italic">basic PDML</i> and <i class="pml-italic">extensions</i>. <i class="pml-italic">Basic PDML</i> is the absolute minimum needed to store data. Extensions are optional features to make PDML more practical and powerful.</p>
                         <p class="pml-paragraph">This document mainly covers <i class="pml-italic">basic PDML</i>. However, chapter <a class="pml-xref" href="#extensions">Extensions</a> contains an overview of extensions, and a link to more information. </p>
 
                     </section>
@@ -302,11 +302,11 @@ line 2 A 😃</code></pre>
                             <p class="pml-paragraph">A parameter is declared once with a <code class="pml-inline-code">!set</code> node, and its value can then be inserted any number of times with a <code class="pml-inline-code">!get</code> node.</p>
                             <p class="pml-paragraph">Here is an example of PML markup code that stores the company's website URL into parameter <code class="pml-inline-code">company_URL</code>, and then inserts the URL in subsequent text:</p>
                             <pre class="pml-code"><code>[doc [title Company Overwiew]
-    [!set company_URL=https://www.my_company.org]
+    [u:set company_URL=https://www.my_company.org]
     ...
-    Our website: [!get company_URL]
+    Our website: [u:get company_URL]
     ...
-    Click [link url=[!get company_URL]/contacts/index.html text=here] to see a list of contacts.
+    Click [link url=[u:get company_URL]/contacts/index.html text=here] to see a list of contacts.
 ]</code></pre>
                             <div class="pml-admonition">
                                 <div class="pml-admonition-label">Note</div>
@@ -333,9 +333,9 @@ line 2 A 😃</code></pre>
                             <p class="pml-paragraph">Document splitting is done with the <code class="pml-inline-code">!ins-file</code> extension node. Here is an example of markup code that uses a different file for each chapter in an article:</p>
                             <div class="pml-caption">File main.pml</div>
                             <pre class="pml-code"><code>[doc [title Long Article]
-    [!ins-file path=chapters/introduction.pml]
-    [!ins-file path=chapters/body.pml]
-    [!ins-file path=chapters/conclusion.pml]
+    [u:ins_file path=chapters/introduction.pml]
+    [u:ins_file path=chapters/body.pml]
+    [u:ins_file path=chapters/conclusion.pml]
 ]</code></pre>
                             <div class="pml-caption">File chapters/introduction.pml</div>
                             <pre class="pml-code"><code>[ch [title Introduction]

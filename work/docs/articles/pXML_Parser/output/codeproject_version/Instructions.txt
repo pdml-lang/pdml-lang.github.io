@@ -1,0 +1,56 @@
+In file input\text\index.pml, doc node add: TOC_position = top
+In file bin\create_HTML.bat add parameter --omit_CSS yes
+run bin\create_HTML.bat
+
+copy output/HTML/index.html to codeproject_version/result
+copy output/HTML/images/*.* to codeproject_version/result
+	do not copy into subdirectory 'images'
+
+In file input\text\index.pml, doc node remove: TOC_position = top
+In file bin\create_HTML.bat remove parameter --omit_CSS yes
+run bin\create_HTML.bat
+
+Adapt index.html (in codeproject_version/result):
+	- remove from start to
+		<article class="pml-document">
+		included
+	
+	- at the end remove from
+        </article>
+		to
+			</body>
+		</html>
+	
+	- NO: regex replace (include space before class!!!)
+		class=".*?"
+		with (nothing)
+	
+	- replace
+		src="images/
+		with
+		src="
+
+	- replace
+	 	<pre><code>
+		with
+	 	<pre>
+
+	- replace
+	 	</code></pre>
+		with
+	 	</pre>
+
+	- replace
+		<pre id="xxx"><code>
+		with
+		<pre id="xxx">
+	
+Open codeproject_version/result/index in browser
+Goto Codeproject, add a new article
+Click on the 'Source' button (to input raw HTML code)
+Copy-paste the code in file codeproject_version/result/index.html
+Adapt manually
+	- check images
+	- check links in TOC
+	- add language to code blocks
+	- ...

@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="generator" content="PML 2.1.0 (www.pml-lang.dev)" />
+        <meta name="generator" content="PML 3.1.0 (www.pml-lang.dev)" />
         <title>PDML Examples</title>
         <link rel="stylesheet" href="css/pml-default.css">
         <link rel="stylesheet" href="css/pml-print-default.css" media="print">
@@ -49,14 +49,15 @@
                         </div>
                     </nav>
                 </aside>
-                <article class="pml-doc-text">
+                <article id="doc__" class="pml-doc-text" id="doc__">
                     <h1 class="pml-doc-title">PDML Examples</h1>
                     <p class="pml-paragraph">Author: Christian Neumanns</p>
                     <p class="pml-paragraph">Published: 2021-11-16</p>
                     <section id="ch__1" class="pml-chapter">
                         <h2 class="pml-chapter-title">Introduction</h2>
                         <p class="pml-paragraph">This document shows simple examples of PDML code.</p>
-                        <p class="pml-paragraph">Only <i class="pml-italic">basic PDML</i> is shown. PDML extensions are not used.</p>
+                        <p class="pml-paragraph">Only <i class="pml-italic">basic PDML</i> is shown. PDML extensions are not used. </p>
+
                     </section>
                     <section id="fundamental_examples" class="pml-chapter">
                         <h2 class="pml-chapter-title">Fundamental Examples</h2>
@@ -65,6 +66,7 @@
                             <pre class="pml-code"><code>[hello]</code></pre>
                             <p class="pml-paragraph">The above code illustrates the simplest possible PDML document.</p>
                             <p class="pml-paragraph">It's a root node with name <code class="pml-inline-code">hello</code> and no content (no child nodes). <code class="pml-inline-code">hello</code> is an empty root node.</p>
+
                         </section>
                         <section id="text_node" class="pml-chapter">
                             <h3 class="pml-chapter-title">Text node</h3>
@@ -79,17 +81,19 @@
                             <p class="pml-paragraph">In the above example node <code class="pml-inline-code">info</code> contains the text:</p>
                             <pre class="pml-code"><code>He said:
     &quot;She said: 'All is well!'&quot; 😃</code></pre>
+
                         </section>
                         <section id="child_node" class="pml-chapter">
                             <h3 class="pml-chapter-title">Node with one child node</h3>
                             <pre class="pml-code"><code>[config [color orange]]</code></pre>
                             <p class="pml-paragraph">Node <code class="pml-inline-code">config</code> has one child node with name <code class="pml-inline-code">color</code> and text <code class="pml-inline-code">orange</code>.</p>
+
                         </section>
                         <section id="tree" class="pml-chapter">
                             <h3 class="pml-chapter-title">Tree</h3>
                             <pre class="pml-code"><code>[config[color orange][size[width 1618][height 1000]]]</code></pre>
                             <p class="pml-paragraph">Node <code class="pml-inline-code">config</code> has two child nodes: <code class="pml-inline-code">color</code> and <code class="pml-inline-code">size</code>. Node <code class="pml-inline-code">size</code> has two child nodes too: <code class="pml-inline-code">width</code> and <code class="pml-inline-code">height</code>.</p>
-                            <p class="pml-paragraph">Readability and writeabilty can be considerable improved by using indents to visualize the structure:</p>
+                            <p class="pml-paragraph">Readability and writeabilty are considerably improved when indents are used to visualize the structure:</p>
                             <pre class="pml-code"><code>[config
     [color orange]
     [size
@@ -97,7 +101,8 @@
         [height 1000]
     ]
 ]</code></pre>
-                            <p class="pml-paragraph">Now the AST has additional text nodes containing whitespace, but whitespace nodes like this are typically ignored by the application reading the config data.</p>
+                            <p class="pml-paragraph">Now the AST has additional text nodes containing whitespace, but whitespace nodes like this are typically ignored by applications reading config data.</p>
+
                         </section>
                         <section id="simple_markup_code" class="pml-chapter">
                             <h3 class="pml-chapter-title">Markup code</h3>
@@ -107,6 +112,7 @@
                             <pre class="pml-code"><code>&lt;div&gt;We can write text in &lt;i&gt;italic&lt;/i&gt;, &lt;b&gt;bold&lt;/b&gt;, or &lt;i&gt;&lt;b&gt;italic and bold&lt;/b&gt;&lt;/i&gt;.&lt;/div&gt;</code></pre>
                             <p class="pml-paragraph">In PDML the code becomes:</p>
                             <pre class="pml-code"><code>[div We can write text in [i italic], [b bold], or [i [b italic and bold]].]</code></pre>
+
                         </section>
                         <section id="escape_chars" class="pml-chapter">
                             <h3 class="pml-chapter-title">Escape characters in text</h3>
@@ -114,7 +120,9 @@
                             <p class="pml-paragraph">&nbsp;&nbsp;&nbsp;&nbsp;foo\bar[12]</p>
                             <p class="pml-paragraph">... then [, ], and \ must be escaped:</p>
                             <pre class="pml-code"><code>[p foo\\bar\[12\]]</code></pre>
+
                         </section>
+
                     </section>
                     <section id="real_world_examples" class="pml-chapter">
                         <h2 class="pml-chapter-title">Real World Examples</h2>
@@ -148,6 +156,7 @@
     ]
     [cache false]
 ]</code></pre>
+
                         </section>
                         <section id="table_data" class="pml-chapter">
                             <h3 class="pml-chapter-title">Table Data</h3>
@@ -188,6 +197,7 @@
         [price 44.10]
     ]
 ]</code></pre>
+
                         </section>
                         <section id="database" class="pml-chapter">
                             <h3 class="pml-chapter-title">Database</h3>
@@ -210,11 +220,12 @@
         [product ...]
     ]
 ]</code></pre>
+
                         </section>
                         <section id="markup_code" class="pml-chapter">
                             <h3 class="pml-chapter-title">Markup Code</h3>
-                            <p class="pml-paragraph"><a href="https://www.pml-lang.dev/" class="pml-link">PML</a> is a markup language that uses PDML's basic syntax and extensions.</p>
-                            <p class="pml-paragraph">This document is written in PML. You can have a look at its <a href="https://github.com/pdml-lang/examples-article" class="pml-link">PML markup code</a>.</p>
+                            <p class="pml-paragraph"><a class="pml-link" href="https://www.pml-lang.dev/">PML</a> is a markup language that uses PDML's basic syntax and extensions.</p>
+                            <p class="pml-paragraph">This document is written in PML. You can have a look at its <a class="pml-link" href="https://github.com/pdml-lang/examples-article">PML markup code</a>.</p>
                             <p class="pml-paragraph">Here is an excerpt showing the markup code for this chapter:</p>
                             <pre class="pml-code"><code>[ch [title Markup Code]
 
@@ -228,6 +239,7 @@
         ...
     ]
 ]</code></pre>
+
                         </section>
                         <section id="ast" class="pml-chapter">
                             <h3 class="pml-chapter-title">AST</h3>
@@ -250,7 +262,9 @@
 ]</code></pre>
                             <p class="pml-paragraph">If the code doesn't need to be read by humans, it can be written more succinctly, without indents:</p>
                             <pre class="pml-code"><code>[exp[op *[op +[num 1][num 2]][op +[num 3][num 4][num 5]]]]</code></pre>
+
                         </section>
+
                     </section>
                 </article>
                 <aside class="pml-doc-right">

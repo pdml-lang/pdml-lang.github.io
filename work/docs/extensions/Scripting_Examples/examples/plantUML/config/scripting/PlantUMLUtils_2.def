@@ -1,0 +1,19 @@
+[s:def
+    ~~~
+    const createImages = GUIUtils.askYesNo ( "Create images?" );
+
+    function insertPlantUMLImage_2 ( name, plantUMLCode ) {
+
+        if ( createImages ) {
+            const inputFile = `resources/images/${name}.txt`;
+            fileUtils.writeText ( inputFile, plantUMLCode );
+
+            OSCommand.runAndWait ( [ "java", "-jar", "plantuml.jar", "-i", inputFile ] );
+        } else {
+            stderr.writeLine ( "WARNING: Images are not created." );
+        }
+
+        doc.insert ( `[image source = images/${name}.png]` );
+    }
+    ~~~
+]

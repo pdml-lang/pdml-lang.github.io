@@ -1,0 +1,1055 @@
+                    <div>
+                        <h1>Suggestion For a Better XML/HTML Syntax</h1>
+                        <div>Christian Neumanns</div>
+                        <time datetime="2021-03-10">2021-03-10</time>
+                    </div>
+                    <nav>
+                        <h2>Table of Contents</h2>
+                        <div id="TOCTree">
+                            <li><a href="#ch__1">Introduction</a></li>
+                            <li>
+                                <details>
+                                    <summary><a href="#ch__2">Existing Alternatives</a></summary>
+                                    <ul>
+                                        <li><a href="#JSON_alternative">JSON</a></li>
+                                        <li><a href="#ch__3">YAML</a></li>
+                                        <li><a href="#ch__4">Other</a></li>
+                                    </ul>
+                                </details>
+                            </li>
+                            <li>
+                                <details>
+                                    <summary><a href="#ch__5">New Syntax</a></summary>
+                                    <ul>
+                                        <li>
+                                            <details>
+                                                <summary><a href="#ch__6">Elements</a></summary>
+                                                <ul>
+                                                    <li><a href="#ch__7">Simple Element</a></li>
+                                                    <li><a href="#ch__8">Empty Element</a></li>
+                                                    <li><a href="#ch__9">Child Elements</a></li>
+                                                    <li><a href="#ch__10">Closing Tags</a></li>
+                                                    <li><a href="#name_rules">Naming Rules</a></li>
+                                                </ul>
+                                            </details>
+                                        </li>
+                                        <li>
+                                            <details>
+                                                <summary><a href="#ch__11">Meta Data</a></summary>
+                                                <ul>
+                                                    <li><a href="#XML_attributes">XML Attributes</a></li>
+                                                    <li><a href="#ch__12">Attributes in pXML?</a></li>
+                                                    <li><a href="#ch__13">Separation of Data And Metadata</a></li>
+                                                    <li><a href="#ch__14">Advantages</a></li>
+                                                    <li><a href="#ch__15">Disadvantages</a></li>
+                                                </ul>
+                                            </details>
+                                        </li>
+                                        <li><a href="#ch__16">Comments</a></li>
+                                        <li><a href="#ch__17">Other</a></li>
+                                    </ul>
+                                </details>
+                            </li>
+                            <li>
+                                <details>
+                                    <summary><a href="#ch__18">History</a></summary>
+                                    <ul>
+                                        <li><a href="#ch__19">pXML Predecessor</a></li>
+                                        <li><a href="#lenient_PML">Lenient Syntax in PML</a></li>
+                                    </ul>
+                                </details>
+                            </li>
+                            <li><a href="#ch__20">Implementation</a></li>
+                            <li>
+                                <details>
+                                    <summary><a href="#ch__21">Examples</a></summary>
+                                    <ul>
+                                        <li><a href="#ch__22">Simple Config File</a></li>
+                                        <li><a href="#ch__23">HTML Code</a></li>
+                                    </ul>
+                                </details>
+                            </li>
+                            <li><a href="#ch__24">Syntax Comparison</a></li>
+                            <li><a href="#ch__25">Summary And Conclusion</a></li>
+                        </div>
+                    </nav>
+                    <figure style="text-align: center">
+                        <img alt="From XML to pXML" src="n_v.png" width="400" />
+                    </figure>
+                    <section id="ch__1">
+                        <h2>Introduction</h2>
+                        <p>XML is a great technology with many useful, standardized, and well supported extensions like XML schemas, XPath, XQuery, XSLT, etc. However, XML has a reputation of being <i>too verbose</i>. This doesn't come as a surprise if we look at one of the <a href="https://www.w3.org/TR/xml/#sec-origin-goals">design goals</a> stated in the official <a href="https://www.w3.org/TR/xml/">W3C XML Recommendation</a>:</p>
+                        <blockquote>
+                            <div>
+                                <div></div>
+                                <div>
+                                    <p>Terseness in XML markup is of minimal importance.</p>
+                                </div>
+                                <div></div>
+                            </div>
+                            <div>XML specification</div>
+                        </blockquote>
+                        <p>An interesting question arises: &quot;Couldn't we keep the technology, but just improve the syntax in order to make XML and HTML easier to read and write for humans?&quot;</p>
+                        <p>As shown in this article, the answer to this question is a resounding &quot;Yes, we can!&quot;.</p>
+                        <p>We'll have a look at a suggestion for a new syntax that is less verbose, easy to read and write, and works well for all kinds of XML documents, including HTML code.</p>
+                        <div>
+                            <div>Note</div>
+                            <div>
+                                <p>Readers of this article are supposed to have a basic knowledge of XML, HTML, and JSON.</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="ch__2">
+                        <h2>Existing Alternatives</h2>
+                        <p>Before trying to invent anything new we should of course first have a deep look at what exists already.</p>
+                        <p>This chapter answers the question: Is there any existing markup language with a more human-friendly syntax than XML/HTML, but also well suited for big, complex, and changing documents?</p>
+                        <section id="JSON_alternative">
+                            <h3>JSON</h3>
+                            <p>In the last years, JSON has overtaken XML in terms of popularity.</p>
+                            <p>To understand why (in the context of <i>syntax</i>), let's have a look at a simple data structure in JSON:</p>
+                            <pre>{
+    &quot;person&quot;: {
+        &quot;name&quot;: &quot;Albert&quot;,
+        &quot;married&quot;: true,
+        &quot;address&quot;: {
+            &quot;street&quot;: &quot;Kramgasse&quot;,
+            &quot;city&quot;: &quot;Bern&quot;
+        },
+        &quot;phones&quot;: [ &quot;123&quot;, &quot;456&quot;]
+    }
+}    </pre>
+                            <p>In XML, the code could look like this:</p>
+                            <pre id="albert_example">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;person&gt;
+    &lt;name&gt;Albert&lt;/name&gt;
+    &lt;married&gt;true&lt;/married&gt;
+    &lt;address&gt;
+        &lt;street&gt;Kramgasse&lt;/street&gt;
+        &lt;city&gt;Bern&lt;/city&gt;
+    &lt;/address&gt;
+    &lt;phones&gt;
+        &lt;phone&gt;123&lt;/phone&gt;
+        &lt;phone&gt;456&lt;/phone&gt;
+    &lt;/phones&gt;
+&lt;/person&gt;</pre>
+                            <p>Many people prefer the JSON syntax. It is easier to read and less verbose than the XML version. Not counting indentation spaces, the above JSON code requires 144 characters to type. The XML code has 276 characters. That's an increase of 92%!</p>
+                            <p>Examples like the above one lead to an intriguing question:</p>
+                            <ul>
+                                <li>
+                                    <p>&quot;Couldn't we just stop using XML and use JSON instead for everything?&quot;</p>
+                                </li>
+                            </ul>
+                            <p>For example, could we use the JSON syntax to write HTML documents?</p>
+                            <p>Let's try.</p>
+                            <p>Here is a simple HTML snippet:</p>
+                            <pre>&lt;p&gt;foo bar&lt;/p&gt;</pre>
+                            <p>In JSON, we could express this as follows:</p>
+                            <pre>{ &quot;p&quot;: &quot;foo bar&quot; }</pre>
+                            <p>Let's write <code>foo</code> in <i>italics</i>, and <code>bar</code> in <b>bold</b>.</p>
+                            <p>HTML:</p>
+                            <pre>&lt;p&gt;&lt;i&gt;foo&lt;/i&gt; &lt;b&gt;bar&lt;/b&gt;&lt;/p&gt;</pre>
+                            <p>JSON:</p>
+                            <pre>{ &quot;p&quot;: [ { &quot;i&quot;:&quot;foo&quot; }, &quot; &quot;, { &quot;b&quot;: &quot;bar&quot; } ] }</pre>
+                            <p>Now we want to display everything in red:</p>
+                            <p>HTML:</p>
+                            <pre>&lt;p style=&quot;color:red;&quot;&gt;&lt;i&gt;foo&lt;/i&gt; &lt;b&gt;bar&lt;/b&gt;&lt;/p&gt;</pre>
+                            <p>JSON:</p>
+                            <pre>{ &quot;p&quot;: { &quot;style&quot;: &quot;color:red;&quot;, &quot;content&quot;: [ { &quot;i&quot;: &quot;foo&quot; }, &quot; &quot;, { &quot;b&quot;: &quot;bar&quot; } ] } }</pre>
+                            <p>We can prettify to make the code easier to read:</p>
+                            <pre>{
+    &quot;p&quot;:{
+        &quot;style&quot;:&quot;color:red;&quot;,
+        &quot;content&quot;:[
+            {
+                &quot;i&quot;:&quot;foo&quot;
+            },
+            &quot; &quot;,
+            {
+                &quot;b&quot;:&quot;bar&quot;
+            }
+        ]
+    }
+}    </pre>
+                            <p>But now the HTML one-liner has mutated into a '14 lines monster with lots of horizontal and vertical whitespace'.</p>
+                            <p>Not quite what we are looking for.</p>
+                            <p>Besides the obvious fact that the complexity of the JSON code increases quickly, there is another worrying observation:</p>
+                            <ul>
+                                <li>
+                                    <p>In the first example, the <code>p</code> element's value was a string: <code>&quot;p&quot;: &quot;...&quot;</code>.</p>
+                                </li>
+                                <li>
+                                    <p>In the second example, the value becomes a JSON array: <code>&quot;p&quot;: [...]</code>.</p>
+                                </li>
+                                <li>
+                                    <p>In the last example, it mutates to a JSON object: <code>&quot;p&quot;: {...}</code>.</p>
+                                </li>
+                            </ul>
+                            <p>Such changes can easily lead to maintenance nightmares. Code that inspects the data structure must be updated each time the code changes. For example if we wanted to extract the text of element <code>p</code>, we would need to write different code for the three cases.</p>
+                            <p>XML doesn't have this problem. The content of <code>p</code> is always a list of child elements.</p>
+                            <p>At this point you hopefully agree that we can stop further investigation and move on. The JSON syntax is a bad fit for describing markup code like HTML documents in a human-friendly way. That doesn't mean of course that 'JSON is bad'. JSON is a good choice in many cases. It is a native part of Javascript, well supported in most programming languages, and there are lots of libraries and tools available for JSON. However, in the context of our search for a better markup syntax, JSON (as well as all variations of it) is not an option. Later on we'll have a look at a more complete HTML example that confirms our conclusion.</p>
+                        </section>
+                        <section id="ch__3">
+                            <h3>YAML</h3>
+                            <p>One way to minimize verbosity is to use indentation to define structure. <a href="https://yaml.org/">YAML</a> is probably the most popular language that uses this technique.</p>
+                            <p>Here is a reprint of a JSON example we saw previously:</p>
+                            <pre>{
+    &quot;person&quot;: {
+        &quot;name&quot;: &quot;Albert&quot;,
+        &quot;married&quot;: true,
+        &quot;address&quot;: {
+            &quot;street&quot;: &quot;Kramgasse&quot;,
+            &quot;city&quot;: &quot;Bern&quot;
+        },
+        &quot;phones&quot;: [ &quot;123&quot;, &quot;456&quot;]
+    }
+}    </pre>
+                            <p>In YAML, this becomes:</p>
+                            <pre>person:
+    name: Albert
+    married: true
+    address:
+        street: Kramgasse
+        city: Bern
+    phones:
+        - 123
+        - 456</pre>
+                            <p>Nice!</p>
+                            <p>Easy to read and write.</p>
+                            <p>At first sight it might seem that we could use such a noise-less syntax for all kinds of data structures, including markup code.</p>
+                            <p>It turns out that would be a very bad idea. The problem with YAML and all other languages that use indentation to define structure is this: It works well for small, simple structures (such as config files). But if we need to manage big documents with deeply nested structures then it quickly becomes error-prone and unmaintainable.</p>
+                            <p>Moreover, while using indentation to define structure effectively reduces verbosity, it also leads to much more lines of code for certain types of documents. The reason is that each child element <i>must</i> be written on a new line.</p>
+                            <p>To illustrate this, let's see how the simple HTML one-liner we used in the previous chapter would be written in YAML. Here is a reprint of the HTML:</p>
+                            <pre>&lt;p style=&quot;color:red;&quot;&gt;&lt;i&gt;foo&lt;/i&gt; &lt;b&gt;bar&lt;/b&gt;&lt;/p&gt;</pre>
+                            <p>In YAML the code would look like this:</p>
+                            <pre>p:
+    style: 'color:red;'
+    content:
+        - i: foo
+        - ' '
+        - b: bar</pre>
+                            <p>There are other arguments against whitespace-sensitive documents, such as the problems with mixing spaces and tabs, and code snippets that cannot be shared between different documents with different levels of indentation. These inconveniences are well known - there is no need for repetition here.</p>
+                            <p>Finally, the whitespace-significant approach forces us to use whitespace according to the rules (which can get very complex). It takes away the freedom to use whitespace to make documents more appealing and understandable.</p>
+                            <p>As for JSON, this doesn't mean that 'YAML is bad'. YAML is well suited in <i>some</i> cases. What I want to say is that the idea of using whitespace-sensitivity in a markup language like HTML is doomed to fail. It's understandable that, according to <a href="https://en.wikipedia.org/wiki/YAML#History_and_name">Wikipedia</a>, the meaning of the acronym YAML was changed from &quot;Yet Another Markup Language&quot; to &quot;YAML Ain't Markup Language&quot;.</p>
+                            <p>XML/HTML ignores whitespace, and that's the right choice.</p>
+                        </section>
+                        <section id="ch__4">
+                            <h3>Other</h3>
+                            <p>A good number of other markup languages exist, but I am not aware of any syntax that would be well suited to replace the XML syntax. If you know of a good alternative then please leave a comment.</p>
+                            <p>There are also many tools and editor plugins aiming to alleviate the pain of writing XML code by hand. However, the gist of this article is not to <i>alleviate</i> the pain. We want to <i>remove</i> it.</p>
+                        </section>
+                    </section>
+                    <section id="ch__5">
+                        <h2>New Syntax</h2>
+                        <p>In this chapter I will suggest a new, alternative syntax for XML/HTML documents. The new syntax should be practical for humans and machines. So let's call it <i>practicalXML</i>, or just <b><i>pXML</i></b>.</p>
+                        <section id="ch__6">
+                            <h3>Elements</h3>
+                            <section id="ch__7">
+                                <h4>Simple Element</h4>
+                                <p>Let's start with the following HTML snippet - a simple element that contains only text:</p>
+                                <pre>&lt;i&gt;foo&lt;/i&gt;</pre>
+                                <p>The first thing we need to do is to get rid of the closing tag syntax (<code>&lt;/i&gt;</code>) - the biggest culprit of XML's verbosity. We can do this by just closing the element with <code>&gt;</code>, like this:</p>
+                                <pre>&lt;i&gt;foo&gt;</pre>
+                                <p>This creates an imbalance of <code>&lt;</code> and <code>&gt;</code> symbols. But that's easy to fix. We replace the <code>&gt;</code> in the opening tag with a space - the easiest character to read and write on any keyboard. The code becomes:</p>
+                                <pre>&lt;i foo&gt;</pre>
+                                <p>Let's think about the brackets. We could use <code>&lt;&gt;</code>, as in XML/HTML. But there are other options: <code>[]</code>, <code>{}</code>, and <code>()</code>. We need to consider two points:</p>
+                                <ul>
+                                    <li>
+                                        <p>How easy are they to type?</p>
+                                        <p><code>[]</code> clearly wins, because on most keyboards (including Dvorak keyboards) all other brackets require the <code>Shift</code> key to be hold down.</p>
+                                    </li>
+                                    <li>
+                                        <p>How often do they occur in normal text?</p>
+                                        <p>This is important because the brackets have to be escaped in normal text. I didn't find any reliable statistics, but my guess would be that <code>()</code> is used often, while the others are used rarely, maybe in this order: <code>{}</code>, <code>[]</code>, and <code>&lt;&gt;</code>.</p>
+                                    </li>
+                                </ul>
+                                <p>The best option is to use <code>[]</code>, because this pair is easy to write (no need for <code>Shift</code> on most keyboards), and square brackets occur rarely in normal text. Moreover, it creates a clear distinction between the new pXML syntax (<code>[]</code>), XML/HTML (<code>&lt;&gt;</code>), and source code (which often uses <code>{}</code>).</p>
+                                <p>Hence the final pXML code becomes:</p>
+                                <pre>[i foo]</pre>
+                                <p>... which is easier to read and write than:</p>
+                                <pre>&lt;i&gt;foo&lt;/i&gt;</pre>
+                                <p>Another advantage of the new syntax is that bracket matching in text editors (available in most modern versions) becomes more useful. In the case of XML/HTML, the <code>&lt;</code> of the opening tag matches only the <code>&gt;</code> of the <i>opening</i> tag, which is of little use. In VSCode it looks like this:</p>
+                                <figure style="text-align: left">
+                                    <img alt="XML bracket matching in VSCode" src="bracket_matching_XML.png" width="120" />
+                                </figure>
+                                <p>In pXML the <code>[</code> of the opening tag matches the <code>]</code> of the <i>closing</i> tag, which is much more helpful, especially in case of elements with lots of nested content. VSCode example:</p>
+                                <figure style="text-align: left">
+                                    <img alt="pXML bracket matching in VSCode" src="bracket_matching_PXML.png" width="120" />
+                                </figure>
+                            </section>
+                            <section id="ch__8">
+                                <h4>Empty Element</h4>
+                                <p>An empty XML element is an element that has no attributes and no child nodes.</p>
+                                <p>A typical example is the <code>br</code> element used to insert a new line in an HTML document. Here is the code:</p>
+                                <pre>&lt;br /&gt;  &lt;!--     XML-compliant --&gt;
+&lt;br&gt;    &lt;!-- not XML-compliant --&gt;</pre>
+                                <p>In pXML, this is written as:</p>
+                                <pre>[br]</pre>
+                            </section>
+                            <section id="ch__9">
+                                <h4>Child Elements</h4>
+                                <p>An XML element can optionally contain one or more child elements. They are embedded within the opening and closing tags. Here is an example:</p>
+                                <pre>&lt;table&gt;
+    &lt;tr&gt;&lt;td&gt;Cell 1.1&lt;/td&gt;&lt;td&gt;Cell 1.2&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Cell 2.1&lt;/td&gt;&lt;td&gt;Cell 2.2&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</pre>
+                                <p>There is no reason to change this in pXML. The above example is written like this:</p>
+                                <pre>[table
+    [tr [td Cell 1.1][td Cell 1.2]]
+    [tr [td Cell 2.1][td Cell 2.2]]
+]</pre>
+                            </section>
+                            <section id="ch__10">
+                                <h4>Closing Tags</h4>
+                                <p>When nested elements are closed, we often see HTML code like this:</p>
+                                <pre>&lt;/img&gt;&lt;/div&gt;&lt;/section&gt;</pre>
+                                <p>If indentation is used, it looks like this:</p>
+                                <pre>        &lt;/img&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</pre>
+                                <p>In pXML the code without indentation becomes:</p>
+                                <pre>]]]</pre>
+                                <p>With indentation:</p>
+                                <pre>        ]
+    ]
+]</pre>
+                                <p>While the new syntax obviously improves writing-speed and reduces the size of code, it also creates two inconveniences:</p>
+                                <ul>
+                                    <li>
+                                        <p>The code becomes less understandable, especially in case of big, nested elements.</p>
+                                    </li>
+                                    <li>
+                                        <p>In case of a missing <code>]</code> (i.e. we forget to close an element) or a superfluous <code>]</code>, the error message generated by the parser risks to be less helpful. For example, imagine a superfluous <code>]</code> in the middle of a big document. The parser will only be able to detect the error at the end of the document, and report a superfluous <code>]</code> at the last line.</p>
+                                        <p>Note, however, that this problem can be largely mitigated when elements are indented, and the parser emits a warning if the indentation of the opening <code>[</code> and closing <code>]</code> are different.</p>
+                                    </li>
+                                </ul>
+                                <p>To eliminate these inconveniences we should support an <i>alternative</i>, more verbose syntax to close elements.</p>
+                                <p>Obvious options like <code>[/tag]</code> or <code>tag]</code> don't work, because they create an imbalance of brackets, or they require special rules for exceptional corner cases. I finally opted for the following alternative syntax:</p>
+                                <pre>][/tag]</pre>
+                                <p>Hence the above code to close three elements can optionally be written like this:</p>
+                                <pre>][/img] ][/div] ][/section]</pre>
+                                <p>... or this</p>
+                                <pre>        ][/img]
+    ][/div]
+][/section]</pre>
+                                <p>This is a bit more verbose than the XML syntax, because there is one more character per closing tag. But it is also a bit easier to write because the <code>Shift</code> key doesn't have to be used twice. In practice the verbose syntax is only needed to close big tags with many levels of child elements. So I think the alternative pXML syntax to close tags is a good compromise. It's there if you need it, and it works well (no corner cases that require special rules).</p>
+                            </section>
+                            <section id="name_rules">
+                                <h4>Naming Rules</h4>
+                                <p>For compatibility reasons, the rules for element names in pXML must be the same as in <a href="https://www.w3schools.com/xml/xml_elements.asp">XML</a>. Element names:</p>
+                                <ul>
+                                    <li>
+                                        <p>are case-sensitive</p>
+                                    </li>
+                                    <li>
+                                        <p>must start with a letter or underscore</p>
+                                    </li>
+                                    <li>
+                                        <p>cannot start with &quot;xml&quot;</p>
+                                    </li>
+                                    <li>
+                                        <p>can contain letters, digits, hyphens, underscores, and periods</p>
+                                    </li>
+                                    <li>
+                                        <p>cannot contain spaces</p>
+                                    </li>
+                                </ul>
+                            </section>
+                        </section>
+                        <section id="ch__11">
+                            <h3>Meta Data</h3>
+                            <section id="XML_attributes">
+                                <h4>XML Attributes</h4>
+                                <p>Besides elements, XML also supports <i>attributes</i>. Here is an example of an XML element with attributes:</p>
+                                <pre>&lt;div id=&quot;unplug_warning&quot; class=&quot;warning big-text&quot;&gt;Unplug power cord before opening!&lt;/div&gt;</pre>
+                                <p>XML doesn't specify when to use attributes instead of elements. However, it's considered <a href="https://www.w3schools.com/xml/xml_dtd_el_vs_attr.asp">good practice</a> to use attributes only for <i>metadata</i> (data about data). All <i>data</i> should be stored in child-elements.</p>
+                                <p>Here is an reprint of a simple data structure we saw in a <a href="#albert_example">previous</a> chapter:</p>
+                                <pre>&lt;person&gt;
+    &lt;name&gt;Albert&lt;/name&gt;
+    &lt;married&gt;true&lt;/married&gt;
+    &lt;address&gt;
+        &lt;street&gt;Kramgasse&lt;/street&gt;
+        &lt;city&gt;Bern&lt;/city&gt;
+    &lt;/address&gt;
+    &lt;phones&gt;
+        &lt;phone&gt;123&lt;/phone&gt;
+        &lt;phone&gt;456&lt;/phone&gt;
+    &lt;/phones&gt;
+&lt;/person&gt;</pre>
+                                <p>We <i>could</i> use attributes for some data and rewrite the code like this:</p>
+                                <pre>&lt;person name=&quot;Albert&quot; married=&quot;true&quot;&gt;
+    &lt;address street=&quot;Kramgasse&quot; city=&quot;Bern&quot; /&gt;
+    &lt;phones&gt;
+        &lt;phone&gt;123&lt;/phone&gt;
+        &lt;phone&gt;456&lt;/phone&gt;
+    &lt;/phones&gt;
+&lt;/person&gt;</pre>
+                                <p>However we should not do that if we follow the general advice that attributes should be used for <i>meta</i>data. Clearly, <code>name</code>, <code>married</code>, <code>street</code>, and <code>city</code> are <i>not</i> metadata, they are data.</p>
+                                <p>In practice, people sometimes use attributes for data because it reduces verbosity (as can be seen in the above example) or maybe because they are not aware of the general advice. Searching the net for 'xml elements vs attributes' reveals that there is <i>a lot</i> of confusion, as shown <a href="https://stackoverflow.com/questions/33746/xml-attribute-vs-xml-element">here</a>, <a href="https://stackoverflow.com/questions/1096797/should-i-use-elements-or-attributes-in-xml">here</a>, and <a href="https://www.ibm.com/developerworks/library/x-eleatt/index.html">here</a>, for example.</p>
+                                <p>HTML code like the following one is fine, because the attribute is used to store metadata:</p>
+                                <pre>&lt;span class=&quot;redOnYellow&quot;&gt;Good News!&lt;/span&gt;</pre>
+                                <p>It is important to note that we <i>could</i> also use an element for <code>class</code> (thereby violating the advice):</p>
+                                <pre>&lt;span&gt;&lt;class&gt;redOnYellow&lt;/class&gt;Good News!&lt;/span&gt;</pre>
+                            </section>
+                            <section id="ch__12">
+                                <h4>Attributes in pXML?</h4>
+                                <p>In the first draft of this article, attributes were supported in pXML. The above XML example:</p>
+                                <pre>&lt;div id=&quot;unplug_warning&quot; class=&quot;warning big-text&quot;&gt;Unplug power cord before opening!&lt;/div&gt;</pre>
+                                <p>... would be written like this in pXML:</p>
+                                <pre>[div ( id=unplug_warning class=&quot;warning big-text&quot; ) Unplug power cord before opening!]</pre>
+                                <p>As shown, attribute assignments were embedded in parenthesis (which is familiar to many programmers), and attribute values without spaces didn't need to be quoted (e.g. <code>id=unplug_warning</code>).</p>
+                                <p>Right after I finished the chapter about pXML attributes, I leaned back and asked myself: &quot;Do we really <i>need</i> attributes?&quot;.</p>
+                                <p>One of the best general advice for good engineering popped up in my mind:</p>
+                                <blockquote>
+                                    <div>
+                                        <div></div>
+                                        <div>
+                                            <p>Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.</p>
+                                        </div>
+                                        <div></div>
+                                    </div>
+                                    <div>Antoine de Saint-Exupery</div>
+                                </blockquote>
+                                <p>After playing around with some examples, I concluded: &quot;No, we do not need attributes!&quot;.</p>
+                                <p>So let's be bold. Let's remove attributes. We don't need them. As we'll see soon, we'll reap some nice benefits from doing so.</p>
+                            </section>
+                            <section id="ch__13">
+                                <h4>Separation of Data And Metadata</h4>
+                                <p>What we <i>need</i> is a separation of metadata and data, because that's sometimes very useful (and heavily used in HTML to style documents). However, we don't need <i>attributes</i> to make that separation. We can just use <i>elements</i> to store metadata. We only need to find a way to distinguish elements that contain metadata from those who contain data. I finally opted to use the character <code>#</code> as a name prefix for elements containing metadata. The reason for this choice is that we can think of <code>#</code> as <i>different</i> (not equal). Metadata are <i>different</i> from data, so <code>#</code> is easy to remember. Moreover, according to the XML <a href="#name_rules">naming rules</a> (which are also applied in pXML) <code>#</code> is not allowed in a name. Hence there is no clash, no ambiguity.</p>
+                                <p>As a result, the following HTML code:</p>
+                                <pre>&lt;span class=&quot;redOnYellow&quot;&gt;Good News!&lt;/span&gt;</pre>
+                                <p>... is written like this in pXML (note the <code>#</code> prefix for <code>class</code>):</p>
+                                <pre>[span [#class redOnYellow]Good News!]</pre>
+                                <p>Yes, this might look unappealing at first - especially for people used to look at HTML code for years.</p>
+                                <p>Nobody is required to agree immediately. Let's first calmly look at advantages and disadvantages.</p>
+                            </section>
+                            <section id="ch__14">
+                                <h4>Advantages</h4>
+                                <p>Using elements instead of attributes to store metadata has remarkable advantages:</p>
+                                <ul>
+                                    <li>
+                                        <p>Complexity is significantly reduced</p>
+                                    </li>
+                                    <li>
+                                        <p>Metadata becomes as powerful as data</p>
+                                    </li>
+                                    <li>
+                                        <p>No confusion about using attributes or elements</p>
+                                    </li>
+                                </ul>
+                                <p>Let's dig deeper and discover some practical benefits.</p>
+                                <p><br /> <b>1. Complexity is significantly reduced.</b></p>
+                                <p>In pXML data <i>and</i> metadata:</p>
+                                <ul>
+                                    <li>
+                                        <p>are defined with the same syntax</p>
+                                    </li>
+                                    <li>
+                                        <p>have the same features</p>
+                                    </li>
+                                    <li>
+                                        <p>are governed by the same rules</p>
+                                    </li>
+                                    <li>
+                                        <p>are accessed programmatically in the same way (same API)</p>
+                                    </li>
+                                </ul>
+                                <p>This is not the case in XML. Attributes and elements have different syntaxes, different features, different rules, and different APIs.</p>
+                                <p>A few examples should demonstrate this.</p>
+                                <p><b>No quotes needed for values</b></p>
+                                <p>Unlike XML, pXML metadata values never need to be quoted, even if they contain spaces. Therefore, <code>&quot;</code> and <code>'</code> characters also never need to be escaped. Example:</p>
+                                <pre>XML:  &lt;el arg1=&quot;foo bar&quot; arg2=&quot;&amp;quot;'&quot; arg3='&amp;apos;&quot;' /&gt;
+pXML: [el [#arg1 foo bar] [#arg2 &quot;'] [#arg3 '&quot;]]</pre>
+                                <p><b>Escaping becomes simpler.</b></p>
+                                <p>Five characters must be escaped in XML:</p>
+                                <table>
+                                    <thead>
+                                        <tr><th>Character</th><th>Escape Entity</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>&lt;</td><td>&amp;lt;</td></tr>
+                                        <tr><td>&gt;</td><td>&amp;gt;</td></tr>
+                                        <tr><td>&quot;</td><td>&amp;quot;</td></tr>
+                                        <tr><td>'</td><td>&amp;apos;</td></tr>
+                                        <tr><td>&amp;</td><td>&amp;amp;</td></tr>
+                                    </tbody>
+                                </table>
+                                <p>Escape rules define when we <i>need</i> to escape, and when it is an <i>option</i>. In XML the rules depend on the context (e.g. attribute or element). They are explained in this <a href="https://stackoverflow.com/questions/1091945/what-characters-do-i-need-to-escape-in-xml-documents">Stackoverflow entry</a>.</p>
+                                <p>In pXML there are only three characters to escape, and the escape tokens are easier to remember and write:</p>
+                                <table>
+                                    <thead>
+                                        <tr><th>Character</th><th>Escape Token</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>[</td><td>\[</td></tr>
+                                        <tr><td>]</td><td>\]</td></tr>
+                                        <tr><td>\</td><td>\\</td></tr>
+                                    </tbody>
+                                </table>
+                                <p>The rule is simple: All three characters must always be escaped in text (data and metadata). There are no exceptions.</p>
+                                <p>Example of metadata with characters that must be escaped:</p>
+                                <pre>// metadata value: Watch out for &lt;, &gt;, &quot;, ', &amp;, [, ], and \ characters
+
+XML:  note = &quot;Watch out for &amp;lt;, &amp;gt;, &amp;quot;, &amp;apos;, &amp;amp;, [, ], and \ characters&quot;
+pXML: [#note Watch out for &lt;, &gt;, &quot;, ', &amp;, \[, \], and \\ characters]</pre>
+                                <p><b>Grammar becomes simpler</b></p>
+                                <p>Removing attributes significantly simplifies the pXML grammar (typically expressed in EBNF).</p>
+                                <p>Hence writing a parser for pXML is easier than writing one for XML. All other tools exploring the structure also become easier to implement and use.</p>
+                                <p><br /> <b>2. Metadata become as powerful as data.</b></p>
+                                <p>Chapter &quot;XML Elements vs. Attributes&quot; on <a href="https://www.w3schools.com/xml/xml_dtd_el_vs_attr.asp">W3Schools</a> states:</p>
+                                <div style="padding-left: 2em; background-color: #f8f8f8;">
+                                    <p>Some of the problems with attributes are:</p>
+                                    <ul>
+                                        <li>
+                                            <p>attributes cannot contain multiple values (child elements can)</p>
+                                        </li>
+                                        <li>
+                                            <p>attributes are not easily expandable (for future changes)</p>
+                                        </li>
+                                        <li>
+                                            <p>attributes cannot describe structures (child elements can)</p>
+                                        </li>
+                                        <li>
+                                            <p>attributes are more difficult to manipulate by program code</p>
+                                        </li>
+                                        <li>
+                                            <p>attribute values are not easy to test against a DTD</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <p>By removing attributes all these problems vanish. Storing metadata in elements makes them as powerful as normal data.</p>
+                                <p>For example, the value of an XML attribute can only be a string. In pXML, metadata can also be stored as a structure (tree of values) which means:</p>
+                                <ul>
+                                    <li>
+                                        <p>A validation mechanism (such as XMLSchema, RelaxNG or Schematron in XML) can be applied to specify the structure and to detect invalid metadata quickly at parse time.</p>
+                                    </li>
+                                    <li>
+                                        <p>Components of metadata (tree nodes) can be accessed programmatically more easily and more reliably with standard XML techniques.</p>
+                                        <p>Say we have the following XML attribute:</p>
+                                        <pre>style = &quot;color: blue; font-family: Arial; background-color: inherit;&quot;</pre>
+                                        <p>Now suppose we need to extract the value of <code>font-family</code>. To achieve this we would need to write a mini-parser that extracts the value. Not a trivial task if it needs to work well in all variations of defining the <code>style</code> attribute.</p>
+                                        <p>In pXML <code>style</code> could be defined like this:</p>
+                                        <pre>[#style
+    [color blue]
+    [font-family Arial]
+    [background-color inherit]
+]</pre>
+                                        <p>After loading the code into an XML document we can easily and reliably extract the value of <code>font-family</code> with standard XML techniques such as XPath or XML Query.</p>
+                                    </li>
+                                    <li>
+                                        <p>Components of metadata are easier and less error-prone to insert, modify, and delete.</p>
+                                        <p>Again, standard XML techniques can be used to do that.</p>
+                                    </li>
+                                </ul>
+                                <p>Here is an example of pXML metadata <code>#GUI_data</code> defined as a nested data structure:</p>
+                                <pre>[grid_cell
+    [#GUI_data
+        [grid_position
+            [line 10]
+            [column 2]
+        ]
+        [color
+            [text purple]
+            [background yellow]
+        ]
+    ]
+    [content Cell content]
+]</pre>
+                                <p>Note that element names within metadata don't need to be prefixed with <code>#</code>, because the content of metadata is obviously metadata too.</p>
+                                <p><br /> <b>3. No confusion about using attributes or elements.</b></p>
+                                <p>As said already in chapter <a href="#XML_attributes">XML Attributes</a> there is a lot of confusion in the XML world about when to use attributes and when to use elements.</p>
+                                <p>Sometimes attributes are used while the correct way would be to use elements, or vice-versa. If the mistake is fixed later, all code that accesses the data must be updated too, because XML attributes have a different API than elements. Moreover, entities used to escape characters might need to be adapted too, because the rules for escaping characters in attributes and elements are different. This can turn into a frustrating and error-prone process.</p>
+                                <p>In pXML there is no such confusion, because data and metadata are all stored in elements.</p>
+                                <p>The temptation to use attributes to reduce verbosity vanishes too and doesn't make sense anymore, because the number of markup characters for pXML elements is the same as for XML attributes. Example:</p>
+                                <pre>XML element:   &lt;identifier&gt;123&lt;/identifier&gt;
+XML attribute: identifier=&quot;123&quot;
+pXML element:  [identifier 123]</pre>
+                                <p>There is only one question that arises in pXML: &quot;Is this value data or metadata?&quot;. If it is metadata then the element's name should be prefixed with <code>#</code>. That's it. If the initial choice was wrong, it can easily be changed later. No need to worry about escaping, and less API changes.</p>
+                                <div>
+                                    <div>Note</div>
+                                    <div>
+                                        <p>Deciding whether a value is data or metadata can sometimes be a bit tricky. Advice on this is out of scope of this article. If in doubt, choose 'data'. Or get some tips from <a href="http://www.cafeconleche.org/books/effectivexml/chapters/12.html">Store metadata in attributes</a>.</p>
+                                    </div>
+                                </div>
+                            </section>
+                            <section id="ch__15">
+                                <h4>Disadvantages</h4>
+                                <p>I looked hard for disadvantages before deciding to remove attributes in pXML. I am not an XML expert. So, if I missed something then please leave a comment. I will fix what needs to be fixed.</p>
+                                <p>Here are some points to consider:</p>
+                                <p><br /> <b>1. New markup symbol</b></p>
+                                <p>A new markup symbol (<code>#</code>) has been added.</p>
+                                <p>However, this symbol can only appear as a prefix to an element name. Therefore there is no need to escape <code>#</code> in text.</p>
+                                <p>Moreover, we have also <i>removed</i> three markup symbols: <code>=</code>, <code>&quot;</code>, and <code>'</code>. And there is no more need to escape <code>&quot;</code> or <code>'</code>.</p>
+                                <p><br /> <b>2. XML/pXML gap</b></p>
+                                <p>Removing attributes increases the gap between XML and pXML. But the impact is less severe than it might seem at first.</p>
+                                <p>The basic concept of separating data and metadata remains the same.</p>
+                                <p>It is still easy to convert pXML to XML and vice versa.</p>
+                                <p>However, there is an incompatibility issue that arises when pXML code is converted to XML (e.g. read into an XML DOM or converted to XML code) <i>and</i> pXML metadata uses structured data (not only strings). The issue arises because XML attributes support only strings. Some workarounds to consider could be:</p>
+                                <ul>
+                                    <li>
+                                        <p>Store pXML metadata in XML elements too (all metadata, or just metadata with structured values).</p>
+                                        <p>If needed, the distinction between data and metadata in XML elements could be made by using a specific prefix or suffix for the element name. For example <code>#class</code> in pXML becomes <code>_class</code> in XML (according to the <a href="#name_rules">rules</a> XML element names can start with an underscore).</p>
+                                        <p>Alternatively, one could add an attribute (or child-element) to flag an element as metadata, e.g.</p>
+                                        <pre>&lt;rendering metadata=&quot;yes&quot;&gt;
+    &lt;color&gt;blue&lt;/color&gt;
+    &lt;size&gt;big&lt;/size&gt;
+&lt;/rendering&gt;</pre>
+                                    </li>
+                                    <li>
+                                        <p>Convert all structured pXML metadata into a string that can be stored in an XML attribute (might not be easy too implement).</p>
+                                    </li>
+                                    <li>
+                                        <p>Allow only strings for pXML metadata. Pseudo-code:</p>
+                                        <pre>if XML_compatibility_required and type of metavalue is not string then
+    raise error
+.</pre>
+                                    </li>
+                                </ul>
+                                <p><br /> <b>3. Pain of change</b></p>
+                                <p>Humans tend to <i>resist change</i>.</p>
+                                <p>The biggest obstacle for a new syntax might be the &quot;pain of change&quot;. Some people might immediately be put off by the idea of removing attributes, because they are considered to be 'an essential part of XML'. Intuition shouts: &quot;No, no, we can't do that!&quot;.</p>
+                                <p>Should we reject progress if the advantages justify a temporary effort?</p>
+                                <p>If we can:</p>
+                                <ul>
+                                    <li>
+                                        <p>make it more simple</p>
+                                    </li>
+                                    <li>
+                                        <p>make it more powerful at the same time</p>
+                                    </li>
+                                    <li>
+                                        <p>without creating weighty, long-term disadvantages</p>
+                                    </li>
+                                </ul>
+                                <p>... then we should &quot;Just do it!&quot;.</p>
+                            </section>
+                        </section>
+                        <section id="ch__16">
+                            <h3>Comments</h3>
+                            <p>An XML comment looks like this:</p>
+                            <pre>&lt;!-- text of comment --&gt;</pre>
+                            <p>We can simplify by using <code>[-</code> to start a comment, and <code>-]</code> to stop it. Here is the pXML version:</p>
+                            <pre>[- text of comment -]</pre>
+                            <p>There is no ambiguity with <code>[-</code> being the start of an element with name <code>-</code> because, according to the <a href="#name_rules">rules</a>, an element name cannot contain hyphens (<code>-</code>).</p>
+                            <p><i>Nested</i> comments are often useful in practice. For example, it's common to comment a block of code that contains already a comment. Therefore pXML supports nested comments (unlike XML). Here is an example:</p>
+                            <pre>[- text of outer comment
+    [- text of inner comment -]
+-]</pre>
+                            <div>
+                                <div>Note</div>
+                                <div>
+                                    <p>Applications that convert pXML to XML code must be careful to not convert inner comments, because XML doesn't support nested comments. The above comment cannot be converted to:</p>
+                                    <pre>&lt;!-- text of outer comment
+    &lt;!-- text of inner comment --&gt;
+--&gt;</pre>
+                                    <p>It should be converted to:</p>
+                                    <pre>&lt;!-- text of outer comment
+    [- text of inner comment -]
+--&gt;</pre>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="ch__17">
+                            <h3>Other</h3>
+                            <p>There are some other XML syntax constructs not covered in this article. For example: XML entities, namespaces, CDATA sections, and processing instructions. This is an introductory article, so these items might be the subject of a follow-up article.</p>
+                        </section>
+                    </section>
+                    <section id="ch__18">
+                        <h2>History</h2>
+                        <section id="ch__19">
+                            <h3>pXML Predecessor</h3>
+                            <p>When I started to ponder about the new syntax, I didn't think at all about creating a better XML/HTML syntax. What I <i>wanted</i> was a new syntax to write articles (published on a blog) and books. Initially I used Docbook, then Asciidoctor to write articles. I also tried out Markdown, and had a look at other syntaxes like RestructedText. To make a long story short: I felt frustrated with some impracticabilities of existing solutions, and finally decided to design a new syntax called <i>Practical Markup Language (<b>PML</b>)</i>. If you want to know more about my motivation to create PML, you can read <a href="https://www.pml-lang.dev/docs/articles/practical-document-markup-language/index.html">We Need a New Document Markup Language - Here is Why</a> (published in March 2019). (Note: For readers still using a word processor, I also wrote <a href="https://www.pml-lang.dev/docs/articles/advantages-markup-language-vs-word-processor/index.html">Advantages of Document Markup Languages vs WYSIWYG Editors</a>)</p>
+                            <p>Nowadays I write all my articles in PML (including this one). To publish them I created a <i>PML to HTML Converter</i> which reads a PML file and creates a HTML file. You can have a look at the PML source of this article <a href="https://www.pml-lang.dev/TODO">here</a>, and you can see the original version of it <a href="https://www.pml-lang.dev/TODO">here</a> (i.e. the result produced by the <i>PML to HTML Converter</i>). Right-click on the original article, and click 'View Page Source' if you want to have a look at the HTML code produced by the <i>PML to HTML Converter</i>. The converter produces indented, clean and simple HTML code, like hand-coded. The <i>PML to HTML Converter</i> is open-sourced under the GPL2, and written in <a href="https://www.ppl-lang.dev">PPL</a> (<i>Practical Programming Language</i>). The source code is on <a href="https://www.github.com/pml-lang/converter">Github</a>.</p>
+                            <p>After creating PML, I suddenly realized that it's syntax could also be used to write XML/HTML documents - a nice side effect. This article is my first step in making my idea public.</p>
+                            <p>One could say that PML is to pXML like HTML is to XML. PML uses the pXML syntax, but only predefined, sematic PML tags are allowed. PML still use attributes, but I want to change that in the future.</p>
+                        </section>
+                        <section id="lenient_PML">
+                            <h3>Lenient Syntax in PML</h3>
+                            <p>An important aspect of PML is the parser's ability to work in <i>lenient mode</i>. This mode supports very targeted syntax simplifications, aiming to eliminate as much &quot;noise&quot; as possible. It should be as easy as possible to write articles and books in PML. Here is an example to illustrate the advantage of the <i>lenient syntax</i>:</p>
+                            <p>Below is the code of a simple PML document, written in strict pXML:</p>
+                            <pre>[document [title Test]
+    [chapter [title An Unusual Surprise]
+        [paragraph Look at the following picture:]
+        [image [source images/strawberries.jpg]]
+        [paragraph Text of paragraph 2]
+        [paragraph Text of paragraph 3]
+    ]
+]</pre>
+                            <p>In lenient PML mode (always activated), the text can be shortened to:</p>
+                            <pre id="pml_lenient_example">[doc Test
+    [ch An Unusual Surprise
+        Look at the following picture:
+        [img images/strawberries.jpg]
+        
+        Text of paragraph 2
+
+        Text of paragraph 3
+    ]
+]</pre>
+                            <p>Let's briefly see how this works:</p>
+                            <ul>
+                                <li>
+                                    <p><code>document</code> becomes <code>doc</code>:</p>
+                                    <p>Most PML tags have alternative short names, besides their standard, more verbose name (e.g. <code>doc</code> instead of <code>document</code>, <code>p</code> instead of <code>paragraph</code>, <code>ch</code> instead of <code>chapter</code>, etc.)</p>
+                                </li>
+                                <li>
+                                    <p><code>[title Test]</code> becomes <code>Test</code>:</p>
+                                    <p>Some elements (for example <code>chapter</code> and <code>image</code>) have one so-called <i>default child-element</i>. For that element only the value can be specified - it is not necessary to write <code>[name value]</code></p>
+                                </li>
+                                <li>
+                                    <p><code>[paragraph Text of paragraph 2]</code> becomes <code>Text of paragraph 2</code>:</p>
+                                    <p>If text is not contained in a <code>paragraph</code> (or simply <code>p</code>) element, it is automatically embedded in a <code>paragraph</code> element.</p>
+                                    <p>Text separated by two new lines automatically creates a paragraph break.</p>
+                                </li>
+                            </ul>
+                            <p>If you want to try out the above code, you can proceed like this:</p>
+                            <ul>
+                                <li>
+                                    <p><a href="https://www.pml-lang.dev/downloads/install.html">Download</a> the <i>PML to HTML Converter</i></p>
+                                </li>
+                                <li>
+                                    <p>Create file <code>example.pml</code> in any directory, with the PML code shown above (the strict pXML version will not work).</p>
+                                </li>
+                                <li>
+                                    <p>Copy a picture to <code>resources/images/strawberries.jpg</code></p>
+                                </li>
+                                <li>
+                                    <p>Open a terminal in the directory of file <code>example.pml</code> and type</p>
+                                    <pre>pmlc example.pml</pre>
+                                </li>
+                                <li>
+                                    <p>Open file <code>output/example.html</code> in your browser.</p>
+                                    <p>The result looks like this:</p>
+                                    <figure style="text-align: left">
+                                        <img alt="HTML page created by PML" src="lenient_example.png" width="400" />
+                                    </figure>
+                                </li>
+                                <li>
+                                    <p>Right-click on the text, and select 'View Page Source' if you want to see the HTML code produced by the <i>PML to HTML Converter</i>.</p>
+                                </li>
+                            </ul>
+                        </section>
+                    </section>
+                    <section id="ch__20">
+                        <h2>Implementation</h2>
+                        <p>Having successfully used the PML syntax for some time, I was somewhat confident that the pXML syntax should work well for XML documents too. However, to eliminate any doubts, I wanted a <i>proof of concept</i> for pXML, before publishing this article. Therefore I created a parser that reads the pXML syntax presented in this article. The parser is written in Java and has no dependencies. I will open-source it.</p>
+                        <p>The following features are currently implemented:</p>
+                        <ul>
+                            <li>
+                                <p>Convert pXML into XML (meta-elements in pXML are converted into XML attributes, and pXML/XML escape rules are applied)</p>
+                            </li>
+                            <li>
+                                <p>Convert XML into pXML (attributes in XML are converted into pXML meta-elements, and pXML/XML escape rules are applied)</p>
+                            </li>
+                            <li>
+                                <p>Read a pXML document into an <code>org.w3c.dom.Document</code> Java object.</p>
+                                <p>This is the most powerful feature. Once we have a Java <code>Document</code> object we can use all of XML's <a href="https://en.wikipedia.org/wiki/XML#Related_specifications">related specifications</a> with a pXML document. A few examples are:</p>
+                                <ul>
+                                    <li>
+                                        <p>validate a document with XML Schema (W3C), RELAX NG, or Schematron</p>
+                                    </li>
+                                    <li>
+                                        <p>programmatically traverse the document</p>
+                                    </li>
+                                    <li>
+                                        <p>insert, modify, and delete elements and attributes, and save the result as a new XML document</p>
+                                    </li>
+                                    <li>
+                                        <p>query the document (search for values, compute aggregates, etc.) with XQuery/XPath</p>
+                                    </li>
+                                    <li>
+                                        <p>convert the document using an XSL transformer (e.g. create a differently structured XML document, create a plain text document, etc.)</p>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>Here is a &quot;Hello World&quot; example of a pXML to XML conversion:</p>
+                        <ul>
+                            <li>
+                                <p>Suppose we created file <code>hello.pxml</code> with this content (an empty root element with name <code>hello</code>):</p>
+                                <pre>[hello]</pre>
+                            </li>
+                            <li>
+                                <p>The following Java code converts this pXML file into an XML file named <code>hello.xml</code>:</p>
+                                <pre>PXMLToXMLConverter.PXMLFileToXMLFile ( new File(&quot;hello.pxml&quot;), new File(&quot;hello.xml&quot;) );</pre>
+                            </li>
+                            <li>
+                                <p>The resulting <code>hello.xml</code> file looks like this:</p>
+                                <pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;hello /&gt;            </pre>
+                            </li>
+                        </ul>
+                        <p>The opposite (i.e. converting an XML file to a pXML file) can be done with:</p>
+                        <pre>XMLToPXMLConverter.XMLFileToPXMLFile ( new File(&quot;hello.xml&quot;), new File(&quot;hello.pxml&quot;) );</pre>
+                        <p>Once the pXML parser is ready to be open-sourced, I'll publish a dedicated article with more examples.</p>
+                        <p>If there is enough interest I might also create a dedicated pXML website with a syntax specification and the grammar expressed in EBNF. Everybody is very welcome to participate in an open-source project.</p>
+                    </section>
+                    <section id="ch__21">
+                        <h2>Examples</h2>
+                        <p>A picture is worth a thousand words. So let's look at two common real life examples: a simple config file, and HTML code. We will compare code written in JSON, XML, pXML, and PML.</p>
+                        <section id="ch__22">
+                            <h3>Simple Config File</h3>
+                            <p>A simple config file is just a map of key/value pairs.</p>
+                            <p><b>JSON</b></p>
+                            <p>Here is an example in JSON:</p>
+                            <pre>{
+    &quot;size&quot;: &quot;XL&quot;,
+    &quot;color&quot;: &quot;light orange&quot;,
+    &quot;transparent&quot;: true
+}</pre>
+                            <p>Remarks:</p>
+                            <p>The need for quoting names is a bit annoying.</p>
+                            <p>Another inconvenience is the comma required at the end of each assignment, <i>except the last one</i>. Each time we add a parameter at the end of the list, there is a risk of forgetting to add a comma at the existing second-last line.</p>
+                            <p><b>XML</b></p>
+                            <p>There are different ways to do this in XML. It's typically done like this:</p>
+                            <pre>&lt;params&gt;
+    &lt;size&gt;XL&lt;/size&gt;
+    &lt;color&gt;light orange&lt;/color&gt;
+    &lt;transparent&gt;true&lt;/transparent&gt;
+&lt;/params&gt;</pre>
+                            <p>Remark: The closing tags are noisy.</p>
+                            <p><b>pXML</b></p>
+                            <p>The pXML version looks like this:</p>
+                            <pre>[params
+    [size XL]
+    [color light orange]
+    [transparent true]
+]</pre>
+                            <p>Remark: The <code>[name value]</code> syntax might seem a bit strange at first. But it's (hopefully) easy to get used to it quickly.</p>
+                            <p><b>Verbosity</b></p>
+                            <p>To compare the verbosity of the three syntaxes, let's consider the length of the markup code (excluding whitespace) needed for one parameter:</p>
+                            <table>
+                                <thead>
+                                    <tr><th>Language</th><th>Markup</th><th>Length</th><th>Range</th><th>Remark</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>JSON</td><td>&quot;&quot;:&quot;&quot;,</td><td>6</td><td>3 to 6</td><td>-2 for integer, boolean, and null values (because they are not quoted); -1 for the last parameter (because it doesn't have a trailing comma)</td></tr>
+                                    <tr><td>XML</td><td>&lt;&gt;&lt;/size&gt;</td><td>9</td><td>min. 6</td><td>The length depends on the number of characters in the name</td></tr>
+                                    <tr><td>pXML</td><td>[]</td><td>2</td><td>always 2</td><td></td></tr>
+                                </tbody>
+                            </table>
+                            <p><b>Conclusion</b></p>
+                            <p>The most verbose syntax is XML (especially in case of long parameter names). The least verbose one is pXML with only 2 markup characters per parameter. Less noise implies 'easy to read and write for humans'.</p>
+                        </section>
+                        <section id="ch__23">
+                            <h3>HTML Code</h3>
+                            <p>Now we'll look at some HTML code - the most common use of XML. To keep the example short, we'll just look at an HTML snippet, leaving off the HTML header and footer.</p>
+                            <p><b>HTML</b></p>
+                            <p>The following code represents a chapter with three paragraphs and a picture:</p>
+                            <pre id="html_chapter_example">&lt;section&gt;
+    &lt;h2&gt;Harmonic States&lt;/h2&gt;
+
+    &lt;p&gt;The &lt;i&gt;initial&lt;/i&gt; state looks like this:&lt;/p&gt;
+    &lt;img src=&quot;images/state_1.png&quot; /&gt;
+
+    &lt;p&gt;After just a few &lt;i&gt;&lt;b&gt;micro&lt;/b&gt;seconds&lt;/i&gt; the state changes.&lt;/p&gt;
+    
+    &lt;p&gt;More text ...&lt;/p&gt;
+&lt;/section&gt;</pre>
+                            <p><b>JSON</b></p>
+                            <p>In a <a href="#JSON_alternative">previous</a> chapter we saw already that JSON is not a good fit to write HTML-like code. Nevertheless, let's a have look at the JSON version of our HTML snippet - just to confirm our previous conclusion:</p>
+                            <pre>{ &quot;section&quot;: [
+    { &quot;h2&quot;: &quot;Harmonic States&quot; },
+
+    { &quot;p&quot;: [ &quot;The &quot;, { &quot;i&quot;: &quot;initial&quot; }, &quot; state looks like this:&quot; ] },
+    { &quot;img&quot;: { &quot;src&quot;: &quot;images/state_1.png&quot; } },
+
+    { &quot;p&quot;: [ &quot;After just a few &quot;, { &quot;i&quot;: [ { &quot;b&quot;: &quot;micro&quot; }, &quot;seconds&quot; ] }, &quot; the state changes.&quot; ] },
+    { &quot;p&quot;: &quot;More text ...&quot; }
+] }</pre>
+                            <p>If we prettify, the 7 lines of code turn into 38 (!) lines with more whitespace than text:</p>
+                            <pre>{
+    &quot;section&quot;:[
+        {
+            &quot;h2&quot;:&quot;Harmonic States&quot;
+        },
+        {
+            &quot;p&quot;:[
+                &quot;The &quot;,
+                {
+                    &quot;i&quot;:&quot;initial&quot;
+                },
+                &quot; state looks like this:&quot;
+            ]
+        },
+        {
+            &quot;img&quot;:{
+                &quot;src&quot;:&quot;images/state_1.png&quot;
+            }
+        },
+        {
+            &quot;p&quot;:[
+                &quot;After just a few &quot;,
+                {
+                    &quot;i&quot;:[
+                        {
+                            &quot;b&quot;:&quot;micro&quot;
+                        },
+                        &quot;seconds&quot;
+                    ]
+                },
+                &quot; the state changes.&quot;
+            ]
+        },
+        {
+            &quot;p&quot;:&quot;More text ...&quot;
+        }
+    ]
+}</pre>
+                            <p>Phew! Only a Black-Belt-JSON-Ninja would have no problems writing and maintaining code like this by hand, without editor support. Yet this is just a simple toy example. Imagine a code base with real-world, big and complex HTML code! And image you had to maintain that ... code.</p>
+                            <p><b>pXML</b></p>
+                            <p>This is the pXML version:</p>
+                            <pre>[section
+    [h2 Harmonic States]
+
+    [p The [i initial] state looks like this:]
+    [img [#src images/state_1.png]]
+
+    [p After just a few [i [b micro]seconds] the state changes.]
+    
+    [p More text ...]
+]</pre>
+                            <p><b>PML</b></p>
+                            <p>As said already, PML has a <a href="#lenient_PML">lenient syntax mode</a> that leads to very succinct markup code:</p>
+                            <pre>[ch Harmonic States
+
+    The [i initial] state looks like this:
+    [img images/state_1.png]
+
+    After just a few [i [b micro]seconds] the state changes.
+    
+    More text ...
+]</pre>
+                            <div>
+                                <div>Note</div>
+                                <div>
+                                    <p>If we embed the above code in a <code>doc</code> element (as <a href="#pml_lenient_example">shown before</a>), save the code into file <code>test.pml</code>, and run the <i>PML to HTML Converter</i> with the OS command <code>pmlc test.pml</code>, a complete HTML file is created (with header and footer). Here is an excerpt of this file (CSS code removed):</p>
+                                    <pre>&lt;section id=&quot;ch__1&quot;&gt;
+    &lt;h2&gt;Harmonic States&lt;/h2&gt;
+    &lt;p&gt;The &lt;i&gt;initial&lt;/i&gt; state looks like this:&lt;/p&gt;
+    &lt;figure&gt;
+        &lt;img src=&quot;images/state_1.png&quot; /&gt;
+    &lt;/figure&gt;
+    &lt;p&gt;After just a few &lt;i&gt;&lt;b&gt;micro&lt;/b&gt;seconds&lt;/i&gt; the state changes.&lt;/p&gt;
+    &lt;p&gt;More text ...&lt;/p&gt;
+&lt;/section&gt;</pre>
+                                    <p>As can be seen, it is very similar to the <a href="#html_chapter_example">initial HTML code</a> we would write by hand.</p>
+                                </div>
+                            </div>
+                            <p><b>Verbosity</b></p>
+                            <p>Let's look at numbers. How much effort does it take to write the code in the four languages? If we extract the markup code (i.e. remove whitespace and text displayed in the browser) we get this, from worst to best:</p>
+                            <pre>JSON: {&quot;section&quot;:[{&quot;h2&quot;:&quot;&quot;},{&quot;p&quot;:[&quot;&quot;,{&quot;i&quot;:&quot;&quot;},&quot;&quot;]},{&quot;img&quot;:{&quot;src&quot;:&quot;&quot;}},{&quot;p&quot;:[&quot;&quot;,{&quot;i&quot;:[{&quot;b&quot;:&quot;&quot;},&quot;&quot;]},&quot;&quot;]},{&quot;p&quot;:&quot;&quot;}]}
+
+HTML: &lt;section&gt;&lt;h2&gt;&lt;/h2&gt;&lt;p&gt;&lt;i&gt;&lt;/i&gt;&lt;/p&gt;&lt;imgsrc=&quot;&quot;/&gt;&lt;p&gt;&lt;i&gt;&lt;b&gt;&lt;/b&gt;&lt;/i&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;/section&gt;
+
+pXML: [section[h2][p[i]][img[#src]][p[i[b]]][p]]
+
+PML:  [ch[i][img][i[b]]]</pre>
+                            <p>Counting the number of characters gives us the following table:</p>
+                            <table>
+                                <thead>
+                                    <tr><th>Language</th><th>Markup length</th><th>Percentage of HTML</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>JSON</td><td>108</td><td>132%</td></tr>
+                                    <tr><td>HTML</td><td>82</td><td>100%</td></tr>
+                                    <tr><td>pXML</td><td>42</td><td>51%</td></tr>
+                                    <tr><td>PML</td><td>18</td><td>22%</td></tr>
+                                </tbody>
+                            </table>
+                            <p>A graph of these numbers looks like this:</p>
+                            <figure style="text-align: left">
+                                <img alt="Number of characters in JSON, HTML, pXML, and PML" src="bar_graph_characters.png" width="500" />
+                            </figure>
+                            <p>Of course this is not a representative result. Other HTML examples would lead to more or less different numbers. However, it clearly shows the impact of syntax. Syntax affects complexity, space and time, and usability. Succinct syntax makes it easier and more enjoyable to read and write code.</p>
+                        </section>
+                    </section>
+                    <section id="ch__24">
+                        <h2>Syntax Comparison</h2>
+                        <p>Here is a brief comparison of the XML vs pXML syntax:</p>
+                        <p>Empty element:</p>
+                        <pre>XML:  &lt;br /&gt;
+pXML: [br]</pre>
+                        <p>Element with text content:</p>
+                        <pre>XML:  &lt;summary&gt;text&lt;/summary&gt;
+pXML: [summary text]</pre>
+                        <p>Element with child elements:</p>
+                        <pre>XML:  &lt;ul&gt;
+          &lt;li&gt;
+              &lt;div&gt;A &lt;i&gt;friendly&lt;/i&gt; dog&lt;/div&gt;
+          &lt;/li&gt;
+      &lt;/ul&gt;
+
+pXML: [ul
+          [li
+              [div A [i friendly] dog]
+          ]
+      ]</pre>
+                        <p>Element with metadata:</p>
+                        <pre>String metadata:
+XML:  &lt;div id = &quot;unplug_warning&quot; class = &quot;warning big-text&quot;&gt;Unplug power cord before opening!&lt;/div&gt;
+pXML: [div [#id unplug_warning] [#class warning big-text]Unplug power cord before opening!]
+
+Structured metadata:
+XML:  not supported
+pXML: 
+    [grid_cell
+        [#GUI_data
+            [grid_position
+                [line 10]
+                [column 2]
+            ]
+            [color
+                [text purple]
+                [background yellow]
+            ]
+        ]
+        [content Cell content]
+    ]        </pre>
+                        <p>Escaping:</p>
+                        <pre>XML:  note = &quot;Watch out for &amp;lt;, &amp;gt;, &amp;quot;, &amp;apos;, &amp;amp;, [, ], and \ characters&quot;
+pXML: [#note Watch out for &lt;, &gt;, &quot;, ', &amp;, \[, \], and \\ characters]    </pre>
+                        <p>Comments:</p>
+                        <pre>Single comment:
+XML:  &lt;!-- text --&gt;
+pXML: [- text -]
+
+Nested comments:
+XML:  not supported
+pXML: [- text [- nested -] -]</pre>
+                    </section>
+                    <section id="ch__25">
+                        <h2>Summary And Conclusion</h2>
+                        <p>As demonstrated, it <i>is</i> possible to simplify the XML syntax and make it more accessible for humans.</p>
+                        <p>The pXML syntax introduced in this article essentially suggests two improvements:</p>
+                        <ul>
+                            <li>
+                                <p>Replace the XML syntax:</p>
+                                <pre>&lt;name&gt;value&lt;/name&gt;</pre>
+                                <p>... with:</p>
+                                <pre>[name value]</pre>
+                            </li>
+                            <li>
+                                <p>Remove attributes and use the <code>#</code> element name prefix to make a distinction between data and metadata.</p>
+                                <p>The XML code:</p>
+                                <pre>name = &quot;value&quot;</pre>
+                                <p>... becomes:</p>
+                                <pre>[#name value]</pre>
+                            </li>
+                        </ul>
+                        <p>The following picture illustrates the simplification achieved with pXML:</p>
+                        <figure style="text-align: center">
+                            <img alt="From XML to pXML" src="n_v.png" width="400" />
+                        </figure>
+                        <p>Although the pXML syntax is less verbose and less complex, it does not make XML less powerful. Once a pXML document is parsed into an XML tree, the whole set of great additions that are part of the XML ecosystem can still be used: documents can be validated, queried, modified, and transformed.</p>
+                        <p>pXML also adds two features not supported in XML:</p>
+                        <ul>
+                            <li>
+                                <p>Metadata can contain structured data, instead of just strings.</p>
+                            </li>
+                            <li>
+                                <p>Comments can be nested.</p>
+                            </li>
+                        </ul>
+                        <p>Well designed syntax increases productivity, reduces errors, eases maintenance, and improves space and time efficiency. And that makes us feel good.</p>
+                        <p>Syntax matters!</p>
+                    </section>

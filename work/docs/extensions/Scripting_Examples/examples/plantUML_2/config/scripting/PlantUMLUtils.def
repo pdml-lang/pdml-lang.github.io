@@ -1,0 +1,13 @@
+[s:def
+    ~~~
+    function insertPlantUMLImage ( name, plantUMLCode ) {
+
+        const inputFile = `resources/images/${name}.txt`;
+        fileUtils.writeText ( inputFile, plantUMLCode );
+
+        OSCommand.runAndWait ( [ "java", "-jar", "plantuml.jar", "-i", inputFile ] );
+
+        doc.insert ( `[image source = images/${name}.png]` );
+    }
+    ~~~
+]

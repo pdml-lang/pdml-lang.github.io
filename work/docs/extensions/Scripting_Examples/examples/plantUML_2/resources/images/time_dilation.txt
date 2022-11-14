@@ -1,0 +1,4 @@
+
+@startmath
+t'=t1/sqrt(1-v^2/c^2)
+@endmath

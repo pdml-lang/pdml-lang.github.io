@@ -563,7 +563,7 @@ statement = 'He said:\n&quot;All is well!&quot;'      // Unix new line forced</c
                             <pre class="pml-code"><code>&lt;!-- text of comment --&gt;</code></pre>
                             <p class="pml-paragraph">We can simplify by using <code class="pml-inline-code">[-</code> to start a comment, and <code class="pml-inline-code">-]</code> to stop it. Here is the pXML version:</p>
                             <pre class="pml-code"><code>[- text of comment -]</code></pre>
-                            <p class="pml-paragraph">There is no ambiguity with <code class="pml-inline-code">[-</code> being the start of an element with name <code class="pml-inline-code">-</code> because, according to the <a href="#name_rules" class="pml-xref">rules</a>, an element name cannot start with a hyphen (<code class="pml-inline-code">-</code>).</p>
+                            <p class="pml-paragraph">There is no ambiguity with <code class="pml-inline-code">[-</code> being the start of an element with name <code class="pml-inline-code">-</code> because, according to the <a href="#name_rules" class="pml-xref">rules</a>, an element name cannot contain hyphens (<code class="pml-inline-code">-</code>).</p>
                             <p class="pml-paragraph"><i class="pml-italic">Nested</i> comments are often useful in practice. For example, it's common to comment a block of code that contains already a comment. Therefore pXML supports nested comments (unlike XML). Here is an example:</p>
                             <pre class="pml-code"><code>[- text of outer comment
     [- text of inner comment -]
