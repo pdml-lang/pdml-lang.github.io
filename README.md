@@ -18,7 +18,7 @@ To convert these PML documents to HTML you need to [install PMLC](https://www.pm
 To create the website you need Java version 17 or higher to be installed on your system.
 You can then execute `creator/create_website.cmd`. This command will read files in directory `work`, and write files into directory `docs`.
 
-## Help And Discussion
+## Help And Discussions
 
 Please use [GitHub Discussions](https://github.com/pdml-lang/pdml-lang.github.io/discussions).
 
