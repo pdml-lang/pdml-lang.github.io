@@ -67,7 +67,7 @@ goto fail
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\pswc-0.1.0.jar;%APP_HOME%\lib\pdml-core-0.15.0.jar;%APP_HOME%\lib\pdml-ext-0.15.0.jar;%APP_HOME%\lib\pp-basics-0.11.0.jar;%APP_HOME%\lib\pp-commands-0.11.0.jar;%APP_HOME%\lib\pp-datatype-0.11.0.jar;%APP_HOME%\lib\pp-parameters-0.11.0.jar;%APP_HOME%\lib\pp-scripting-0.11.0.jar;%APP_HOME%\lib\pp-text-0.11.0.jar;%APP_HOME%\lib\pp-texttable-0.11.0.jar;%APP_HOME%\lib\ptte-0.5.0.jar
+set CLASSPATH=%APP_HOME%\lib\pswc-0.1.0.jar;%APP_HOME%\lib\pdml-core-0.15.0.jar;%APP_HOME%\lib\pdml-ext-0.15.0.jar;%APP_HOME%\lib\pp-basics-0.11.0.jar;%APP_HOME%\lib\pp-commands-0.11.0.jar;%APP_HOME%\lib\pp-datatype-0.11.0.jar;%APP_HOME%\lib\pp-parameters-0.11.0.jar;%APP_HOME%\lib\pp-scripting-0.11.0.jar;%APP_HOME%\lib\pp-text-0.11.0.jar;%APP_HOME%\lib\pp-texttable-0.11.0.jar;%APP_HOME%\lib\ptte-0.5.0.jar;%APP_HOME%\lib\js-22.2.0.jar;%APP_HOME%\lib\regex-22.2.0.jar;%APP_HOME%\lib\truffle-api-22.2.0.jar;%APP_HOME%\lib\graal-sdk-22.2.0.jar;%APP_HOME%\lib\icu4j-71.1.jar
 
 
 @rem Execute pswc
