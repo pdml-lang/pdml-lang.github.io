@@ -1,4 +1,4 @@
-module:dev.pdml.basicparser
+module:dev.pdml.simpleparser
 dev.pdml.simpleparser
 dev.pdml.simpleparser.annotations
 dev.pdml.simpleparser.node

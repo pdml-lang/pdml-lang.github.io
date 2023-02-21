@@ -1,1 +1,1 @@
-moduleSearchIndex = [{"l":"dev.pdml.basicparser"}];updateSearchResults();
+moduleSearchIndex = [{"l":"dev.pdml.simpleparser"}];updateSearchResults();
