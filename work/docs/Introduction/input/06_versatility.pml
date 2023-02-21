@@ -20,5 +20,7 @@
         [el transform the document with [link (url=https://www.w3schools.com/xml/xsl_intro.asp) XSLT]]
     ]
 
+    [-
     Examples of how to do this in Java are shown in the article [link (url=[u:get pdml_docs_url]open-source-parser-for-practical-xml/index.html) Open-Source Parser For PracticalXML (pXML)].
+    -]
 ]

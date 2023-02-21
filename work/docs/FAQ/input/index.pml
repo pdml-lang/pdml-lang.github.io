@@ -46,7 +46,7 @@
             [el Core PDML (without extensions) is [i easier to parse] than XML, JSON, or YAML.]
         ]
         
-        For a demonstration of these claims please read [link (url=[u:get pdml_docs_url]suggestion-for-better-xml-html/index.html) Suggestion For a Better XML/HTML Syntax].
+        For a demonstration of these claims please read [link (url=[u:get pdml_docs_url]articles/suggestion-for-better-xml-html/index.html) Suggestion For a Better XML/HTML Syntax].
     ]
 
     [ch (id=how) [title How does it work?]
@@ -95,7 +95,7 @@
             [el tables and databases]
             [el unstructured, heterogenous, or polymorphic data]
         ]
-        Simple examples of each category are shown in the article [link (url=[u:get pdml_docs_url]examples/index.html) PDML Examples].
+        Simple examples of each category are shown in the article [link (url=[u:get pdml_docs_url]core/examples/index.html) PDML Examples].
 
         PDML can be converted to XML, and XML to PDML. Hence, XML technology can be used with PDML documents. For example, you could programmatically validate, query, modify, or transform a document.
 
