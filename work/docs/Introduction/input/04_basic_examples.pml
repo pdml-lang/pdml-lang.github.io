@@ -157,5 +157,5 @@
 
     There is not much more to say about PDML's core syntax.
 
-    For a formal and complete definition please refer to the [link (url=[u:get pdml_docs_url]basic-specification/index.html) PDML Specification].
+    For a formal and complete definition please refer to the [link (url=[u:get pdml_docs_url]core/specification/index.html) PDML Specification].
 ]

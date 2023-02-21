@@ -2,8 +2,8 @@
 
     The grammar is defined in separate documents, in two variations:
     [list
-        [el [link (url=[u:get pdml_docs_url]ebnf/index.html) Extended Backus–Naur form (EBNF)]]
-        [el [link (url=[u:get pdml_docs_url]railroad/index.html) railroad diagrams]]
+        [el [link (url=[u:get pdml_docs_url]core/ebnf/index.html) Extended Backus–Naur form (EBNF)]]
+        [el [link (url=[u:get pdml_docs_url]core/railroad/index.html) railroad diagrams]]
     ]
 
     [note

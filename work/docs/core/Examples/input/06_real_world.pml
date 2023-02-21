@@ -124,7 +124,7 @@
 
         [link (url=https://www.pml-lang.dev/) PML] is a markup language that uses PDML's core syntax and extensions.
 
-        This document is written in PML. You can have a look at its [link (url=https://github.com/pdml-lang/examples-article) PML markup code].
+        This document is written in PML. You can have a look at its [link (url=https://github.com/pdml-lang/pdml-lang.github.io/tree/main/work/docs/core/Examples/input) PML markup code].
 
         Here is an excerpt showing the markup code for this chapter:
 
@@ -134,7 +134,7 @@
 
                 [link (url=https://www.pml-lang.dev/) PML] is a markup language that uses PDML's core syntax and extensions.
 
-                This document is written in PML. You can have a look at its [link (url=https://github.com/pdml-lang/examples-article) PML markup code].
+                This document is written in PML. You can have a look at its [link (url=https://github.com/pdml-lang/pdml-lang.github.io/tree/main/work/docs/core/Examples/input) PML markup code].
 
                 Here is an excerpt showing the markup code for this chapter:
 

@@ -10,7 +10,7 @@
             [tr [tc [b License]][tc [link (url=https://creativecommons.org/licenses/by-nd/4.0/) CC BY-ND 4.0]]]
             [tr [tc [b Author]][tc Christian Neumanns]]
             [tr [tc [b Website]][tc [link (url=https://pdml-lang.dev/)]]]
-            [tr [tc [b PML Markup Code]][tc [link (url=https://github.com/pdml-lang/extensions-user-manual) Github]]]
+            [tr [tc [b PML Markup Code]][tc [link (url=https://github.com/pdml-lang/pdml-lang.github.io/tree/main/work/docs/extensions/User_Manual) Github]]]
         ]
     ]
 
@@ -18,7 +18,7 @@
     [u:set pdml_docs_url=[u:get pdml_website_url]docs/]
     [u:set pdml_docs_extensions_url=[u:get pdml_docs_url]extensions/]
     [u:set pdml_ext_ref_manual_url=[u:get pdml_docs_extensions_url]reference_manual/index.html]
-    [u:set core_pdml_spec=[u:get pdml_docs_url]core-specification/index.html]
+    [u:set core_pdml_spec=[u:get pdml_docs_url]core/specification/index.html]
 
     [u:set examples_dir=examples/]
 

@@ -80,7 +80,7 @@
             ~~~
         ]
 
-        More examples can be found in the article [link (url=[u:get pdml_docs_url]examples/index.html) PDML Examples].
+        More examples can be found in the article [link (url=[u:get pdml_docs_url]core/examples/index.html) PDML Examples].
     ]
 
     [ch (id=what_for) [title What can I do with PDML?]
@@ -99,7 +99,9 @@
 
         PDML can be converted to XML, and XML to PDML. Hence, XML technology can be used with PDML documents. For example, you could programmatically validate, query, modify, or transform a document.
 
+        [-
         The article [link (url=[u:get pdml_docs_url]open-source-parser-for-practical-xml/index.html) Open-Source Parser For PracticalXML (pXML)] shows how to do this.
+        -]
     ]
 
     [ch (id=parser) [title Is there a parser available for PDML?]

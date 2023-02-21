@@ -10,7 +10,7 @@
             [tr [tc [b License]][tc [link (url=https://creativecommons.org/licenses/by-nd/4.0/) CC BY-ND 4.0]]]
             [tr [tc [b Author]][tc Christian Neumanns]]
             [tr [tc [b Website]][tc [link (url=https://pdml-lang.dev/)]]]
-            [tr [tc [b PML Markup Code]][tc [link (url=https://github.com/pdml-lang/extensions-scripting-examples) Github]]]
+            [tr [tc [b PML Markup Code]][tc [link (url=https://github.com/pdml-lang/pdml-lang.github.io/tree/main/work/docs/extensions/Scripting_Examples) Github]]]
         ]
     ]
 

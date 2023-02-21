@@ -10,7 +10,7 @@
         Additional experimental extensions are implemented already in the reference implementation, but not yet documented here.
     ]
 
-    If you encounter a bug or miss an important feature, then please submit an [link (url=https://github.com/pdml-lang/extensions-user-manual/issues) issue].
+    If you encounter a bug or miss an important feature, then please submit an [link (url=https://github.com/pdml-lang/pdml-lang.github.io/issues) issue].
 
-    If you have a question or want to discuss an idea, enhancement or anything else, then please create a [link (url=https://github.com/pdml-lang/extensions-user-manual/discussions) discussion].
+    If you have a question or want to discuss an idea, enhancement or anything else, then please create a [link (url=https://github.com/pdml-lang/pdml-lang.github.io/discussions) discussion].
 ]
