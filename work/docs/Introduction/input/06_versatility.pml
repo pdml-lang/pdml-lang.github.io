@@ -8,7 +8,7 @@
         [el unstructured, heterogenous, or polymorphic data]
     ]
 
-    Examples are shown in the article [link (url=[u:get pdml_docs_url]examples/index.html) PDML Examples].
+    Examples are shown in the article [link (url=[u:get pdml_docs_url]core/examples/index.html) PDML Examples].
     
     The PDML syntax is used in the [link (url=https://www.pml-lang.dev/) Practical Markup Language (PML)], the precursor of PDML (as explained later). For a real-world example of a PDML document you can have a look at the [link (url=https://github.com/pdml-lang/pdml-lang.github.io/tree/main/work/docs/core/Specification/input/) markup code] of the PDML specification which is written in PML and uses the PDML syntax.
 
