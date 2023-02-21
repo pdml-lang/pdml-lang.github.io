@@ -13,12 +13,12 @@
     [list
         [el Use your preferred programming language, or an existing tool, to fetch data from an Excel sheet, a server, a local/remote database, or a webservice, then transform the data to a summary table and insert the result into the PDML document.]
         [el Use Python to execute a deep learning algorithm and explore the result in the PDML document.]
-        [el Use a media creator application to create image, audio, and video files, and insert links to them in the PDML document. For example: use [link url=https://plantuml.com/ text=PlantUML] to insert diagrams, or [link url=https://abcnotation.com/ text="abc notation"] to insert music notes, or a text-to-speech application to insert audio files.]
+        [el Use a media creator application to create image, audio, and video files, and insert links to them in the PDML document. For example: use [link (url=https://plantuml.com/) PlantUML] to insert diagrams, or [link (url=https://abcnotation.com/) abc notation] to insert music notes, or a text-to-speech application to insert audio files.]
         [el Use a source code highlighter that reads source code (or source code snippets) from a source code repository, and insert a highlighted version of the source code into the PDML document.]
         [el Execute a VB or OS script to send an email and add a log entry each time a new version of a document is published.]
     ]
 
-    To illustrate how it works, let's use [link url=https://plantuml.com/ text=PlantUML] to dynamically create diagrams and insert links to them into a [u:get PML_link] markup document.
+    To illustrate how it works, let's use [link (url=https://plantuml.com/) PlantUML] to dynamically create diagrams and insert links to them into a [u:get PML_link] markup document.
 
     PlantUML is an open-source tool you can use to create many different kinds of diagrams from plain text languages.
     For example, this plain text:
@@ -38,15 +38,17 @@
         [el
             Execute the following command in a terminal:
             [input
+                ~~~
                 java -jar plantuml.jar -i alice_bob.txt
-            input]
+                ~~~
+            ]
             [note
                 The above command requires Java to be installed on your system.
-                Moreover file [link url=https://sourceforge.net/projects/plantuml/files/plantuml.jar/download text=plantuml.jar] must be in your working directory.
+                Moreover file [link (url=https://sourceforge.net/projects/plantuml/files/plantuml.jar/download) plantuml.jar] must be in your working directory.
                 
                 PlantUML is not the easiest one to install, but it's worth the effort because of its versatility.
 
-                For more information see [link url=https://plantuml.com/command-line text="Command line"].
+                For more information see [link (url=https://plantuml.com/command-line) Command line].
             ]
         ]
 
@@ -60,8 +62,10 @@
 
     In PML we would use the following markup code to insert an image in a document:
     [code
+        ~~~
         [image source=images/alice_bob.png]
-    code]
+        ~~~
+    ]
 
     By default PML uses directory [c resources] to look for images. As we use path [c images/alice_bob.png] in the above markup code, the image file must be stored as [c resources/images/alice_bob.png].
 
@@ -73,12 +77,14 @@
 
     Here is the code to achieve this:
     [insert_code file=[u:get plantUML_example_dir]config/scripting/alice_bob.def]
-    As can be seen, we first create the input file with [link url=[u:get PDML_ext_ref_manual_url]#fileUtils-writeText text="fileUtils.writeText"], and then we use [link url=[u:get PDML_ext_ref_manual_url]#OSCommand-runAndWait text="OSCommand.runAndWait"] to execute PlantUML.
+    As can be seen, we first create the input file with [link (url=[u:get PDML_ext_ref_manual_url]#fileUtils-writeText) fileUtils.writeText], and then we use [link (url=[u:get PDML_ext_ref_manual_url]#OSCommand-runAndWait) OSCommand.runAndWait] to execute PlantUML.
 
     The above script creates file [c resources/images/alice_bob.png], which can then be used like an ordinary image file with:
     [code
+        ~~~
         [image source=images/alice_bob.png]
-    code]
+        ~~~
+    ]
 
     A much better approach, useful if we need to create [i several] images, is to create a reusable [i function] that creates the image and insert it in the document with a call to [c doc.insert]:
     [insert_code file=[u:get plantUML_example_dir]config/scripting/PlantUMLUtils.def]
@@ -87,18 +93,20 @@
 
     Then we can import the function with an [c u:ins_file] node and use it as follows:
     [code
+        ~~~
         [u:ins_file path = config/scripting/PlantUMLUtils.def]
         
         [s:script insertPlantUMLImage ( "alice_bob_2", `@startuml
             Alice -> Bob: Hello
             Bob -> Alice: Hi
             @enduml` ); ]
-    code]
+        ~~~
+    ]
 
     Besides state diagrams, PlantUML supports many other kinds of diagrams, such as mathematic formulas and mindmaps.
 
     [note
-        To use AsciiMath you need to download some files, as explained in chapter "How is this working?" on [link url=https://plantuml.com/ascii-math text="this page"].
+        To use AsciiMath you need to download some files, as explained in chapter "How is this working?" on [link (url=https://plantuml.com/ascii-math) this page].
     ]
 
     Here is a fully functioning example of a PML document, to give you a glimpse of what can be achieved:
@@ -107,8 +115,10 @@
 
     If [u:get PML_link] is installed on your system, you can execute the following command to create a HTML file in directory [c output]:
     [input
+        ~~~
         pmlc PlantUML_Demo.pml
-    input]
+        ~~~
+    ]
 
     Here is the result displayed in a browser:
     [image source = images/PlantUML_Demo.png width=500]

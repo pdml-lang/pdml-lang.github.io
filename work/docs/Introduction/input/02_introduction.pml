@@ -1,6 +1,6 @@
 [ch [title Introduction]
 
-    The [i Practical Data and Markup Language] ([link url=[u:get pdml_website_url] text=PDML]) is a text format to store data and markup code.
+    The [i Practical Data and Markup Language] ([link (url=[u:get pdml_website_url]) PDML]) is a text format to store data and markup code.
 
     PDML's design goals are:
     [list
@@ -13,12 +13,12 @@
             ]
         ]
 
-        [el a basic syntax that is succinct and simple, and therefore easy to parse/deserialize and serialize]
+        [el a core syntax that is succinct and simple, and therefore easy to parse/deserialize and serialize]
 
         [el unique, powerful extensions]
     ]
 
-    A distinction is made between [i basic PDML] and [i extensions]. [i Basic PDML] is the absolute minimum needed to store data. Extensions are optional features to make PDML more practical and powerful.
+    A distinction is made between [i Core PDML] and [i extensions]. [i Core PDML] is the absolute minimum needed to store data. Extensions are optional features to make PDML more practical and powerful.
 
-    This document mainly covers [i basic PDML]. However, chapter [xref node_id=extensions] contains an overview of extensions, and a link to more information.
+    This document mainly covers [i Core PDML]. However, chapter [xref (ref_id=extensions)] contains an overview of extensions, and a link to more information.
 ]

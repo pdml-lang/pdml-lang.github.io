@@ -1,5 +1,5 @@
 [s:def
-    ~~~
+    ===
     const defaultTagStartPrefix = "start:_";
     const defaultTagEndPrefix   = "end:_";
     const defaultTagStartSuffix = "_";
@@ -10,8 +10,10 @@
         const snippet = readTaggedSectionsInFile ( filePath, tag );
         doc.insert ( `
     [code
+    ~~~
     ${snippet}
-    code]
+    ~~~
+    ]
     ` );
     }
 
@@ -49,5 +51,5 @@
 
         return result;
     }
-    ~~~
+    ===
 ]

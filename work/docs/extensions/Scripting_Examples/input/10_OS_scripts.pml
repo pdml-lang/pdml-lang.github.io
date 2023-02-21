@@ -8,6 +8,7 @@
 
     The (truncated) result looks like this:
     [code
+        ~~~
         Volume in drive C is DriveC
         Volume Serial Number is A504-9999
 
@@ -19,7 +20,8 @@
         ...
                     19 File(s)        220.111 bytes
                     3 Dir(s)  630.814.339.072 bytes free
-    code]
+        ~~~
+    ]
 
     The above code could also be written as a one-liner (NOT recommended):
     [insert_code file=[u:get examples_dir]directory_listing/dir_example_one_liner.pml]

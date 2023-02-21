@@ -9,18 +9,22 @@
 
     When [c forTeachers] is set to [c true] (as in the code above), the document's content will be:
     [output
+        ~~~
         Question: What is the answer?
 
         Answer: The answer is 42.    
-    output]
+        ~~~
+    ]
 
     When [c forTeachers] is [c false] the answer will not be printed:
     [output
+        ~~~
         Question: What is the answer?
-    output]
+        ~~~
+    ]
 
     [note
         In a real-world scenario, the value of [c forTeachers] would probably not be hard-coded in the document, but it would be retrieved from an external resource.
-        Examples of how to do that are shown in chapter [xref node_id=retrieve_data].
+        Examples of how to do that are shown in chapter [xref (ref_id=retrieve_data)].
     ]
 ]

@@ -1,6 +1,6 @@
 [ch [title Introduction]
 
-    This document shows examples of how PDML [link url=[u:get PDML_ext_user_manual_url]#script_nodes text="Script Nodes"] can be used to simplify and automate many tasks related to creating data and markup documents.
+    This document shows examples of how PDML [link (url=[u:get PDML_ext_user_manual_url]#script_nodes) Script Nodes] can be used to simplify and automate many tasks related to creating data and markup documents.
 
     [note
         [i Script Nodes] are a work in progress.

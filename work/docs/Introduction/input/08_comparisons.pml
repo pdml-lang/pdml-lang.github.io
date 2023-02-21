@@ -1,6 +1,6 @@
 [ch [title PDML vs XML/JSON/YAML]
 
-    For a thorough explanation of the rationale behind PDML please read [link url=[u:get pdml_docs_url]suggestion-for-better-xml-html/index.html text="Suggestion For a Better XML/HTML Syntax"].
+    For a thorough explanation of the rationale behind PDML please read [link (url=[u:get pdml_docs_url]suggestion-for-better-xml-html/index.html) Suggestion For a Better XML/HTML Syntax].
 
     That article compares code examples written in XML, JSON, and YAML and demonstrates that PDML is:
     [list
@@ -13,5 +13,5 @@
 
     Moreover PDML has a number of unique, practical [i extensions] not found in XML, JSON, or YAML (see next chapter).
 
-    Basic PDML (without extensions) is much easier to parse than XML, JSON, or YAML.
+    Core PDML (without extensions) is much easier to parse than XML, JSON, or YAML.
 ]

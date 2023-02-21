@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="generator" content="PML 3.1.0 (www.pml-lang.dev)" />
+        <meta name="generator" content="PML 4.0.0 (www.pml-lang.dev)" />
         <title>PDML Scripting Examples</title>
         <link rel="stylesheet" href="css/pml-default.css">
         <link rel="stylesheet" href="css/pml-print-default.css" media="print">
@@ -59,7 +59,7 @@
                         </div>
                     </nav>
                 </aside>
-                <article id="doc__" class="pml-doc-text" id="doc__">
+                <article id="doc__" class="pml-doc-text">
                     <h1 class="pml-doc-title">PDML Scripting Examples</h1>
                     <div class="pml-division">
                         <table class="pml-table">
@@ -98,7 +98,7 @@
                             </tr>
                             <tr class="pml-table-body-row">
                                 <td class="pml-table-body-cell">
-                                    <p class="pml-paragraph"><b class="pml-bold">Author and Copyright</b></p>
+                                    <p class="pml-paragraph"><b class="pml-bold">Author</b></p>
 
                                 </td>
                                 <td class="pml-table-body-cell">
@@ -137,7 +137,10 @@
                         <h2 class="pml-chapter-title">Introduction</h2>
                         <p class="pml-paragraph">This document shows examples of how PDML <a class="pml-link" href="https://pdml-lang.dev/docs/extensions/user_manual/index.html#script_nodes">Script Nodes</a> can be used to simplify and automate many tasks related to creating data and markup documents.</p>
                         <div class="pml-admonition">
-                            <div class="pml-admonition-label">Note</div>
+                            <div class="pml-admonition-label">
+                                <p class="pml-paragraph">Note</p>
+
+                            </div>
                             <div class="pml-admonition-content">
                                 <p class="pml-paragraph"><i class="pml-italic">Script Nodes</i> are a work in progress. Chapters planned to be written in the future just contain the text &quot;TODO&quot;.</p>
                                 <p class="pml-paragraph">All examples shown in this document have been tested with PDML's reference implementation and/or <a class="pml-link" href="https://pml-lang.dev/">PML</a>.</p>
@@ -148,15 +151,15 @@
                     <section id="expressions" class="pml-chapter">
                         <h2 class="pml-chapter-title">Expressions</h2>
                         <p class="pml-paragraph">Consider a PDML document containing a <code class="pml-inline-code">price</code> field like this:</p>
-                        <pre class="pml-code"><code>[price 2675.19]
+                        <pre class="pml-code"><code>    [price 2675.19]
 </code></pre>
                         <p class="pml-paragraph">Suppose the price is calculated by the formula <code class="pml-inline-code">2.7183 * (981 + 3.1416)</code>, and the factors in this formula must be updated regularly. We also want the formula to be visible in the PDML document. We could write:</p>
-                        <pre class="pml-code"><code>[price 2.7183 * (981 + 3.1416)]
+                        <pre class="pml-code"><code>    [price 2.7183 * (981 + 3.1416)]
 </code></pre>
                         <p class="pml-paragraph">But now the final value <code class="pml-inline-code">2675.19</code> isn't directly available anymore. An application reading this node would have to parse and evaluate the formula defined as text.</p>
                         <p class="pml-paragraph">Not very practical!</p>
                         <p class="pml-paragraph">A PDML <i class="pml-italic">expression</i> solves this problem. We can use an <code class="pml-inline-code">s:exp</code> node and write:</p>
-                        <pre class="pml-code"><code>[price [s:exp 2.7183 * (981 + 3.1416)]]
+                        <pre class="pml-code"><code>    [price [s:exp 2.7183 * (981 + 3.1416)]]
 </code></pre>
                         <p class="pml-paragraph">Note how the price formula is simply embedded in an <code class="pml-inline-code">s:exp</code> node (<code class="pml-inline-code">[s:exp ...]</code>):</p>
                         <pre class="pml-code"><code>[price [s:exp 2.7183 * (981 + 3.1416)]]
@@ -171,7 +174,7 @@
                         <section id="ch__4" class="pml-chapter">
                             <h3 class="pml-chapter-title">Standard Javascript Library</h3>
                             <p class="pml-paragraph">Instead of having the evaluation of the price expanded to <code class="pml-inline-code">2675.19183945</code> we now want to round the price to 2 decimals. We can do this with the <i class="pml-italic">standard Javascript function</i> <a class="pml-link" href="https://www.w3schools.com/jsref/jsref_tofixed.asp">toFixed</a>:</p>
-                            <pre class="pml-code"><code>[price [s:exp (2.7183 * (981 + 3.1416)).toFixed(2)]]
+                            <pre class="pml-code"><code>    [price [s:exp (2.7183 * (981 + 3.1416)).toFixed(2)]]
 </code></pre>
                             <p class="pml-paragraph">Now the node expands to <code class="pml-inline-code">[price 2675.19]</code>.</p>
 
@@ -180,7 +183,7 @@
                             <h3 class="pml-chapter-title">Standard PDML Library</h3>
                             <p class="pml-paragraph">Suppose that instead of expanding to <code class="pml-inline-code">2675.19</code>, we would like to add a thousands separator, so that the price expands to <code class="pml-inline-code">2,675.19</code>, which is more readable for humans.</p>
                             <p class="pml-paragraph">While there are some solutions to do that in Javascript, it is not trivial to do it in a reliable, portable way (as shown in this <a class="pml-link" href="https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript">Stackoverflow question</a>). Instead of using a standard Javascript function we can use a <i class="pml-italic">standard PDML function</i> that allows us to provide a specific format, and also rounds to the number of decimal places specified in the format. We'll use function <a class="pml-link" href="https://pdml-lang.dev/docs/extensions/reference_manual/index.html#numberUtils-formatFloat">formatFloat</a> defined in object <a class="pml-link" href="https://pdml-lang.dev/docs/extensions/reference_manual/index.html#numberUtils">numberUtils</a>:</p>
-                            <pre class="pml-code"><code>[price [s:exp numberUtils.formatFloat ( 2.7183 * (981 + 3.1416), &quot;###,###,##0.00&quot;)]]
+                            <pre class="pml-code"><code>    [price [s:exp numberUtils.formatFloat ( 2.7183 * (981 + 3.1416), &quot;###,###,##0.00&quot;)]]
 </code></pre>
                             <p class="pml-paragraph">Result: <code class="pml-inline-code">[price 2,675.19]</code>.</p>
 
@@ -197,9 +200,9 @@
 ]
 </code></pre>
                             <p class="pml-paragraph">Now we can use function <code class="pml-inline-code">roundPrice</code> again and again in <code class="pml-inline-code">price</code> nodes. For example:</p>
-                            <pre class="pml-code"><code>[price [s:exp roundPrice ( 2.7183 * (981 + 3.1416) )]]
-...
-[price [s:exp roundPrice ( 123 * 321 )]]
+                            <pre class="pml-code"><code>    [price [s:exp roundPrice ( 2.7183 * (981 + 3.1416) )]]
+    ...
+    [price [s:exp roundPrice ( 123 * 321 )]]
 </code></pre>
                             <p class="pml-paragraph">... which expands to:</p>
                             <pre class="pml-code"><code>[price 2,675.19]
@@ -220,14 +223,17 @@
 ]
 </code></pre>
                             <p class="pml-paragraph">Then we can import the library at the beginning of the document with a <code class="pml-inline-code">u:ins_file</code> node (using a relative file path), and use the function as before:</p>
-                            <pre class="pml-code"><code>[u:ins_file path=resources/libraries/myPriceLibrary.def]
+                            <pre class="pml-code"><code>    [u:ins_file path=resources/libraries/myPriceLibrary.def]
 
-[price [s:exp roundPrice ( 2.7183 * (981 + 3.1416) )]]
-...
-[price [s:exp roundPrice ( 123 * 321 )]]
+    [price [s:exp roundPrice ( 2.7183 * (981 + 3.1416) )]]
+    ...
+    [price [s:exp roundPrice ( 123 * 321 )]]
 </code></pre>
                             <div class="pml-admonition">
-                                <div class="pml-admonition-label">Note</div>
+                                <div class="pml-admonition-label">
+                                    <p class="pml-paragraph">Note</p>
+
+                                </div>
                                 <div class="pml-admonition-content">
                                     <p class="pml-paragraph">A library file like the above one is not limited to one function. We could of course add other useful functions, and maybe also some commonly used constants. Then we could share the library in a public repository like Github, Gitlab, etc.</p>
                                 </div>
@@ -248,7 +254,10 @@ Latest update: 2022-01-10</code></pre>
                         <pre class="pml-code"><code>Latest update: [s:exp timeUtils.currentLocalDate()]</code></pre>
                         <p class="pml-paragraph">Now the date is updated whenever the document is parsed.</p>
                         <div class="pml-admonition">
-                            <div class="pml-admonition-label">Note</div>
+                            <div class="pml-admonition-label">
+                                <p class="pml-paragraph">Note</p>
+
+                            </div>
                             <div class="pml-admonition-content">
                                 <p class="pml-paragraph">The above function applies the <a class="pml-link" href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> standard to format the date (i.e. YYYY-MM-DD). <a class="pml-link" href="https://pdml-lang.dev/docs/extensions/reference_manual/index.html#timeUtils">timeUtils</a> provides other functions to get a specifically formatted date, time, or date/time pair.</p>
                                 <p class="pml-paragraph">For example, if we wanted to also display the time (without seconds) we could use function <a class="pml-link" href="https://pdml-lang.dev/docs/extensions/reference_manual/index.html#timeUtils-currentLocalDateTimeMinutes">currentLocalDateTimeMinutes</a>. That function would return text like this: <code class="pml-inline-code">2022-01-10 14:16</code></p>
@@ -257,7 +266,10 @@ Latest update: 2022-01-10</code></pre>
                         <p class="pml-paragraph">Instead of using an expression node, we could also use a <code class="pml-inline-code">s:script</code> node that calls function <a class="pml-link" href="https://pdml-lang.dev/docs/extensions/reference_manual/index.html#doc-insertText">doc.insertText</a>:</p>
                         <pre class="pml-code"><code>Latest update: [s:script doc.insertText ( timeUtils.currentLocalDate() );]</code></pre>
                         <div class="pml-admonition">
-                            <div class="pml-admonition-label">Note</div>
+                            <div class="pml-admonition-label">
+                                <p class="pml-paragraph">Note</p>
+
+                            </div>
                             <div class="pml-admonition-content">
                                 <p class="pml-paragraph">The above approach to update <code class="pml-inline-code">Latest update</code> might not be appropriate, because the date is updated each time the document is parsed, even if there are no real changes in the document.</p>
                                 <p class="pml-paragraph">A better approach would therefore be to scan the list of files used to create the document and retrieve the timestamp of the file with the most recent modification date.</p>
@@ -285,7 +297,10 @@ Latest update: 2022-01-10</code></pre>
                             <p class="pml-paragraph">... with:</p>
                             <pre class="pml-code"><code>Version: [s:exp fileUtils.readText ( &quot;path/to/application/version.txt&quot; )]</code></pre>
                             <div class="pml-admonition">
-                                <div class="pml-admonition-label">Note</div>
+                                <div class="pml-admonition-label">
+                                    <p class="pml-paragraph">Note</p>
+
+                                </div>
                                 <div class="pml-admonition-content">
                                     <p class="pml-paragraph">The file's path can be absolute or relative. If it's relative, it's relative to the current working directory.</p>
                                 </div>
@@ -317,7 +332,10 @@ Latest update: 2022-01-10</code></pre>
                                 <img class="pml-image" src="images/Version_GUI.png">
                             </figure>
                             <div class="pml-admonition">
-                                <div class="pml-admonition-label">Note</div>
+                                <div class="pml-admonition-label">
+                                    <p class="pml-paragraph">Note</p>
+
+                                </div>
                                 <div class="pml-admonition-content">
                                     <p class="pml-paragraph">Displaying GUI dialogs works even if the application is run as a command line application.</p>
                                 </div>
@@ -371,7 +389,10 @@ echo 7.4.0
                             <p class="pml-paragraph">... which will expand to:</p>
                             <pre class="pml-code"><code>Version: 7.4.0</code></pre>
                             <div class="pml-admonition">
-                                <div class="pml-admonition-label">Note</div>
+                                <div class="pml-admonition-label">
+                                    <p class="pml-paragraph">Note</p>
+
+                                </div>
                                 <div class="pml-admonition-content">
                                     <p class="pml-paragraph">Characters <code class="pml-inline-code">[</code> and <code class="pml-inline-code">]</code> must be escaped in the above Javascript code. We can use an alternative syntax to eliminate the need for escaping in source code:</p>
                                     <pre class="pml-code"><code>Version: [s:exp
@@ -435,7 +456,8 @@ echo 7.4.0
 
 Interest rate: 1.5%
 
-[table_data (halign=&quot;R,R&quot;)
+[sim_table (halign=&quot;R,R&quot;)
+    ~~~
     Years | Amount
     -
     0 | 100
@@ -444,7 +466,8 @@ Interest rate: 1.5%
     3 | 104.57
     4 | 106.14
     5 | 107.73
-table_data]</code></pre>
+    ~~~
+]</code></pre>
                         <p class="pml-paragraph">Writing code like this manually quickly becomes boring and error-prone, especially if there are many such tables with different interest rates and many years to display.</p>
                         <p class="pml-paragraph">The solution is to write a function to automagically <i class="pml-italic">generate the PML code</i>. As seen already, functions are defined within a <code class="pml-inline-code">s:def</code> node. Let's also store this function in an external file, so that it doesn't distract in the PML document, can be reused in other documents, and shared with other people. The file looks like this:</p>
                         <div class="pml-caption">File interestUtils.def</div>
@@ -566,7 +589,10 @@ Answer: The answer is 42.    </pre>
                         <p class="pml-paragraph">When <code class="pml-inline-code">forTeachers</code> is <code class="pml-inline-code">false</code> the answer will not be printed:</p>
                         <pre class="pml-output">Question: What is the answer?</pre>
                         <div class="pml-admonition">
-                            <div class="pml-admonition-label">Note</div>
+                            <div class="pml-admonition-label">
+                                <p class="pml-paragraph">Note</p>
+
+                            </div>
                             <div class="pml-admonition-content">
                                 <p class="pml-paragraph">In a real-world scenario, the value of <code class="pml-inline-code">forTeachers</code> would probably not be hard-coded in the document, but it would be retrieved from an external resource. Examples of how to do that are shown in chapter <a class="pml-xref" href="#retrieve_data">Retrieving Text And Data</a>.</p>
                             </div>
@@ -644,7 +670,10 @@ Bob -&gt; Alice: Hi
                                 <p class="pml-paragraph">Execute the following command in a terminal:</p>
                                 <pre class="pml-input">java -jar plantuml.jar -i alice_bob.txt</pre>
                                 <div class="pml-admonition">
-                                    <div class="pml-admonition-label">Note</div>
+                                    <div class="pml-admonition-label">
+                                        <p class="pml-paragraph">Note</p>
+
+                                    </div>
                                     <div class="pml-admonition-content">
                                         <p class="pml-paragraph">The above command requires Java to be installed on your system. Moreover file <a class="pml-link" href="https://sourceforge.net/projects/plantuml/files/plantuml.jar/download">plantuml.jar</a> must be in your working directory.</p>
                                         <p class="pml-paragraph">PlantUML is not the easiest one to install, but it's worth the effort because of its versatility.</p>
@@ -721,7 +750,10 @@ Bob -&gt; Alice: Hi
     @enduml` ); ]</code></pre>
                         <p class="pml-paragraph">Besides state diagrams, PlantUML supports many other kinds of diagrams, such as mathematic formulas and mindmaps.</p>
                         <div class="pml-admonition">
-                            <div class="pml-admonition-label">Note</div>
+                            <div class="pml-admonition-label">
+                                <p class="pml-paragraph">Note</p>
+
+                            </div>
                             <div class="pml-admonition-content">
                                 <p class="pml-paragraph">To use AsciiMath you need to download some files, as explained in chapter &quot;How is this working?&quot; on <a class="pml-link" href="https://plantuml.com/ascii-math">this page</a>.</p>
                             </div>

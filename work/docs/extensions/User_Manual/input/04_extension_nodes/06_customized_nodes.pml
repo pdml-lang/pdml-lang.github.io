@@ -1,4 +1,4 @@
-[ch [title Customized Extension Nodes]
+[ch (id=customized_extension_nodes) [title Customized Extension Nodes]
 
     A PDML parser can provide a plugin mechanism that enables applications to programmatically add customized extension nodes, including type nodes.
     

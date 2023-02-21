@@ -27,9 +27,11 @@
 
     Note how the price formula is simply embedded in an [c s:exp] node ([c \[s:exp ...\]]):
     [code
+        ~~~
         [price [s:exp 2.7183 * (981 + 3.1416)]]
                ^^^^^^                        ^ 
-    code]
+        ~~~
+    ]
 
     Now the PDML parser will [i evaluate] the expression, and the application reading the document will see the [c price] node as if it were written like this:
     [code \[price [s:exp 2.7183 * (981 + 3.1416)]\]]

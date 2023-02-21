@@ -8,7 +8,7 @@
     [u:set pdml_docs_url=[u:get pdml_website_url]docs/]
 
     [-
-        [link url=[u:get pdml_website_url] text="back to website"]
+        [link (url=[u:get pdml_website_url]) back to website]
     -]
 
     [ch (id=what) [title What is PDML?]
@@ -43,16 +43,17 @@
 
             [el PDML has a number of unique, practical [i extensions] not found in XML, JSON, or YAML.]
             
-            [el Basic PDML (without extensions) is [i easier to parse] than XML, JSON, or YAML.]
+            [el Core PDML (without extensions) is [i easier to parse] than XML, JSON, or YAML.]
         ]
         
-        For a demonstration of these claims please read [link url=[u:get pdml_docs_url]suggestion-for-better-xml-html/index.html text="Suggestion For a Better XML/HTML Syntax"].
+        For a demonstration of these claims please read [link (url=[u:get pdml_docs_url]suggestion-for-better-xml-html/index.html) Suggestion For a Better XML/HTML Syntax].
     ]
 
     [ch (id=how) [title How does it work?]
 
         Here is a simple example of an XML document:
         [code
+            ~~~
             <?xml version="1.0" encoding="UTF-8"?>
             <person>
                 <name>
@@ -62,10 +63,12 @@
                 <city>Bern</city>
                 <country>Switzerland</country>
             </person>
-        code]
+            ~~~
+        ]
 
         The same data structure looks like this in PDML:
         [code
+            ~~~
             [person
                 [name
                     [first Albert]
@@ -74,9 +77,10 @@
                 [city Bern]
                 [country Switzerland]
             ]
-        code]
+            ~~~
+        ]
 
-        More examples can be found in the article [link url=[u:get pdml_docs_url]examples/index.html text="PDML Examples"].
+        More examples can be found in the article [link (url=[u:get pdml_docs_url]examples/index.html) PDML Examples].
     ]
 
     [ch (id=what_for) [title What can I do with PDML?]
@@ -91,19 +95,19 @@
             [el tables and databases]
             [el unstructured, heterogenous, or polymorphic data]
         ]
-        Simple examples of each category are shown in the article [link url=[u:get pdml_docs_url]examples/index.html text="PDML Examples"].
+        Simple examples of each category are shown in the article [link (url=[u:get pdml_docs_url]examples/index.html) PDML Examples].
 
         PDML can be converted to XML, and XML to PDML. Hence, XML technology can be used with PDML documents. For example, you could programmatically validate, query, modify, or transform a document.
 
-        The article [link url=[u:get pdml_docs_url]open-source-parser-for-practical-xml/index.html text="Open-Source Parser For PracticalXML (pXML)"] shows how to do this.
+        The article [link (url=[u:get pdml_docs_url]open-source-parser-for-practical-xml/index.html) Open-Source Parser For PracticalXML (pXML)] shows how to do this.
     ]
 
     [ch (id=parser) [title Is there a parser available for PDML?]
 
-        Yes. There is a free, open-source reference implementation written in Java. The source code is available on [link url=https://github.com/pdml-lang/full-java-impl text=Github].
+        Yes. There is a free, open-source reference implementation written in Java. The source code is available on [link (url=https://github.com/pdml-lang/full-java-impl) Github].
 
         [-
-            For more information please read: [link url=[u:get pdml_docs_url]open-source-parser-for-practical-xml/index.html text="Open-Source Parser For PracticalXML (pXML)"].
+            For more information please read: [link (url=[u:get pdml_docs_url]open-source-parser-for-practical-xml/index.html) Open-Source Parser For PracticalXML (pXML)].
         -]
 
         Parsers in other programming languages are welcomed to be published on this site.
@@ -114,10 +118,10 @@
         The following plugins are available:
         [list
             [el
-                [link url=https://packagecontrol.io/packages/PDML text="Sublime PDML"] for the [link url=https://www.sublimetext.com text="Sublime Text"] editor, created by [link url=https://github.com/tajmone/ text="Tristano Ajmone"] (work inprogress).
+                [link (url=https://packagecontrol.io/packages/PDML) Sublime PDML] for the [link (url=https://www.sublimetext.com) Sublime Text] editor, created by [link (url=https://github.com/tajmone/) Tristano Ajmone] (work inprogress).
             ]
             [el
-                [link url=https://marketplace.visualstudio.com/items?itemName=shelby-landen.pdml text="PDML Language Support"] for the [link url=https://code.visualstudio.com/ text="VS Code"] editor, created by [link url=https://github.com/slanden text="Shelby Landen"] (work inprogress).
+                [link (url=https://marketplace.visualstudio.com/items?itemName=shelby-landen.pdml) PDML Language Support] for the [link (url=https://code.visualstudio.com/) VS Code] editor, created by [link (url=https://github.com/slanden) Shelby Landen] (work inprogress).
             ]
         ]
 
@@ -139,9 +143,9 @@
 
     [ch (id=license) [title Which license is used?]
 
-        The [i PDML specification] is licensed under [link url=https://creativecommons.org/licenses/by-nd/4.0/ text="CC BY-ND 4.0"].
+        The [i PDML specification] is licensed under [link (url=https://creativecommons.org/licenses/by-nd/4.0/) CC BY-ND 4.0].
 
-        The [i reference implementation] written in Java is licensed under [link url=https://opensource.org/licenses/GPL-2.0 text="GPL 2.0"].
+        The [i reference implementation] written in Java is licensed under [link (url=https://opensource.org/licenses/GPL-2.0) GPL 2.0].
     ]
 
     [ch (id=creator) [title Who created PDML?]
@@ -153,10 +157,10 @@
         
         Besides PDML, I created:
         [list
-            [el the [link url=https://www.pml-lang.dev text="Practical Markup Language (PML)"]: a markup language designed to create web articles and books. PML uses the PDML syntax. A free, open-source [i PML-to-HTML-Converter] converts PML to HTML.]
-            [el the [link url=https://www.ppl-lang.dev text="Practical Programming Language (PPL)"]: a programming language designed to create reliable and maintainable code. The [i PML-to-HTML-Converter] is written in PPL. PPL is not ready yet for enterprise applications.]
+            [el the [link (url=https://www.pml-lang.dev) Practical Markup Language (PML)]: a markup language designed to create web articles and books. PML uses the PDML syntax. A free, open-source [i PML-to-HTML-Converter] converts PML to HTML.]
+            [el the [link (url=https://www.ppl-lang.dev) Practical Programming Language (PPL)]: a programming language designed to create reliable and maintainable code. The [i PML-to-HTML-Converter] is written in PPL. PPL is not ready yet for enterprise applications.]
         ]
 
-        You can have a look at my [link url=https://www.ppl-lang.dev/blog/index.html text=blog] or contact me at chris {at} pml-lang {dot} dev.
+        You can have a look at my [link (url=https://www.ppl-lang.dev/blog/index.html) blog] or contact me at chris {at} pml-lang {dot} dev.
     ]
 ]

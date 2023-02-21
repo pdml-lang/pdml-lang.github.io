@@ -1,4 +1,4 @@
-[ch [title Overview]
+[ch (id=extension_nodes_overview) [title Overview]
 
     While PDML [i data nodes] simply represent [b data], [i extension nodes] add [b behavior] to a PDML document.
     You can also think of an extension node as an [i action node] that [b does] something.
@@ -30,6 +30,8 @@
         ]
     ]
 
+    Extension nodes are supported in nodes, as well as in quoted and unquoted attribute values.
+
     [note
         If you are a programmer, you can conceptually think of an extension node as a function.
         
@@ -44,7 +46,7 @@
 
     [-
         [note
-            Extension nodes are not supported in [link url=TODO text="Basic PDML"]. They are part of PDML's [i extensions].
+            Extension nodes are not supported in [link (url=TODO) Core PDML]. They are part of PDML's [i extensions].
         ]
     -]
 

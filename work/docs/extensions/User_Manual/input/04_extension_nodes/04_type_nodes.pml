@@ -13,12 +13,14 @@
     To understand why types are useful, consider a PDML document containing data about employees.
     Each [c employee] node contains child-node [c birthdate]:
     [code
+        ~~~
         [employee
             ...
             [birthdate 1999-12-31]
             ...
         ]
-    code]
+        ~~~
+    ]
     
     Without types, the PDML parser has no way of checking and reporting invalid [c birthdate] nodes like this one: [c \[birthdate kdjhfgkjdf\]].
     The burden to validate birthdates is left to the application that consumes the parser's output.
@@ -34,16 +36,20 @@
 
             In this case, a data node contains a type node that contains the data:
             [code
+                ~~~
                 [birthdate [t:date 1999-12-31]]
                            ^^^^^^^           ^
-            code]
+                ~~~
+            ]
             Now the parser ensures that the content of [c t:date] is a valid date.
             It will generate an error if the node's content is invalid.
 
             The application reading the parser's output will only see a node [c birthdate] with text content [c 1999-12-31], as if the document simply contained:
             [code
+                ~~~
                 [birthdate 1999-12-31]
-            code]
+                ~~~
+            ]
             The advantage is that the application doesn't need to check the content of [c birthdate] anymore.
             [c birthdate] is guaranteed to contain a valid date.
 
@@ -66,8 +72,10 @@
             Therefore the document doesn't need inline type annotations anymore.
             A birthdate node looks like this:
             [code
+                ~~~
                 [birthdate 1999-12-31]
-            code]
+                ~~~
+            ]
             ... but the parser checks that all [c birthdate] nodes contain valid dates.
         ]
 
@@ -85,7 +93,7 @@
         ]
     ]
 
-    The full list of PDML types is documented in chapter [link url=[u:get pdml_docs_extensions_url]reference_manual/index.html#types text=Types] of the reference manual.
+    The full list of PDML types is documented in chapter [link (url=[u:get pdml_docs_extensions_url]reference_manual/index.html#types ) Types] of the reference manual.
 
     [note
         PDML types are a work-in-progress.

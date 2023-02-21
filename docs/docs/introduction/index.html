@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="generator" content="PML 3.1.0 (www.pml-lang.dev)" />
+        <meta name="generator" content="PML 4.0.0 (www.pml-lang.dev)" />
         <title>Introduction to PDML</title>
         <link rel="stylesheet" href="css/pml-default.css">
         <link rel="stylesheet" href="css/pml-print-default.css" media="print">
@@ -52,7 +52,7 @@
                         </div>
                     </nav>
                 </aside>
-                <article id="doc__" class="pml-doc-text" id="doc__">
+                <article id="doc__" class="pml-doc-text">
                     <h1 class="pml-doc-title">Introduction to PDML</h1>
                     <p class="pml-paragraph">Author: Christian Neumanns</p>
                     <p class="pml-paragraph">Published: 2021-11-16</p>
@@ -81,7 +81,7 @@
 
                             </li>
                             <li class="pml-list-element">
-                                <p class="pml-paragraph">a basic syntax that is succinct and simple, and therefore easy to parse/deserialize and serialize</p>
+                                <p class="pml-paragraph">a core syntax that is succinct and simple, and therefore easy to parse/deserialize and serialize</p>
 
                             </li>
                             <li class="pml-list-element">
@@ -90,8 +90,8 @@
                             </li>
 
                         </ul>
-                        <p class="pml-paragraph">A distinction is made between <i class="pml-italic">basic PDML</i> and <i class="pml-italic">extensions</i>. <i class="pml-italic">Basic PDML</i> is the absolute minimum needed to store data. Extensions are optional features to make PDML more practical and powerful.</p>
-                        <p class="pml-paragraph">This document mainly covers <i class="pml-italic">basic PDML</i>. However, chapter <a class="pml-xref" href="#extensions">Extensions</a> contains an overview of extensions, and a link to more information. </p>
+                        <p class="pml-paragraph">A distinction is made between <i class="pml-italic">Core PDML</i> and <i class="pml-italic">extensions</i>. <i class="pml-italic">Core PDML</i> is the absolute minimum needed to store data. Extensions are optional features to make PDML more practical and powerful.</p>
+                        <p class="pml-paragraph">This document mainly covers <i class="pml-italic">Core PDML</i>. However, chapter <a class="pml-xref" href="#extensions">Extensions</a> contains an overview of extensions, and a link to more information. </p>
 
                     </section>
                     <section id="ch__2" class="pml-chapter">
@@ -168,7 +168,7 @@
                             <pre class="pml-code"><code>&lt;color /&gt;</code></pre>
 
                         </section>
-                        <p class="pml-paragraph">There is not much more to say about PDML's basic syntax.</p>
+                        <p class="pml-paragraph">There is not much more to say about PDML's core syntax.</p>
                         <p class="pml-paragraph">For a formal and complete definition please refer to the <a class="pml-link" href="https://pdml-lang.dev/docs/basic-specification/index.html">PDML Specification</a>. </p>
 
                     </section>
@@ -195,7 +195,7 @@
 
                         </ul>
                         <p class="pml-paragraph">Examples are shown in the article <a class="pml-link" href="https://pdml-lang.dev/docs/examples/index.html">PDML Examples</a>.</p>
-                        <p class="pml-paragraph">The PDML syntax is used in the <a class="pml-link" href="https://www.pml-lang.dev/">Practical Markup Language (PML)</a>, the precursor of PDML (as explained later). For a real-world example of a PDML document you can have a look at the <a class="pml-link" href="https://github.com/pdml-lang/basic-specification/">markup code</a> of the PDML specification which is written in PML and uses the PDML syntax.</p>
+                        <p class="pml-paragraph">The PDML syntax is used in the <a class="pml-link" href="https://www.pml-lang.dev/">Practical Markup Language (PML)</a>, the precursor of PDML (as explained later). For a real-world example of a PDML document you can have a look at the <a class="pml-link" href="https://github.com/pdml-lang/pdml-lang.github.io/tree/main/work/docs/core/Specification/input/">markup code</a> of the PDML specification which is written in PML and uses the PDML syntax.</p>
                         <p class="pml-paragraph">PDML can be converted to XML, and XML to PDML. Hence, XML technology (which is well supported in many programming languages) can be used with PDML documents. For example you can read a PDML document into an XML DOM and:</p>
                         <ul class="pml-list">
                             <li class="pml-list-element">
@@ -239,12 +239,12 @@
 
                         </ul>
                         <p class="pml-paragraph">Moreover PDML has a number of unique, practical <i class="pml-italic">extensions</i> not found in XML, JSON, or YAML (see next chapter).</p>
-                        <p class="pml-paragraph">Basic PDML (without extensions) is much easier to parse than XML, JSON, or YAML. </p>
+                        <p class="pml-paragraph">Core PDML (without extensions) is much easier to parse than XML, JSON, or YAML. </p>
 
                     </section>
                     <section id="extensions" class="pml-chapter">
                         <h2 class="pml-chapter-title">Extensions</h2>
-                        <p class="pml-paragraph">As seen already, PDML's basic syntax is very simple and succinct - easy to read and write for humans and machines. Despite its simplicity, basic PDML can be used to store small/big data/markup code.</p>
+                        <p class="pml-paragraph">As seen already, the syntax of <i class="pml-italic">Core PDML</i> is very simple and succinct - easy to read and write for humans and machines. Despite its simplicity, <i class="pml-italic">Core PDML</i> can be used to store small/big data/markup code.</p>
                         <p class="pml-paragraph">However, this utmost simplicity can cause inconveniences, especially when big documents are read and written by humans. Therefore a PDML implementation can optionally provide pluggable <i class="pml-italic">extensions</i> to make it more practical.</p>
                         <p class="pml-paragraph">The following chapters provide a non-exhaustive, brief overview of some useful extensions. It's a subset of extensions that are implemented already in the reference implementation written in Java.</p>
                         <section id="ch__11" class="pml-chapter">
@@ -270,7 +270,7 @@
                         </section>
                         <section id="ch__13" class="pml-chapter">
                             <h3 class="pml-chapter-title">Character Escape Sequences</h3>
-                            <p class="pml-paragraph">Besides the <a class="pml-link" href="https://pdml-lang.dev/docs/basic-specification/index.html#escape_rules">mandatory</a> character escape sequences (<code class="pml-inline-code">\[</code>, <code class="pml-inline-code">\]</code>, and <code class="pml-inline-code">\\</code>), the following whitespace and Unicode escape sequences can be used:</p>
+                            <p class="pml-paragraph">Besides the <a class="pml-link" href="https://pdml-lang.dev/docs/core/specification/index.html#escape_rules">mandatory</a> character escape sequences (<code class="pml-inline-code">\[</code>, <code class="pml-inline-code">\]</code>, and <code class="pml-inline-code">\\</code>), the following whitespace and Unicode escape sequences can be used:</p>
                             <table class="pml-table">
                                 <thead class="pml-table-header">
                                     <tr class="pml-table-header-row">
@@ -306,10 +306,13 @@ line 2 A 😃</code></pre>
     ...
     Our website: [u:get company_URL]
     ...
-    Click [link url=[u:get company_URL]/contacts/index.html text=here] to see a list of contacts.
+    Click [link (url=[u:get company_URL]/contacts/index.html) here] to see a list of contacts.
 ]</code></pre>
                             <div class="pml-admonition">
-                                <div class="pml-admonition-label">Note</div>
+                                <div class="pml-admonition-label">
+                                    <p class="pml-paragraph">Note</p>
+
+                                </div>
                                 <div class="pml-admonition-content">
                                     <p class="pml-paragraph">Note the <code class="pml-inline-code">!</code> character that precedes the name in nodes <code class="pml-inline-code">set</code> and <code class="pml-inline-code">get</code>. The <code class="pml-inline-code">!</code> is used to denote a so-called <i class="pml-italic">extension node</i>, and provides a distinction from normal data nodes. A PDML implementation can provide any number of extension nodes, and support pluggable, customized extensions to cover specific needs.</p>
                                 </div>
@@ -362,18 +365,18 @@ line 2 A 😃</code></pre>
                             <pre class="pml-code"><code>repeat 3 times
     write_line ( &quot;[Hello]&quot; )
 .</code></pre>
-                            <p class="pml-paragraph">If we used only basic PDML syntax, and a <code class="pml-inline-code">code</code> node that is itself indented (because it's contained in a parent node), we would need to write:</p>
+                            <p class="pml-paragraph">If we used only the <i class="pml-italic">Core PDML</i> syntax, and a <code class="pml-inline-code">code</code> node that is itself indented (because it's contained in a parent node), we would need to write:</p>
                             <pre class="pml-code"><code>    [code repeat 3 times
     write_line ( &quot;\[Hello\]&quot; )
 .]</code></pre>
                             <p class="pml-paragraph">This is not very readable. Moreover the characters <code class="pml-inline-code">[</code> and <code class="pml-inline-code">]</code> in the source code must be escaped (<code class="pml-inline-code">&quot;\[Hello\]&quot;</code>).</p>
                             <p class="pml-paragraph">A dedicated PDML type associated with node <code class="pml-inline-code">code</code> removes these inconveniences and allows us to write:</p>
                             <pre class="pml-code"><code>    [code
-        &quot;&quot;&quot;
+        ~~~
         repeat 3 times
             write_line ( &quot;[Hello]&quot; )
         .
-        &quot;&quot;&quot;
+        ~~~
     ]</code></pre>
                             <p class="pml-paragraph">Note that:</p>
                             <ul class="pml-list">
@@ -393,11 +396,11 @@ line 2 A 😃</code></pre>
                             </ul>
                             <p class="pml-paragraph">If a PML highlighter is used, we can use attribute <code class="pml-inline-code">lang</code> to specify the programming language:</p>
                             <pre class="pml-code"><code>    [code (lang=Java)
-        &quot;&quot;&quot;
+        ~~~
         for (int i=1; i &lt;= 3; i++) {
             System.out.println ( &quot;[Hello]&quot; );
         }
-        &quot;&quot;&quot;
+        ~~~
     ]</code></pre>
                             <p class="pml-paragraph">A PDML implementation can provide a standard set of frequently used types (string, number, boolean, date, time, etc.). To maximize flexibility and customization for different domains, additional types can be added programmatically or by configuration data that can be included in the PDML document, or provided in an external (possibly shared) PDML document.</p>
 

@@ -24,14 +24,18 @@
 
     The above table can now be inserted in a PML document with the following code:
     [code
+        ~~~
         [u:ins_file path=interestUtils.def]
 
         [s:exp interestTable ( 100, 1.5, 5 )]
-    code]
+        ~~~
+    ]
 
     If we want to insert more tables with different parameters, we just need to insert more [c s:exp] nodes.
     For example, the following code will generate an additional table for an initial amount of 10,000, an interest rate of 0.9%, and a period of 20 years:
     [code
+        ~~~
         [s:exp interestTable ( 10000, 0.9, 20 )]
-    code]
+        ~~~
+    ]
 ]

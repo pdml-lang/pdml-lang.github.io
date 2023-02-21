@@ -9,7 +9,7 @@
     [insert_code file=[u:get examples_dir]customizing_syntax/HTML_example.pml]
 
     Needless to say, nobody enjoys writing code like this again and again.
-    The code is challenging to maintain, and clearly violates the important [link url=https://en.wikipedia.org/wiki/Don%27t_repeat_yourself text="Don't repeat yourself (DRY)"] principle.
+    The code is challenging to maintain, and clearly violates the important [link (url=https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) Don't repeat yourself (DRY)] principle.
 
     To eliminate the pain we can write a function that inserts the PML code for us:
     [insert_code file=[u:get examples_dir]customizing_syntax/icon_function.def]

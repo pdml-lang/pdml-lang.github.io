@@ -5,7 +5,7 @@
     [ch [title Standard Javascript Library]
 
         Instead of having the evaluation of the price expanded to [c 2675.19183945] we now want to round the price to 2 decimals.
-        We can do this with the [i standard Javascript function] [link url=https://www.w3schools.com/jsref/jsref_tofixed.asp text=toFixed]:
+        We can do this with the [i standard Javascript function] [link (url=https://www.w3schools.com/jsref/jsref_tofixed.asp) toFixed]:
         [s:exp priceExampleSnippet ( "toFixed" )]
         Now the node expands to [c \[price 2675.19\]].
     ]
@@ -14,8 +14,8 @@
 
         Suppose that instead of expanding to [c 2675.19], we would like to add a thousands separator, so that the price expands to  [c 2,675.19], which is more readable for humans.
         
-        While there are some solutions to do that in Javascript, it is not trivial to do it in a reliable, portable way (as shown in this [link url=https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript text="Stackoverflow question"]).
-        Instead of using a standard Javascript function we can use a [i standard PDML function] that allows us to provide a specific format, and also rounds to the number of decimal places specified in the format. We'll use function [link url=[u:get PDML_ext_ref_manual_url]#numberUtils-formatFloat text=formatFloat] defined in object [link url=[u:get PDML_ext_ref_manual_url]#numberUtils text=numberUtils]:
+        While there are some solutions to do that in Javascript, it is not trivial to do it in a reliable, portable way (as shown in this [link (url=https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript) Stackoverflow question]).
+        Instead of using a standard Javascript function we can use a [i standard PDML function] that allows us to provide a specific format, and also rounds to the number of decimal places specified in the format. We'll use function [link (url=[u:get PDML_ext_ref_manual_url]#numberUtils-formatFloat) formatFloat] defined in object [link (url=[u:get PDML_ext_ref_manual_url]#numberUtils) numberUtils]:
         [s:exp priceExampleSnippet ( "formatFloat" )]
         Result: [c \[price 2,675.19\]].
     ]
@@ -32,10 +32,12 @@
         [s:exp priceExampleSnippet ( "2prices" )]
         ... which expands to:
         [code
+            ~~~
             [price 2,675.19]
             ...
             [price 39,483.00]
-        code]
+            ~~~
+        ]
     ]
 
     [ch [title Shared Library]
@@ -54,5 +56,5 @@
         ]
     ]
 
-    For more information about libraries please refer to [link url=[u:get PDML_ext_user_manual_url]#javascript_support text="Javascript Support"].
+    For more information about libraries please refer to [link (url=[u:get PDML_ext_user_manual_url]#javascript_support ) Javascript Support].
 ]

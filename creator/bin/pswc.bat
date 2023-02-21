@@ -14,7 +14,7 @@
 @rem limitations under the License.
 @rem
 
-@if "%DEBUG%" == "" @echo off
+@if "%DEBUG%"=="" @echo off
 @rem ##########################################################################
 @rem
 @rem  pswc startup script for Windows
@@ -25,7 +25,8 @@
 if "%OS%"=="Windows_NT" setlocal
 
 set DIRNAME=%~dp0
-if "%DIRNAME%" == "" set DIRNAME=.
+if "%DIRNAME%"=="" set DIRNAME=.
+@rem This is normally unused
 set APP_BASE_NAME=%~n0
 set APP_HOME=%DIRNAME%..
 
@@ -40,7 +41,7 @@ if defined JAVA_HOME goto findJavaFromJavaHome
 
 set JAVA_EXE=java.exe
 %JAVA_EXE% -version >NUL 2>&1
-if "%ERRORLEVEL%" == "0" goto execute
+if %ERRORLEVEL% equ 0 goto execute
 
 echo.
 echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
@@ -67,7 +68,7 @@ goto fail
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\pswc-0.1.0.jar;%APP_HOME%\lib\pdml-core-0.15.0.jar;%APP_HOME%\lib\pdml-ext-0.15.0.jar;%APP_HOME%\lib\pp-basics-0.11.0.jar;%APP_HOME%\lib\pp-commands-0.11.0.jar;%APP_HOME%\lib\pp-datatype-0.11.0.jar;%APP_HOME%\lib\pp-parameters-0.11.0.jar;%APP_HOME%\lib\pp-scripting-0.11.0.jar;%APP_HOME%\lib\pp-text-0.11.0.jar;%APP_HOME%\lib\pp-texttable-0.11.0.jar;%APP_HOME%\lib\ptte-0.5.0.jar;%APP_HOME%\lib\js-22.2.0.jar;%APP_HOME%\lib\regex-22.2.0.jar;%APP_HOME%\lib\truffle-api-22.2.0.jar;%APP_HOME%\lib\graal-sdk-22.2.0.jar;%APP_HOME%\lib\icu4j-71.1.jar
+set CLASSPATH=%APP_HOME%\lib\pswc-0.1.0.jar;%APP_HOME%\lib\pdml-data-0.27.0.jar;%APP_HOME%\lib\pdml-ext-0.27.0.jar;%APP_HOME%\lib\pdml-ext-scripting-0.27.0.jar;%APP_HOME%\lib\pdml-ext-shared-0.27.0.jar;%APP_HOME%\lib\pdml-ext-types-0.27.0.jar;%APP_HOME%\lib\pdml-ext-utils-0.27.0.jar;%APP_HOME%\lib\pdml-parser-0.27.0.jar;%APP_HOME%\lib\pdml-reader-0.27.0.jar;%APP_HOME%\lib\pdml-shared-0.27.0.jar;%APP_HOME%\lib\pdml-utils-0.27.0.jar;%APP_HOME%\lib\pp-basics-0.21.0.jar;%APP_HOME%\lib\pp-commands-0.21.0.jar;%APP_HOME%\lib\pp-datatype-0.21.0.jar;%APP_HOME%\lib\pp-parameters-0.21.0.jar;%APP_HOME%\lib\pp-scripting-0.21.0.jar;%APP_HOME%\lib\pp-text-0.21.0.jar;%APP_HOME%\lib\pp-texttable-0.21.0.jar;%APP_HOME%\lib\ptte-0.5.0.jar;%APP_HOME%\lib\js-22.2.0.jar;%APP_HOME%\lib\regex-22.2.0.jar;%APP_HOME%\lib\truffle-api-22.2.0.jar;%APP_HOME%\lib\graal-sdk-22.2.0.jar;%APP_HOME%\lib\icu4j-71.1.jar
 
 
 @rem Execute pswc
@@ -75,13 +76,15 @@ set CLASSPATH=%APP_HOME%\lib\pswc-0.1.0.jar;%APP_HOME%\lib\pdml-core-0.15.0.jar;
 
 :end
 @rem End local scope for the variables with windows NT shell
-if "%ERRORLEVEL%"=="0" goto mainEnd
+if %ERRORLEVEL% equ 0 goto mainEnd
 
 :fail
 rem Set variable PSWC_EXIT_CONSOLE if you need the _script_ return code instead of
 rem the _cmd.exe /c_ return code!
-if  not "" == "%PSWC_EXIT_CONSOLE%" exit 1
-exit /b 1
+set EXIT_CODE=%ERRORLEVEL%
+if %EXIT_CODE% equ 0 set EXIT_CODE=1
+if not ""=="%PSWC_EXIT_CONSOLE%" exit %EXIT_CODE%
+exit /b %EXIT_CODE%
 
 :mainEnd
 if "%OS%"=="Windows_NT" endlocal

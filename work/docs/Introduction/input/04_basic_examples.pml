@@ -9,22 +9,30 @@
 
         In JSON we would use the following syntax:
         [code
+            ~~~
             "color" = "green"
-        code]
+            ~~~
+        ]
 
         In XML we could use an attribute:
         [code
+            ~~~
             color = "green"
-        code]
+            ~~~
+        ]
         ... or an element:
         [code
+            ~~~
             <color>green</color>
-        code]
+            ~~~
+        ]
         
         In PDML the syntax is:
         [code
+            ~~~
             [color green]
-        code]
+            ~~~
+        ]
         
         The above code is called a [i node] in PDML.
 
@@ -36,13 +44,15 @@
 
         Text values can contain spaces, new lines and Unicode characters:
         [code
+            ~~~
             [names
                 Tim
                 Tom
                 Tam
                 😃
             ]
-        code]
+            ~~~
+        ]
     ]
 
 
@@ -50,17 +60,21 @@
     
         Besides text, a node's value can also be another node:
         [code
+            ~~~
             [config [color green]]
-        code]
+            ~~~
+        ]
         
         The value of node [c config] is another node with name [c color] and value [c green].
         
         For better readability we can also write:
         [code
+            ~~~
             [config
                 [color green]
             ]
-        code]
+            ~~~
+        ]
     ]
 
 
@@ -68,6 +82,7 @@
     
         The node's content can be a [i list] of nodes, and each child node can itself have any number of child nodes:
         [code
+            ~~~
             [config
                 [color green]
                 [size
@@ -75,7 +90,8 @@
                     [height 100]
                 ]
             ]
-        code]
+            ~~~
+        ]
 
         Hence, PDML can be used to store simple or complex tree data that can be structured or unstructured.
     ]
@@ -87,18 +103,24 @@
 
         Suppose we want to render:
         [html
+            ~~~
             <p>Life is <i>better</i> if we are <b>kind</b>.</p>
-        html]
+            ~~~
+        ]
         
         In HTML we would write:
         [code
+            ~~~
             <div>Life is <i>better</i> if we are <b>kind</b>.</div>
-        code]
+            ~~~
+        ]
 
         In PDML this is written as:
         [code
+            ~~~
             [div Life is [i better] if we are [b kind].]
-        code]
+            ~~~
+        ]
     ]
 
 
@@ -106,26 +128,34 @@
     
         A node can be empty. It has a name, but no content:
         [code
+            ~~~
             [color]
-        code]
+            ~~~
+        ]
         
         In JSON this would be written as:
         [code
+            ~~~
             "color" = null
-        code]
+            ~~~
+        ]
         
         In XML:
         [code
+            ~~~
             <color></color>
-        code]
+            ~~~
+        ]
         
         or simply:
         [code
+            ~~~
             <color />
-        code]
+            ~~~
+        ]
     ]
 
-    There is not much more to say about PDML's basic syntax.
+    There is not much more to say about PDML's core syntax.
 
-    For a formal and complete definition please refer to the [link url=[u:get pdml_docs_url]basic-specification/index.html text="PDML Specification"].
+    For a formal and complete definition please refer to the [link (url=[u:get pdml_docs_url]basic-specification/index.html) PDML Specification].
 ]

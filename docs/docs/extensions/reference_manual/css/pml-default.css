@@ -1,5 +1,5 @@
 /*
-    PML version: 3.0.0
+    PML version: 4.0.0
     
     This is the default CSS style used for HTML files created with PML.
     
@@ -87,6 +87,10 @@ h1, h2, h3, h4, h5, h6 {
 
     margin-top: 1em;
     margin-bottom: 0px;
+}
+
+h5, h6 {
+    font-size: 1em;
 }
 
 .pml-doc-title {
@@ -213,7 +217,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .pml-quote-source::before {
-    content: "\2014";
+    /* content: "\2014"; */
 }
 
 

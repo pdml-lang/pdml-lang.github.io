@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="generator" content="PML 3.1.0 (www.pml-lang.dev)" />
+        <meta name="generator" content="PML 4.0.0 (www.pml-lang.dev)" />
         <title>PDML Extensions Reference Manual</title>
         <link rel="stylesheet" href="css/pml-default.css">
         <link rel="stylesheet" href="css/pml-print-default.css" media="print">
@@ -41,7 +41,6 @@
                                                     <summary><a href="#raw_text">raw_text</a></summary>
                                                     <ul>
                                                         <li class="pml-toc-leaf-node"><a href="#raw_text_delimiter_syntax">Delimited Text Syntax</a></li>
-                                                        <li class="pml-toc-leaf-node"><a href="#raw_text_block_syntax">Text Block Syntax</a></li>
                                                         <li class="pml-toc-leaf-node"><a href="#raw_text_standard_syntax">Standard Text Syntax</a></li>
                                                     </ul>
                                                 </details>
@@ -224,7 +223,7 @@
                         </div>
                     </nav>
                 </aside>
-                <article id="doc__" class="pml-doc-text" id="doc__">
+                <article id="doc__" class="pml-doc-text">
                     <h1 class="pml-doc-title">PDML Extensions Reference Manual</h1>
                     <div class="pml-division">
                         <table class="pml-table">
@@ -263,7 +262,7 @@
                             </tr>
                             <tr class="pml-table-body-row">
                                 <td class="pml-table-body-cell">
-                                    <p class="pml-paragraph"><b class="pml-bold">Author and Copyright</b></p>
+                                    <p class="pml-paragraph"><b class="pml-bold">Author</b></p>
 
                                 </td>
                                 <td class="pml-table-body-cell">
@@ -289,7 +288,7 @@
 
                                 </td>
                                 <td class="pml-table-body-cell">
-                                    <p class="pml-paragraph"><a class="pml-link" href="https://github.com/pdml-lang/extensions-reference-manual">Github</a></p>
+                                    <p class="pml-paragraph"><a class="pml-link" href="https://github.com/pdml-lang/pdml-lang.github.io/tree/main/work/docs/extensions/Reference_Manual">Github</a></p>
 
                                 </td>
 
@@ -337,7 +336,7 @@
     width=200
     height=100
 ]</code></pre>
-                            <p class="pml-paragraph">The rules for a parameter's <i class="pml-italic">name</i> are the same as those for a <a class="pml-link" href="https://pdml-lang.dev/docs/basic-specification/index.html#node_name">node name</a>.</p>
+                            <p class="pml-paragraph">The rules for a parameter's <i class="pml-italic">name</i> are the same as those for a <a class="pml-link" href="https://pdml-lang.dev/docs/core/specification/index.html#node_name">node name</a>.</p>
                             <p class="pml-paragraph">After assigning a value to a parameter, its value cannot be changed later in the document. Parameters are like constants in programming languages.</p>
 
                         </section>
@@ -364,7 +363,10 @@
                         <p class="pml-paragraph">This chapter describes type nodes.</p>
                         <p class="pml-paragraph">Type nodes are all part of the namespace prefix <code class="pml-inline-code">t</code>.</p>
                         <div class="pml-admonition">
-                            <div class="pml-admonition-label">Note</div>
+                            <div class="pml-admonition-label">
+                                <p class="pml-paragraph">Note</p>
+
+                            </div>
                             <div class="pml-admonition-content">
                                 <p class="pml-paragraph">The number of types currently supported is very limited. More types (e.g. number, boolean, time, URL, etc.) will be added in the future.</p>
                             </div>
@@ -395,7 +397,7 @@ line 3</code></pre>
                             <h3 class="pml-chapter-title"><code class="pml-inline-code">raw_text</code></h3>
                             <p class="pml-paragraph">A <code class="pml-inline-code">t:raw_text</code> type denotes a block of raw text.</p>
                             <p class="pml-paragraph">In this context, the term <i class="pml-italic">raw</i> means that the text is not interpreted by the parser. For example, the text <code class="pml-inline-code">[foo]</code> is not parsed as an empty node with name <code class="pml-inline-code">foo</code>. It is pared as the text <code class="pml-inline-code">&quot;[foo]&quot;</code>.</p>
-                            <p class="pml-paragraph">There are three syntax variations supported, as shown in the following chapters:</p>
+                            <p class="pml-paragraph">There are two syntax variations supported, as shown in the following chapters:</p>
                             <section id="raw_text_delimiter_syntax" class="pml-chapter">
                                 <h4 class="pml-chapter-title">Delimited Text Syntax</h4>
                                 <p class="pml-paragraph">Example:</p>
@@ -457,29 +459,6 @@ line 3</code></pre>
                                 <pre class="pml-code"><code>if ( list[index] == 0 ) {
     write_line ( &quot;The value is zero.&quot; )
 }</code></pre>
-
-                            </section>
-                            <section id="raw_text_block_syntax" class="pml-chapter">
-                                <h4 class="pml-chapter-title">Text Block Syntax</h4>
-                                <p class="pml-paragraph">Example:</p>
-                                <pre class="pml-code"><code>[t:raw_text
-    first text line
-    ...
-    last text line
-raw_text]</code></pre>
-                                <p class="pml-paragraph">When this syntax variation is used, the node is closed by repeating the node's name on a separate line, immediately followed by the node end symbol <code class="pml-inline-code">]</code>.</p>
-                                <p class="pml-paragraph">The text must be written between the node opening and the node closing lines.</p>
-                                <p class="pml-paragraph">The indent of the text line with the smallest indent is removed in all text lines. Hence, this code:</p>
-                                <pre class="pml-code"><code>    [t:raw_text
-            line 1
-        line 2
-                line 3
-    raw_text]</code></pre>
-                                <p class="pml-paragraph">... expands to:</p>
-                                <pre class="pml-code"><code>    line 1
-line 2
-        line 3</code></pre>
-                                <p class="pml-paragraph">All indents in the text lines must be composed of only spaces, or only tabs. Mixing spaces and tabs is not allowed.</p>
 
                             </section>
                             <section id="raw_text_standard_syntax" class="pml-chapter">

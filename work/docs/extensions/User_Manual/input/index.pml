@@ -7,10 +7,10 @@
 -]
             [tr [tc [b First Published]][tc 2022-02-07]]
             [tr [tc [b Latest Update]][tc 2022-02-10]]
-            [tr [tc [b License]][tc [link url=https://creativecommons.org/licenses/by-nd/4.0/ text="CC BY-ND 4.0"]]]
-            [tr [tc [b Author and Copyright]][tc Christian Neumanns]]
-            [tr [tc [b Website]][tc [link url=https://pdml-lang.dev/]]]
-            [tr [tc [b PML Markup Code]][tc [link url=https://github.com/pdml-lang/extensions-user-manual text=Github]]]
+            [tr [tc [b License]][tc [link (url=https://creativecommons.org/licenses/by-nd/4.0/) CC BY-ND 4.0]]]
+            [tr [tc [b Author]][tc Christian Neumanns]]
+            [tr [tc [b Website]][tc [link (url=https://pdml-lang.dev/)]]]
+            [tr [tc [b PML Markup Code]][tc [link (url=https://github.com/pdml-lang/extensions-user-manual) Github]]]
         ]
     ]
 
@@ -18,14 +18,15 @@
     [u:set pdml_docs_url=[u:get pdml_website_url]docs/]
     [u:set pdml_docs_extensions_url=[u:get pdml_docs_url]extensions/]
     [u:set pdml_ext_ref_manual_url=[u:get pdml_docs_extensions_url]reference_manual/index.html]
+    [u:set core_pdml_spec=[u:get pdml_docs_url]core-specification/index.html]
 
     [u:set examples_dir=examples/]
 
     [u:ins_file path=01_introduction.pml]
     [u:ins_file path=02_syntax_extensions/index.pml]
-    [u:ins_file path=03_parser_extensions/index.pml]
+    [- [u:ins_file path=03_parser_extensions/index.pml] -]
     [u:ins_file path=04_extension_nodes/index.pml]
-    [u:ins_file path=05_PDML_XML_bridge/index.pml]
+    [- [u:ins_file path=05_PDML_XML_bridge/index.pml] -]
 [-
     [u:ins_file path=06_history.pml]
 -]

@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="generator" content="PML 3.1.0 (www.pml-lang.dev)" />
+        <meta name="generator" content="PML 4.0.0 (www.pml-lang.dev)" />
         <title>PDML Extensions User Manual</title>
         <link rel="stylesheet" href="css/pml-default.css">
         <link rel="stylesheet" href="css/pml-print-default.css" media="print">
@@ -19,29 +19,64 @@
                         <h2 class="pml-toc-title">Table of Contents</h2>
                         <div class="pml-toc-tree" id="TOCTree">
                             <ul>
-                                <li class="pml-toc-leaf-node"><a href="#ch__1">Introduction</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#introduction">Introduction</a></li>
                                 <li class="pml-toc-branch-node">
                                     <details>
                                         <summary><a href="#ch__2">Syntax Extensions</a></summary>
                                         <ul>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__3">Comments</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#attributes">Attributes</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__5">Escape Sequences</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__6">Namespaces</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__7">Named Closing Tags</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__8">Virtual Root Node</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__9">Processing Instructions</a></li>
-                                        </ul>
-                                    </details>
-                                </li>
-                                <li class="pml-toc-branch-node">
-                                    <details>
-                                        <summary><a href="#ch__10">Parser Extensions</a></summary>
-                                        <ul>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__11">Text Location</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__12">Errors And Warnings</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__13">Whitespace Handling</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__14">Standalone Documents</a></li>
+                                            <li class="pml-toc-branch-node">
+                                                <details>
+                                                    <summary><a href="#comments">Comments</a></summary>
+                                                    <ul>
+                                                        <li class="pml-toc-leaf-node"><a href="#comments_overview">Overview</a></li>
+                                                        <li class="pml-toc-branch-node">
+                                                            <details>
+                                                                <summary><a href="#comments_syntax">Syntax Rules</a></summary>
+                                                                <ul>
+                                                                    <li class="pml-toc-leaf-node"><a href="#comments_start_end_symbols">Start/End Symbols</a></li>
+                                                                    <li class="pml-toc-leaf-node"><a href="#comments_start_end_positions">Start/End Positions</a></li>
+                                                                    <li class="pml-toc-leaf-node"><a href="#comments_location">Location</a></li>
+                                                                    <li class="pml-toc-leaf-node"><a href="#comments_nested">Nested Comments</a></li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li class="pml-toc-leaf-node"><a href="#escape_sequences">Character Escape Sequences</a></li>
+                                            <li class="pml-toc-branch-node">
+                                                <details>
+                                                    <summary><a href="#attributes">Attributes</a></summary>
+                                                    <ul>
+                                                        <li class="pml-toc-leaf-node"><a href="#attributes_overview">Overview</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#attributes_when">When to Use Attributes?</a></li>
+                                                        <li class="pml-toc-branch-node">
+                                                            <details>
+                                                                <summary><a href="#attributes_syntax">Syntax Rules</a></summary>
+                                                                <ul>
+                                                                    <li class="pml-toc-leaf-node"><a href="#attributes_position">Position</a></li>
+                                                                    <li class="pml-toc-leaf-node"><a href="#attributes_start_end">Start/End</a></li>
+                                                                    <li class="pml-toc-leaf-node"><a href="#attributes_name">Name</a></li>
+                                                                    <li class="pml-toc-leaf-node"><a href="#attributes_assignment_symbol">Assignment Symbol</a></li>
+                                                                    <li class="pml-toc-leaf-node"><a href="#attributes_value">Value</a></li>
+                                                                    <li class="pml-toc-leaf-node"><a href="#attributes_escape_rules">Character Escape Rules in Values</a></li>
+                                                                    <li class="pml-toc-leaf-node"><a href="#attributes_whitespace">Whitespace Handling</a></li>
+                                                                    <li class="pml-toc-leaf-node"><a href="#attributes_comments">Comments in Attributes</a></li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                        <li class="pml-toc-branch-node">
+                                                            <details>
+                                                                <summary><a href="#attributes_syntax_simplifications">Syntax Simplifications</a></summary>
+                                                                <ul>
+                                                                    <li class="pml-toc-leaf-node"><a href="#attributes_lenient_parsing">Lenient Parsing</a></li>
+                                                                    <li class="pml-toc-leaf-node"><a href="#attributes_alternative_start_end">Alternative Start/End Syntax</a></li>
+                                                                </ul>
+                                                            </details>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </li>
                                         </ul>
                                     </details>
                                 </li>
@@ -49,19 +84,19 @@
                                     <details>
                                         <summary><a href="#extension_nodes">Extension Nodes</a></summary>
                                         <ul>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__16">Preliminary Example</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__17">Overview</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__18">Utility Nodes</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#extension_nodes_example">Preliminary Example</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#extension_nodes_overview">Overview</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#utility_nodes">Utility Nodes</a></li>
                                             <li class="pml-toc-leaf-node"><a href="#type_nodes">Type Nodes</a></li>
                                             <li class="pml-toc-branch-node">
                                                 <details>
                                                     <summary><a href="#script_nodes">Script Nodes</a></summary>
                                                     <ul>
-                                                        <li class="pml-toc-leaf-node"><a href="#ch__21">Introduction</a></li>
-                                                        <li class="pml-toc-leaf-node"><a href="#ch__22">Overview</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#script_nodes_introduction">Introduction</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#script_nodes_overview">Overview</a></li>
                                                         <li class="pml-toc-branch-node">
                                                             <details>
-                                                                <summary><a href="#ch__23">Nodes</a></summary>
+                                                                <summary><a href="#script_nodes_nodes">Nodes</a></summary>
                                                                 <ul>
                                                                     <li class="pml-toc-leaf-node"><a href="#expression_node">Expression Node</a></li>
                                                                     <li class="pml-toc-leaf-node"><a href="#script_node">Script Node</a></li>
@@ -72,49 +107,36 @@
                                                         <li class="pml-toc-leaf-node"><a href="#script_nodes_syntax">Syntax</a></li>
                                                         <li class="pml-toc-branch-node">
                                                             <details>
-                                                                <summary><a href="#javascript_support">Javascript Support</a></summary>
+                                                                <summary><a href="#script_nodes_javascript_support">Javascript Support</a></summary>
                                                                 <ul>
                                                                     <li class="pml-toc-branch-node">
                                                                         <details>
-                                                                            <summary><a href="#ch__29">Standard Libraries</a></summary>
+                                                                            <summary><a href="#ch__40">Standard Libraries</a></summary>
                                                                             <ul>
-                                                                                <li class="pml-toc-leaf-node"><a href="#ch__30">Javascript Functions</a></li>
-                                                                                <li class="pml-toc-leaf-node"><a href="#ch__31">PDML Functions</a></li>
+                                                                                <li class="pml-toc-leaf-node"><a href="#ch__41">Javascript Functions</a></li>
+                                                                                <li class="pml-toc-leaf-node"><a href="#ch__42">PDML Functions</a></li>
                                                                             </ul>
                                                                         </details>
                                                                     </li>
                                                                     <li class="pml-toc-branch-node">
                                                                         <details>
-                                                                            <summary><a href="#ch__32">External Libraries</a></summary>
+                                                                            <summary><a href="#ch__43">External Libraries</a></summary>
                                                                             <ul>
-                                                                                <li class="pml-toc-leaf-node"><a href="#ch__33">ECMAScript Modules</a></li>
-                                                                                <li class="pml-toc-leaf-node"><a href="#ch__34">PDML Definitions</a></li>
-                                                                                <li class="pml-toc-leaf-node"><a href="#ch__35">Node.js Modules</a></li>
+                                                                                <li class="pml-toc-leaf-node"><a href="#ch__44">ECMAScript Modules</a></li>
+                                                                                <li class="pml-toc-leaf-node"><a href="#ch__45">PDML Definitions</a></li>
+                                                                                <li class="pml-toc-leaf-node"><a href="#ch__46">Node.js Modules</a></li>
                                                                             </ul>
                                                                         </details>
                                                                     </li>
                                                                 </ul>
                                                             </details>
                                                         </li>
-                                                        <li class="pml-toc-leaf-node"><a href="#ch__36">Error handling</a></li>
-                                                        <li class="pml-toc-leaf-node"><a href="#ch__37">Examples</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#script_nodes_error_handling">Error handling</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#script_nodes_examples">Examples</a></li>
                                                     </ul>
                                                 </details>
                                             </li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__38">Customized Extension Nodes</a></li>
-                                        </ul>
-                                    </details>
-                                </li>
-                                <li class="pml-toc-branch-node">
-                                    <details>
-                                        <summary><a href="#ch__39">PDML/XML Bridge</a></summary>
-                                        <ul>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__40">PDML to XML</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__41">XML to PDML</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__42">XML Validation</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__43">XML Queries</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__44">XML Transformations</a></li>
-                                            <li class="pml-toc-leaf-node"><a href="#ch__45">Examples</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#customized_extension_nodes">Customized Extension Nodes</a></li>
                                         </ul>
                                     </details>
                                 </li>
@@ -122,7 +144,7 @@
                         </div>
                     </nav>
                 </aside>
-                <article id="doc__" class="pml-doc-text" id="doc__">
+                <article id="doc__" class="pml-doc-text">
                     <h1 class="pml-doc-title">PDML Extensions User Manual</h1>
                     <div class="pml-division">
                         <table class="pml-table">
@@ -161,7 +183,7 @@
                             </tr>
                             <tr class="pml-table-body-row">
                                 <td class="pml-table-body-cell">
-                                    <p class="pml-paragraph"><b class="pml-bold">Author and Copyright</b></p>
+                                    <p class="pml-paragraph"><b class="pml-bold">Author</b></p>
 
                                 </td>
                                 <td class="pml-table-body-cell">
@@ -196,15 +218,18 @@
                         </table>
 
                     </div>
-                    <section id="ch__1" class="pml-chapter">
+                    <section id="introduction" class="pml-chapter">
                         <h2 class="pml-chapter-title">Introduction</h2>
                         <p class="pml-paragraph">This document describes optional PDML extensions.</p>
+                        <p class="pml-paragraph">An extension is a PDML feature that is not part of <i class="pml-italic">Core PDML</i>.</p>
                         <div class="pml-admonition">
-                            <div class="pml-admonition-label">Note</div>
+                            <div class="pml-admonition-label">
+                                <p class="pml-paragraph">Note</p>
+
+                            </div>
                             <div class="pml-admonition-content">
-                                <p class="pml-paragraph">PDML extensions are a work in progress.</p>
-                                <p class="pml-paragraph">The table of contents displays all chapters planned to be part of PDML extensions. Chapters not written yet just contain the text &quot;TODO&quot;.</p>
-                                <p class="pml-paragraph">Most extensions are implemented already in the Java reference implementation, even if they are not yet documented here.</p>
+                                <p class="pml-paragraph">Extensions are a work in progress. There might be breaking changes in future versions.</p>
+                                <p class="pml-paragraph">Additional experimental extensions are implemented already in the reference implementation, but not yet documented here.</p>
                             </div>
                         </div>
                         <p class="pml-paragraph">If you encounter a bug or miss an important feature, then please submit an <a class="pml-link" href="https://github.com/pdml-lang/extensions-user-manual/issues">issue</a>.</p>
@@ -213,70 +238,580 @@
                     </section>
                     <section id="ch__2" class="pml-chapter">
                         <h2 class="pml-chapter-title">Syntax Extensions</h2>
-                        <section id="ch__3" class="pml-chapter">
+                        <section id="comments" class="pml-chapter">
                             <h3 class="pml-chapter-title">Comments</h3>
-                            <p class="pml-paragraph">TODO </p>
+                            <section id="comments_overview" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Overview</h4>
+                                <p class="pml-paragraph">A comment consists of a text segment that is not part of the data/markup code stored in a PDML document.</p>
+                                <p class="pml-paragraph">Comments are typically used to add information that is useful for human readers, but ignored by machines that read the PDML document. For example, a comment can provide a general description of the data stored in a document.</p>
+                                <p class="pml-paragraph">Comments are also useful to temporarily disable a segment of a document without deleting it.</p>
+                                <p class="pml-paragraph">Here is an example of a PDML document with various comments:</p>
+                                <pre class="pml-code"><code>[config
+    [- This configuration file is used to ... -]        &lt;
+    
+    [power 220V]
+
+    [- values are in degrees Celcius -]                 &lt;
+    [min_temp -20]
+    [max_temp 50]
+
+    [-                                                  &lt;
+        temporarily disabled to used default values     &lt;
+        [security_level 5]                              &lt;
+        [log_level debug]                               &lt;
+    -]
+]</code></pre>
+
+                            </section>
+                            <section id="comments_syntax" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Syntax Rules</h4>
+                                <section id="comments_start_end_symbols" class="pml-chapter">
+                                    <h5 class="pml-chapter-title">Start/End Symbols</h5>
+                                    <p class="pml-paragraph">A comment starts with <code class="pml-inline-code">[-</code> and ends with <code class="pml-inline-code">-]</code>:</p>
+                                    <pre class="pml-code"><code>[- text of comment -]
+^^                 ^^</code></pre>
+
+                                </section>
+                                <section id="comments_start_end_positions" class="pml-chapter">
+                                    <h5 class="pml-chapter-title">Start/End Positions</h5>
+                                    <p class="pml-paragraph">A comment can start at any position in a line. It can end at any subsequent position in the same line or at any position in a subsequent line.</p>
+                                    <p class="pml-paragraph">Examples:</p>
+                                    <pre class="pml-code"><code>text [- comment -] text
+
+[- single line comment -]
+
+[-
+    multiple
+    lines
+    comment
+-]
+
+text [- this text is
+commented out -] text</code></pre>
+
+                                </section>
+                                <section id="comments_location" class="pml-chapter">
+                                    <h5 class="pml-chapter-title">Location</h5>
+                                    <p class="pml-paragraph">Comments can be inserted anywhere in a PDML document, even before or after the root node:</p>
+                                    <pre class="pml-code"><code>[- comment -]
+
+[root
+    [- comment -]
+    text [- comment -] text
+]
+[- comment -]</code></pre>
+
+                                </section>
+                                <section id="comments_nested" class="pml-chapter">
+                                    <h5 class="pml-chapter-title">Nested Comments</h5>
+                                    <p class="pml-paragraph">Comments can be nested. That is, a comment can contain another comment:</p>
+                                    <pre class="pml-code"><code>[- comment [- nested comment -] comment -]
+           ^^^^^^^^^^^^^^^^^^^^</code></pre>
+                                    <p class="pml-paragraph">Comments can be nested to any level:</p>
+                                    <pre class="pml-code"><code>[- level 1 (not nested)
+    [- level 2
+        [- level 3 -]
+    -]
+-]</code></pre>
+
+                                </section>
+
+                            </section>
+
+                        </section>
+                        <section id="escape_sequences" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Character Escape Sequences</h3>
+                            <p class="pml-paragraph">The <a class="pml-link" href="https://pdml-lang.dev/docs/core-specification/index.html#escape_rules">Core PDML Specification</a> specifies:</p>
+                            <ul class="pml-list">
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">The following characters must always be escaped: <code class="pml-inline-code">[ ] \</code>.</p>
+
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">A backslash (<code class="pml-inline-code">\</code>) is used as escape character.</p>
+
+                                </li>
+
+                            </ul>
+                            <p class="pml-paragraph">For example, to insert the text <code class="pml-inline-code">[, ], and \ must be escaped</code>, we need to write:</p>
+                            <pre class="pml-code"><code>\[, \], and \\ must be escaped
+^^  ^^      ^^</code></pre>
+                            <p class="pml-paragraph">Extended PDML supports two more categories of character escape sequences:</p>
+                            <ul class="pml-list">
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Invisible whitespace characters:</p>
+                                    <table class="pml-table">
+                                        <thead class="pml-table-header">
+                                            <tr class="pml-table-header-row">
+<th class="pml-table-header-cell">Escape Sequence</th><th class="pml-table-header-cell">ISO Name</th><th class="pml-table-header-cell">Unicode</th></tr>
+                                        </thead>
+                                        <tbody class="pml-table-body">
+                                            <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">\t</td><td class="pml-table-body-cell">Character Tabulation (HT, TAB)</td><td class="pml-table-body-cell">U+0009</td></tr>
+                                            <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">\n</td><td class="pml-table-body-cell">End of Line (EOL, LF, NL)</td><td class="pml-table-body-cell">U+000A</td></tr>
+                                            <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">\r</td><td class="pml-table-body-cell">Carriage Return&gt; (CR)</td><td class="pml-table-body-cell">U+000D</td></tr>
+                                        </tbody>
+                                    </table>
+
+                                </li>
+                                <li class="pml-list-element">
+                                    <p class="pml-paragraph">Unicode escape sequences:</p>
+                                    <table class="pml-table">
+                                        <thead class="pml-table-header">
+                                            <tr class="pml-table-header-row">
+<th class="pml-table-header-cell">Escape Sequence</th><th class="pml-table-header-cell">Description</th><th class="pml-table-header-cell">Example</th></tr>
+                                        </thead>
+                                        <tbody class="pml-table-body">
+                                            <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">\uhhhh</td><td class="pml-table-body-cell">16 bits Unicode character, hexadecimal encoding</td><td class="pml-table-body-cell">\u0041 (=A)</td></tr>
+                                            <tr class="pml-table-body-row">
+<td class="pml-table-body-cell">\Uhhhhhhhh</td><td class="pml-table-body-cell">32 bits Unicode character, hexadecimal encoding</td><td class="pml-table-body-cell">\U0001F600 (=😀)</td></tr>
+                                        </tbody>
+                                    </table>
+                                    <p class="pml-paragraph">A 16 bits Unicode escape sequence starts with <code class="pml-inline-code">\u</code>, followed by four hexadecimal digits (denoted by <code class="pml-inline-code">hhhh</code> in the above table).</p>
+                                    <p class="pml-paragraph">A hexadecimal digit can be any of the following characters: <code class="pml-inline-code">0 1 2 3 4 5 6 7 8 9 a b c d e f A B C D E F</code>. The regular expression for a hexadecimal digit is <code class="pml-inline-code">[0-9a-fA-F]</code></p>
+                                    <p class="pml-paragraph">A 32 bits Unicode escape sequence starts with <code class="pml-inline-code">\U</code>, followed by eight hexadecimal digits.</p>
+
+                                </li>
+
+                            </ul>
+                            <p class="pml-paragraph">The following table summarizes the character escape sequences supported in <i class="pml-italic">Core PDML</i> and <i class="pml-italic">Extended PDML</i>:</p>
+                            <table class="pml-table">
+                                <thead class="pml-table-header">
+                                    <tr class="pml-table-header-row">
+                                        <th class="pml-table-header-cell">
+                                            <p class="pml-paragraph">Escape Sequence</p>
+
+                                        </th>
+                                        <th class="pml-table-header-cell">
+                                            <p class="pml-paragraph">Core PDML</p>
+
+                                        </th>
+                                        <th class="pml-table-header-cell">
+                                            <p class="pml-paragraph">Extended PDML</p>
+
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+                                <tr class="pml-table-body-row">
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph">\[</p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.4em; color:green">✔</span></p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.4em; color:green">✔</span></p>
+
+                                    </td>
+
+                                </tr>
+                                <tr class="pml-table-body-row">
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph">\]</p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.4em; color:green">✔</span></p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.4em; color:green">✔</span></p>
+
+                                    </td>
+
+                                </tr>
+                                <tr class="pml-table-body-row">
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph">\\</p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.4em; color:green">✔</span></p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.4em; color:green">✔</span></p>
+
+                                    </td>
+
+                                </tr>
+                                <tr class="pml-table-body-row">
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph">\t</p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.7em; color:red">⨯</span></p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.4em; color:green">✔</span></p>
+
+                                    </td>
+
+                                </tr>
+                                <tr class="pml-table-body-row">
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph">\n</p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.7em; color:red">⨯</span></p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.4em; color:green">✔</span></p>
+
+                                    </td>
+
+                                </tr>
+                                <tr class="pml-table-body-row">
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph">\r</p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.7em; color:red">⨯</span></p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.4em; color:green">✔</span></p>
+
+                                    </td>
+
+                                </tr>
+                                <tr class="pml-table-body-row">
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph">\uhhhh</p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.7em; color:red">⨯</span></p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.4em; color:green">✔</span></p>
+
+                                    </td>
+
+                                </tr>
+                                <tr class="pml-table-body-row">
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph">\Uhhhhhhhh</p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.7em; color:red">⨯</span></p>
+
+                                    </td>
+                                    <td class="pml-table-body-cell" style="text-align:center">
+                                        <p class="pml-paragraph"><span class="pml-span" style="font-size: 1.4em; color:green">✔</span></p>
+
+                                    </td>
+
+                                </tr>
+
+                            </table>
 
                         </section>
                         <section id="attributes" class="pml-chapter">
                             <h3 class="pml-chapter-title">Attributes</h3>
-                            <p class="pml-paragraph">TODO </p>
+                            <section id="attributes_overview" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Overview</h4>
+                                <p class="pml-paragraph">Attributes are used to assign a list of name/value pairs to a node. Each value is an arbitrary string.</p>
+                                <p class="pml-paragraph">Here is an example:</p>
+                                <pre class="pml-code"><code>[image [@ width=&quot;200&quot; height=&quot;100&quot;] images/ball.png]
+          ^^^^^^^^^^^ ^^^^^^^^^^^^
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^</code></pre>
+                                <p class="pml-paragraph">The above <code class="pml-inline-code">image</code> node has two attributes:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">A first attribute with name <code class="pml-inline-code">width</code> and value <code class="pml-inline-code">200</code></p>
 
-                        </section>
-                        <section id="ch__5" class="pml-chapter">
-                            <h3 class="pml-chapter-title">Escape Sequences</h3>
-                            <p class="pml-paragraph">TODO </p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">A second attribute with name <code class="pml-inline-code">height</code> and value <code class="pml-inline-code">100</code></p>
 
-                        </section>
-                        <section id="ch__6" class="pml-chapter">
-                            <h3 class="pml-chapter-title">Namespaces</h3>
-                            <p class="pml-paragraph">TODO </p>
+                                    </li>
 
-                        </section>
-                        <section id="ch__7" class="pml-chapter">
-                            <h3 class="pml-chapter-title">Named Closing Tags</h3>
-                            <p class="pml-paragraph">TODO </p>
+                                </ul>
+                                <p class="pml-paragraph">The content of the node is the text <code class="pml-inline-code">images/ball.png</code>.</p>
+                                <p class="pml-paragraph">PDML attributes are conceptually similar to attributes in XML/HTML. The following code shows the same data expressed in PDML and XML:</p>
+                                <pre class="pml-code"><code>PDML: [image [@ width=&quot;200&quot; height=&quot;100&quot;] images/ball.png]
 
-                        </section>
-                        <section id="ch__8" class="pml-chapter">
-                            <h3 class="pml-chapter-title">Virtual Root Node</h3>
-                            <p class="pml-paragraph">TODO </p>
+XML:  &lt;image width=&quot;200&quot; height=&quot;100&quot;&gt;images/ball.png&lt;/image&gt;</code></pre>
 
-                        </section>
-                        <section id="ch__9" class="pml-chapter">
-                            <h3 class="pml-chapter-title">Processing Instructions</h3>
-                            <p class="pml-paragraph">TODO </p>
+                            </section>
+                            <section id="attributes_when" class="pml-chapter">
+                                <h4 class="pml-chapter-title">When to Use Attributes?</h4>
+                                <p class="pml-paragraph">PDML does not specify when to use attributes.</p>
+                                <p class="pml-paragraph">Attributes are typically used only to attach simple meta-data or additional information to nodes. Attribute values are mostly simple scalar values like strings, numbers, booleans, enumerateds, etc. This is similar to how attributes are used in HTML.</p>
+                                <p class="pml-paragraph">However, because attributes can hold strings of any length and any content, noting prevents you to store structured data (of any complexity) in attributes, if you have a good reason to do so.</p>
+                                <p class="pml-paragraph">Here is an example of a node that uses the PDML syntax in attribute <code class="pml-inline-code">dimensions</code>, and a mini-DSL syntax in attribute <code class="pml-inline-code">border_color</code>:</p>
+                                <pre class="pml-code"><code>[image [@ dimensions=&quot;[width 200][height 100][units px]&quot; border_color=&quot;rgb(0,0,255)&quot;]]</code></pre>
+                                <p class="pml-paragraph">In all cases, the PDML parser just parses a string value for each attribute. You can then explicitly convert this string into a value of any type required in your application. For example, you <i class="pml-italic">could</i> store a JSON/PDML/XML document in an attribute. But then you need to parse the string value (returned by the PDML parser) into a typed value (e.g. an XML tree), using a dedicated parser in your application.</p>
+                                <p class="pml-paragraph">In a nutshell:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Attributes are typically used to store simple meta-data.</p>
 
-                        </section>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Nodes should preferably be used to store structured data.</p>
 
-                    </section>
-                    <section id="ch__10" class="pml-chapter">
-                        <h2 class="pml-chapter-title">Parser Extensions</h2>
-                        <section id="ch__11" class="pml-chapter">
-                            <h3 class="pml-chapter-title">Text Location</h3>
-                            <p class="pml-paragraph">TODO </p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">For each attribute, the PDML parser just parses a string value.</p>
 
-                        </section>
-                        <section id="ch__12" class="pml-chapter">
-                            <h3 class="pml-chapter-title">Errors And Warnings</h3>
-                            <p class="pml-paragraph">TODO </p>
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">In rare situations, attributes can be used to store structured data which must then be parsed into a typed value by the client application.</p>
 
-                        </section>
-                        <section id="ch__13" class="pml-chapter">
-                            <h3 class="pml-chapter-title">Whitespace Handling</h3>
-                            <p class="pml-paragraph">TODO </p>
+                                    </li>
 
-                        </section>
-                        <section id="ch__14" class="pml-chapter">
-                            <h3 class="pml-chapter-title">Standalone Documents</h3>
-                            <p class="pml-paragraph">TODO </p>
+                                </ul>
+
+                            </section>
+                            <section id="attributes_syntax" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Syntax Rules</h4>
+                                <section id="attributes_position" class="pml-chapter">
+                                    <h5 class="pml-chapter-title">Position</h5>
+                                    <p class="pml-paragraph">Attributes must appear after the node name, and before the node content.</p>
+                                    <pre class="pml-code"><code>[node_name [@ a1=&quot;v1&quot;] node content]
+           ^^^^^^^^^^^</code></pre>
+
+                                </section>
+                                <section id="attributes_start_end" class="pml-chapter">
+                                    <h5 class="pml-chapter-title">Start/End</h5>
+                                    <p class="pml-paragraph">A list of attributes starts with <code class="pml-inline-code">[@</code>, and ends with <code class="pml-inline-code">]</code>:</p>
+                                    <pre class="pml-code"><code>[node_name [@ a1=&quot;v1&quot;] node content]
+           ^^        ^</code></pre>
+
+                                </section>
+                                <section id="attributes_name" class="pml-chapter">
+                                    <h5 class="pml-chapter-title">Name</h5>
+                                    <p class="pml-paragraph">An attribute name has the same rules as a <a class="pml-link" href="https://pdml-lang.dev/docs/core-specification/index.html#node_name">node name</a>. It starts with a letter or an underscore (<code class="pml-inline-code">_</code>), optionally followed by any number of letters, digits, underscores (<code class="pml-inline-code">_</code>), hyphens (<code class="pml-inline-code">-</code>), or dots (<code class="pml-inline-code">.</code>).</p>
+                                    <p class="pml-paragraph">Here are some examples of valid attribute names:</p>
+                                    <pre class="pml-code"><code>color
+HTML_file_path
+_ID_12.5-a</code></pre>
+                                    <p class="pml-paragraph">Attribute names are case-sensitive. Hence the following names are different: <code class="pml-inline-code">color</code>, <code class="pml-inline-code">COLOR</code>, <code class="pml-inline-code">Color</code>.</p>
+                                    <p class="pml-paragraph">Each attribute in a single node must have a unique name. The same attribute name can appear in different nodes.</p>
+
+                                </section>
+                                <section id="attributes_assignment_symbol" class="pml-chapter">
+                                    <h5 class="pml-chapter-title">Assignment Symbol</h5>
+                                    <p class="pml-paragraph">Attribute names and values are separated by an equals sign (<code class="pml-inline-code">=</code>):</p>
+                                    <pre class="pml-code"><code>color=&quot;orange&quot;
+     ^</code></pre>
+
+                                </section>
+                                <section id="attributes_value" class="pml-chapter">
+                                    <h5 class="pml-chapter-title">Value</h5>
+                                    <p class="pml-paragraph">An attribute value is enclosed in a pair of quotes:</p>
+                                    <pre class="pml-code"><code>color=&quot;orange&quot;
+      ^      ^</code></pre>
+                                    <p class="pml-paragraph">An attribute value can contain any Unicode characters, including spaces and new lines:</p>
+                                    <pre class="pml-code"><code>colors=&quot;red
+light green
+blue 😀😀😀&quot;</code></pre>
+                                    <div class="pml-admonition">
+                                        <div class="pml-admonition-label">
+                                            <p class="pml-paragraph">Note</p>
+
+                                        </div>
+                                        <div class="pml-admonition-content">
+                                            <p class="pml-paragraph">Extension nodes (covered <a class="pml-xref" href="#extension_nodes">later</a>) are supported in attribute values.</p>
+                                        </div>
+                                    </div>
+
+                                </section>
+                                <section id="attributes_escape_rules" class="pml-chapter">
+                                    <h5 class="pml-chapter-title">Character Escape Rules in Values</h5>
+                                    <p class="pml-paragraph">Quote characters (<code class="pml-inline-code">&quot;</code>) and backslashes (<code class="pml-inline-code">\</code>) within a value must be escaped. For example, the value <code class="pml-inline-code">&quot;1\2&quot;</code> would be assigned as follows:</p>
+                                    <pre class="pml-code"><code>code=&quot;\&quot;1\\2\&quot;&quot;
+      ^^ ^^ ^^</code></pre>
+                                    <p class="pml-paragraph">Square brackets (<code class="pml-inline-code">[]</code>) don't need to be escaped, but for consistency with text nodes, they can be escaped if desired. For example, to assign the value <code class="pml-inline-code">[1]</code>, the following two assignments are valid:</p>
+                                    <pre class="pml-code"><code>index = &quot;[1]&quot;
+index = &quot;\[1\]&quot;</code></pre>
+                                    <p class="pml-paragraph">If the parser supports <a class="pml-xref" href="#escape_sequences">Character Escape Sequences</a> in text nodes, then the same escape sequences can also be used in attribute values:</p>
+                                    <pre class="pml-code"><code>a1 = &quot;line 1\nline\t2\r\nline \u0033 \U0001F600&quot;
+            ^^    ^^ ^^^^     ^^^^^^ ^^^^^^^^^^</code></pre>
+                                    <p class="pml-paragraph">The above attribute contains the value:</p>
+                                    <pre class="pml-code"><code>line 1
+line    2
+line 3 😀</code></pre>
+
+                                </section>
+                                <section id="attributes_whitespace" class="pml-chapter">
+                                    <h5 class="pml-chapter-title">Whitespace Handling</h5>
+                                    <p class="pml-paragraph">While whitespace in text <i class="pml-italic">nodes</i> is preserved by a PDML parser, it is ignored in <i class="pml-italic">attributes</i>.</p>
+                                    <p class="pml-paragraph">Whitespace characters (spaces, tabs, and/or new lines) before, between, or after attributes is ignored. Hence the following nodes are equivalent:</p>
+                                    <pre class="pml-code"><code>[image [@ source=&quot;resources/images/flower.png&quot; width=&quot;200&quot; height=&quot;100&quot;]]
+
+[image [@
+    source = &quot;resources/images/flower.png&quot;
+    width = &quot;200&quot;
+    height = &quot;100&quot;
+]]
+
+[image
+    [@
+        source = &quot;resources/images/flower.png&quot;
+         width = &quot;200&quot;
+        height = &quot;100&quot;
+    ]]</code></pre>
+                                    <p class="pml-paragraph">The first whitespace character after the list of attributes is ignored. Additional whitespace is part of a text node. Hence the following node (which contains <i class="pml-italic">two</i> spaces after the list of attributes) contains the text <code class="pml-inline-code">&quot; foo&quot;</code> (foo with <i class="pml-italic">one</i> leading space)</p>
+                                    <pre class="pml-code"><code>[name [@ a1=&quot;v1&quot;]  foo]
+                 ^^</code></pre>
+
+                                </section>
+                                <section id="attributes_comments" class="pml-chapter">
+                                    <h5 class="pml-chapter-title">Comments in Attributes</h5>
+                                    <p class="pml-paragraph">If the parser supports <a class="pml-xref" href="#comments">comments</a>, then any number of comments is allowed before or after an attribute assignment. Example:</p>
+                                    <pre class="pml-code"><code>[image [@
+    [- width in pixels -]
+    width = &quot;200&quot;
+
+    color = &quot;0, 255, 0&quot; [- RGB values -]
+]]</code></pre>
+                                    <p class="pml-paragraph">Comments are not allowed</p>
+                                    <ul class="pml-list">
+                                        <li class="pml-list-element">
+                                            <p class="pml-paragraph">Between the node name and the start of attributes (<code class="pml-inline-code">[@</code>).</p>
+
+                                        </li>
+                                        <li class="pml-list-element">
+                                            <p class="pml-paragraph">Before or after the assignment symbol (<code class="pml-inline-code">=</code>).</p>
+
+                                        </li>
+
+                                    </ul>
+
+                                </section>
+
+                            </section>
+                            <section id="attributes_syntax_simplifications" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Syntax Simplifications</h4>
+                                <p class="pml-paragraph">In this chapter we are going to look at some optional syntax simplifications for attributes. These simplifications aim to shorten the syntax and make it more convenient for humans to write PDML documents.</p>
+                                <p class="pml-paragraph">However, the following simplifications can also lead to ambiguities and errors in rare edge cases. Hence, they should only be applied in projects where these edge cases (described below) cannot occur. When in doubt it is best to stick to the standard syntax described in the previous chapters.</p>
+                                <p class="pml-paragraph">Moreover, besides making the parser more complex, the following syntax variations also make third-party tools (e.g. editor plugins) more challenging to develop.</p>
+                                <section id="attributes_lenient_parsing" class="pml-chapter">
+                                    <h5 class="pml-chapter-title">Lenient Parsing</h5>
+                                    <p class="pml-paragraph">To shorten the syntax for attributes, a parser can support the following lenient parsing rules:</p>
+                                    <ul class="pml-list">
+                                        <li class="pml-list-element">
+                                            <p class="pml-paragraph">Quotes around attribute values can be omitted if the value does not contain:</p>
+                                            <ul class="pml-list">
+                                                <li class="pml-list-element">
+                                                    <p class="pml-paragraph">Whitespace (spaces, tabs, carriage returns, and line feeds)</p>
+
+                                                </li>
+                                                <li class="pml-list-element">
+                                                    <p class="pml-paragraph">The following characters: <code class="pml-inline-code">[ ] ( ) &quot; '</code></p>
+
+                                                </li>
+                                                <li class="pml-list-element">
+                                                    <p class="pml-paragraph">Escape sequences like <code class="pml-inline-code">\n</code>, <code class="pml-inline-code">\u0041</code>, etc.</p>
+
+                                                </li>
+
+                                            </ul>
+                                            <p class="pml-paragraph">Hence, instead of writing:</p>
+                                            <pre class="pml-code"><code>size=&quot;200&quot; file=&quot;foo\\bar.txt&quot;
+     ^   ^      ^            ^</code></pre>
+                                            <p class="pml-paragraph">... we can write shorter code:</p>
+                                            <pre class="pml-code"><code>size=200 file=foo\bar.txt</code></pre>
+
+                                        </li>
+                                        <li class="pml-list-element">
+                                            <p class="pml-paragraph">If a node is specified to have only attributes (child nodes are not allowed) then the start/end symbols (<code class="pml-inline-code">[@ ]</code>) around attributes can be omitted.</p>
+                                            <p class="pml-paragraph">Consider an <code class="pml-inline-code">image</code> node that has attributes, but no child nodes. Instead of writing:</p>
+                                            <pre class="pml-code"><code>[image [@ source=&quot;images/juicy apple.png&quot; width=&quot;400&quot;]]
+       ^^                                       ^   ^^</code></pre>
+                                            <p class="pml-paragraph">... we can simply write:</p>
+                                            <pre class="pml-code"><code>[image source=&quot;images/juicy apple.png&quot; width=400]</code></pre>
+                                            <div class="pml-header">Warning</div>
+                                            <p class="pml-paragraph">Omitting the start/end symbols can lead to subtle bugs and invalid documents if the specification for a node changes.</p>
+                                            <p class="pml-paragraph">Consider a node specified to have only attributes:</p>
+                                            <pre class="pml-code"><code>[foo a1 = &quot;v1&quot;]</code></pre>
+                                            <p class="pml-paragraph">Now suppose that the specification of the node changes later. The node can now also contain text.</p>
+                                            <p class="pml-paragraph">Then <i class="pml-italic">the meaning of the above code silently changes</i>!</p>
+                                            <p class="pml-paragraph">The initial version was parsed as node <code class="pml-inline-code">foo</code> with attribute <code class="pml-inline-code">a1</code> set to <code class="pml-inline-code">v1</code>. But now the node is parsed as node <code class="pml-inline-code">foo</code> with text content <code class="pml-inline-code">a1 = &quot;v1&quot;</code>. To keep the initial semantics, the code must be changed to:</p>
+                                            <pre class="pml-code"><code>[foo [# a1 = &quot;v1&quot;]]</code></pre>
+                                            <p class="pml-paragraph">This is error prone!</p>
+                                            <p class="pml-paragraph">Hence, one should think twice before making the start/end symbols optional. It is best to avoid this syntax simplification if the specification for nodes risks to change in future versions.</p>
+
+                                        </li>
+
+                                    </ul>
+
+                                </section>
+                                <section id="attributes_alternative_start_end" class="pml-chapter">
+                                    <h5 class="pml-chapter-title">Alternative Start/End Syntax</h5>
+                                    <p class="pml-paragraph">Instead of using the <code class="pml-inline-code">[@ ]</code> symbols to embed attributes, a pair of parenthesis (<code class="pml-inline-code"></code>) can alternatively be used.</p>
+                                    <p class="pml-paragraph">Using parenthesis makes the code a bit shorter and more visually appealing, as shown below:</p>
+                                    <pre class="pml-code"><code>[name [@ a1=&quot;v1&quot; a2=&quot;v2&quot; ] ]     // standard syntax
+      ^^                 ^
+
+[name ( a1=&quot;v1&quot; a2=&quot;v2&quot; ) ]      // alternative syntax
+      ^                 ^</code></pre>
+                                    <p class="pml-paragraph">However, using parenthesis is error-prone if the text in a node starts with <code class="pml-inline-code">(</code>.</p>
+                                    <p class="pml-paragraph">Suppose a node contains the text <code class="pml-inline-code">(organic=better)</code>, but no attributes. Then the following code is ambiguous:</p>
+                                    <pre class="pml-code"><code>[i (organic=better)]</code></pre>
+                                    <p class="pml-paragraph">If the parser does not support attributes (i.e. a parser that supports only <i class="pml-italic">Core PDML</i>), then a node with text <code class="pml-inline-code">(organic=better)</code> is parsed. However, if attributes are supported, then a node with attribute <code class="pml-inline-code">organic</code> is parsed.</p>
+                                    <p class="pml-paragraph">There are two workarounds.</p>
+                                    <ul class="pml-list">
+                                        <li class="pml-list-element">
+                                            <p class="pml-paragraph">To make it clear that there are no attributes, we can write:</p>
+                                            <pre class="pml-code"><code>[i () (organic=better)]</code></pre>
+
+                                        </li>
+                                        <li class="pml-list-element">
+                                            <p class="pml-paragraph">If the parser supports an additional <code class="pml-inline-code">\)</code> escape sequence, then we can escape the <code class="pml-inline-code">(</code> to make it clear that the <code class="pml-inline-code">(</code> is not the start of attributes:</p>
+                                            <pre class="pml-code"><code>[i \(organic=better)]</code></pre>
+
+                                        </li>
+
+                                    </ul>
+                                    <p class="pml-paragraph">However, the above workarounds are error-prone if the document is accidentally parsed with a parser that doesn't support attributes (e.g. a parser that supports only <i class="pml-italic">Core PDML</i>).</p>
+                                    <p class="pml-paragraph">In the first case the parser reads a node with text <code class="pml-inline-code">() (organic=better)</code> (instead of <code class="pml-inline-code">(organic=better)</code>).</p>
+                                    <p class="pml-paragraph">In the second case the parser generates an error because <code class="pml-inline-code">\(</code> is not supported. That's better, because we get aware of the problem, instead of silently getting wrong data.</p>
+                                    <p class="pml-paragraph">Another rare edge case can arise if the specification of a node changes.</p>
+                                    <p class="pml-paragraph">For example, suppose a node specified to contain only attributes (no child nodes) changes to a node that contains only child nodes (no attributes). Then the following code silently changes from a node with attribute <code class="pml-inline-code">a1</code> to a node with text <code class="pml-inline-code">(a1=&quot;v1&quot;)</code>:</p>
+                                    <pre class="pml-code"><code>[foo (a1=&quot;v1&quot;)]</code></pre>
+                                    <p class="pml-paragraph">All above edge cases don't exist when the standard syntax is used:</p>
+                                    <pre class="pml-code"><code>[i [@ organic=better]]</code></pre>
+                                    <p class="pml-paragraph">Moreover, if a document using attributes is accidentally read by a parser without support for attributes then an error is generated, because <code class="pml-inline-code">[@</code> is parsed as the start of a node with an invalid name. Hence there is no risk of silently parsing wrong data.</p>
+                                    <p class="pml-paragraph">A PDML parser implementation that supports attributes should clearly specify which syntax it supports: only the standard syntax, only the alternative syntax, or both.</p>
+                                    <div class="pml-admonition">
+                                        <div class="pml-admonition-label">
+                                            <p class="pml-paragraph">Note</p>
+
+                                        </div>
+                                        <div class="pml-admonition-content">
+                                            <p class="pml-paragraph">By default the parser in the <a class="pml-link" href="https://github.com/pdml-lang/full-pdml-impl">full PDML reference implementation</a> only supports the standard syntax. But there are two configuration flags to explicitly activate/deactivate the standard and alternative syntaxes.</p>
+                                            <p class="pml-paragraph">Lenient parsing is also switched off by default. There are configuration flags to explicitly enable lenient parsing.</p>
+                                        </div>
+                                    </div>
+
+                                </section>
+
+                            </section>
 
                         </section>
 
                     </section>
                     <section id="extension_nodes" class="pml-chapter">
                         <h2 class="pml-chapter-title">Extension Nodes</h2>
-                        <section id="ch__16" class="pml-chapter">
+                        <section id="extension_nodes_example" class="pml-chapter">
                             <h3 class="pml-chapter-title">Preliminary Example</h3>
                             <p class="pml-paragraph">To get the gist of extension nodes, let's have a look at the following example of an extension node:</p>
                             <pre class="pml-code"><code>[u:ins_file path=chapter.txt]</code></pre>
@@ -284,7 +819,7 @@
                             <p class="pml-paragraph">In the above example, PDML is instructed to insert the content of file <code class="pml-inline-code">chapter.txt</code> into the PDML document. </p>
 
                         </section>
-                        <section id="ch__17" class="pml-chapter">
+                        <section id="extension_nodes_overview" class="pml-chapter">
                             <h3 class="pml-chapter-title">Overview</h3>
                             <p class="pml-paragraph">While PDML <i class="pml-italic">data nodes</i> simply represent <b class="pml-bold">data</b>, <i class="pml-italic">extension nodes</i> add <b class="pml-bold">behavior</b> to a PDML document. You can also think of an extension node as an <i class="pml-italic">action node</i> that <b class="pml-bold">does</b> something.</p>
                             <p class="pml-paragraph">The behavior of an extension node depends on its name, and is implemented in PDML. An extension node can have attributes to customize it's behavior.</p>
@@ -309,8 +844,12 @@
                                 </li>
 
                             </ul>
+                            <p class="pml-paragraph">Extension nodes are supported in nodes, as well as in quoted and unquoted attribute values.</p>
                             <div class="pml-admonition">
-                                <div class="pml-admonition-label">Note</div>
+                                <div class="pml-admonition-label">
+                                    <p class="pml-paragraph">Note</p>
+
+                                </div>
                                 <div class="pml-admonition-content">
                                     <p class="pml-paragraph">If you are a programmer, you can conceptually think of an extension node as a function.</p>
                                     <p class="pml-paragraph">The node's name is the name of the function.</p>
@@ -322,7 +861,7 @@
                             <p class="pml-paragraph">Now that we have covered the therory, let's get practical and see which extension nodes exist and what they do. </p>
 
                         </section>
-                        <section id="ch__18" class="pml-chapter">
+                        <section id="utility_nodes" class="pml-chapter">
                             <h3 class="pml-chapter-title">Utility Nodes</h3>
                             <p class="pml-paragraph">Utility nodes provide various practical features and utilities.</p>
                             <p class="pml-paragraph">They are all associated with the predefined namespace prefix <code class="pml-inline-code">u</code> (<b class="pml-bold"><i class="pml-italic">u</i></b>tility).</p>
@@ -347,7 +886,10 @@
                             <p class="pml-paragraph">They are all associated with the predefined namespace prefix <code class="pml-inline-code">t</code> (<b class="pml-bold"><i class="pml-italic">t</i></b>ype).</p>
                             <p class="pml-paragraph">Type nodes are used to parse, validate, and optionally transform data nodes.</p>
                             <div class="pml-admonition">
-                                <div class="pml-admonition-label">Note</div>
+                                <div class="pml-admonition-label">
+                                    <p class="pml-paragraph">Note</p>
+
+                                </div>
                                 <div class="pml-admonition-content">
                                     <p class="pml-paragraph">If you are a programmer you can conceptually think of PDML types as types in a programming language (string, number, boolean, etc.).</p>
                                 </div>
@@ -372,7 +914,10 @@
                                     <pre class="pml-code"><code>[birthdate 1999-12-31]</code></pre>
                                     <p class="pml-paragraph">The advantage is that the application doesn't need to check the content of <code class="pml-inline-code">birthdate</code> anymore. <code class="pml-inline-code">birthdate</code> is guaranteed to contain a valid date.</p>
                                     <div class="pml-admonition">
-                                        <div class="pml-admonition-label">Note</div>
+                                        <div class="pml-admonition-label">
+                                            <p class="pml-paragraph">Note</p>
+
+                                        </div>
                                         <div class="pml-admonition-content">
                                             <p class="pml-paragraph">The application still gets a <code class="pml-inline-code">string</code> that might need to be parsed into the correct object type of the application's programming language.</p>
                                             <p class="pml-paragraph">For example, if the application is written in Java, the parser will provide a <code class="pml-inline-code">String</code> object representing a valid date, which the application converts into a <code class="pml-inline-code">java.time.LocalDate</code> object.</p>
@@ -393,7 +938,10 @@
                                 <li class="pml-list-element">
                                     <div class="pml-header">Schema</div>
                                     <div class="pml-admonition">
-                                        <div class="pml-admonition-label">Note</div>
+                                        <div class="pml-admonition-label">
+                                            <p class="pml-paragraph">Note</p>
+
+                                        </div>
                                         <div class="pml-admonition-content">
                                             <p class="pml-paragraph">PDML schemas are not specified and not implemented yet.</p>
                                         </div>
@@ -416,7 +964,10 @@
                             </ul>
                             <p class="pml-paragraph">The full list of PDML types is documented in chapter <a class="pml-link" href="https://pdml-lang.dev/docs/extensions/reference_manual/index.html#types">Types</a> of the reference manual.</p>
                             <div class="pml-admonition">
-                                <div class="pml-admonition-label">Note</div>
+                                <div class="pml-admonition-label">
+                                    <p class="pml-paragraph">Note</p>
+
+                                </div>
                                 <div class="pml-admonition-content">
                                     <p class="pml-paragraph">PDML types are a work-in-progress. A future PDML version might have support for adding domain-specific types programmatically or by sharable configuration data.</p>
                                 </div>
@@ -425,7 +976,7 @@
                         </section>
                         <section id="script_nodes" class="pml-chapter">
                             <h3 class="pml-chapter-title">Script Nodes</h3>
-                            <section id="ch__21" class="pml-chapter">
+                            <section id="script_nodes_introduction" class="pml-chapter">
                                 <h4 class="pml-chapter-title">Introduction</h4>
                                 <p class="pml-paragraph">A <i class="pml-italic">script node</i> enables you to embed executable source code in a PDML document. The source code is executed when the document is parsed. This allows you for example to:</p>
                                 <ul class="pml-list">
@@ -448,7 +999,10 @@
 
                                 </ul>
                                 <div class="pml-admonition">
-                                    <div class="pml-admonition-label">Note</div>
+                                    <div class="pml-admonition-label">
+                                        <p class="pml-paragraph">Note</p>
+
+                                    </div>
                                     <div class="pml-admonition-content">
                                         <p class="pml-paragraph">If you are a programmer, you can conceptually think of <i class="pml-italic">script nodes</i> as a very powerful preprocessor, because you can use the full features of a programming language.</p>
                                         <p class="pml-paragraph">For example you can use self-defined or imported functions, external libraries, or call external programs (written in any programming language) or OS scripts to achieve whatever you need in your specific context.</p>
@@ -458,7 +1012,7 @@
                                 <p class="pml-paragraph">PDML currently supports Javascript as scripting language. Support for other scripting languages might be added in the future.</p>
 
                             </section>
-                            <section id="ch__22" class="pml-chapter">
+                            <section id="script_nodes_overview" class="pml-chapter">
                                 <h4 class="pml-chapter-title">Overview</h4>
                                 <p class="pml-paragraph">There are three kinds of script nodes:</p>
                                 <ul class="pml-list">
@@ -479,7 +1033,7 @@
                                 <p class="pml-paragraph">A typical PDML document would first have one or more <code class="pml-inline-code">s:def</code> nodes to define shared code (constants and functions), and then some <code class="pml-inline-code">s:exp</code> and/or <code class="pml-inline-code">s:script</code> nodes to do whatever needs to be automated.</p>
 
                             </section>
-                            <section id="ch__23" class="pml-chapter">
+                            <section id="script_nodes_nodes" class="pml-chapter">
                                 <h4 class="pml-chapter-title">Nodes</h4>
                                 <section id="expression_node" class="pml-chapter">
                                     <h5 class="pml-chapter-title">Expression Node</h5>
@@ -510,7 +1064,10 @@
                                     <p class="pml-paragraph">... like this:</p>
                                     <pre class="pml-code"><code>1 + 1 = 2</code></pre>
                                     <div class="pml-admonition">
-                                        <div class="pml-admonition-label">Note</div>
+                                        <div class="pml-admonition-label">
+                                            <p class="pml-paragraph">Note</p>
+
+                                        </div>
                                         <div class="pml-admonition-content">
                                             <p class="pml-paragraph">In the world of pre-processors using macros we would say that <code class="pml-inline-code">[s:exp 1 + 1]</code> <i class="pml-italic">expands to</i> <code class="pml-inline-code">2</code>.</p>
                                         </div>
@@ -649,21 +1206,21 @@ exp]</code></pre>
                                 <p class="pml-paragraph">For more information about the syntax rules, please refer to <a class="pml-link" href="https://pdml-lang.dev/docs/extensions/reference_manual/index.html#raw_text">raw_text</a></p>
 
                             </section>
-                            <section id="javascript_support" class="pml-chapter">
+                            <section id="script_nodes_javascript_support" class="pml-chapter">
                                 <h4 class="pml-chapter-title">Javascript Support</h4>
                                 <p class="pml-paragraph">The power of script nodes largely depends on the set of ready-to-use functions provided by existing libraries. Moreover, we must be able to define our own customized functions, and it should be easy to share them with other users who need the same functionality.</p>
                                 <p class="pml-paragraph">In chapter <a class="pml-xref" href="#definition_node">Definition Node</a> we saw already how to define functions in a PDML document or import them from external resources.</p>
                                 <p class="pml-paragraph">In this chapter we'll see how to use other existing functions/libraries.</p>
-                                <section id="ch__29" class="pml-chapter">
+                                <section id="ch__40" class="pml-chapter">
                                     <h5 class="pml-chapter-title">Standard Libraries</h5>
                                     <p class="pml-paragraph"><i class="pml-italic">Standard libraries</i> contain functions that are implicitly available.</p>
-                                    <section id="ch__30" class="pml-chapter">
+                                    <section id="ch__41" class="pml-chapter">
                                         <h6 class="pml-chapter-title">Javascript Functions</h6>
                                         <p class="pml-paragraph">PDML currently uses a Javascript implementation that is fully compatible with the <a class="pml-link" href="https://262.ecma-international.org/12.0/">ECMAScript 2021 specification</a>. All objects and functions defined in the ECMAScript specification can therefore be used in PDML.</p>
                                         <p class="pml-paragraph">For example you can use functions <a class="pml-link" href="https://262.ecma-international.org/12.0/#sec-string.prototype.substring">substring</a>, <a class="pml-link" href="https://262.ecma-international.org/12.0/#sec-string.prototype.replaceall">replaceall</a>, and many more when working with strings.</p>
 
                                     </section>
-                                    <section id="ch__31" class="pml-chapter">
+                                    <section id="ch__42" class="pml-chapter">
                                         <h6 class="pml-chapter-title">PDML Functions</h6>
                                         <p class="pml-paragraph">PDML provides a set of global objects available in all PDML script nodes. Each object contains a set of functions and/or constants, logically grouped into categories by the object's name. The goal of this library is to provide additional functionality not available in 'standard' Javascript, but commonly required in PDML script nodes, such as working with files or interacting with the operating system. The API is designed to simplify common PDML scripting tasks as far as possible. For example:</p>
                                         <ul class="pml-list">
@@ -682,20 +1239,20 @@ exp]</code></pre>
                                     </section>
 
                                 </section>
-                                <section id="ch__32" class="pml-chapter">
+                                <section id="ch__43" class="pml-chapter">
                                     <h5 class="pml-chapter-title">External Libraries</h5>
                                     <p class="pml-paragraph"><i class="pml-italic">External libraries</i> need to be explicitly loaded before their functions can be used.</p>
-                                    <section id="ch__33" class="pml-chapter">
+                                    <section id="ch__44" class="pml-chapter">
                                         <h6 class="pml-chapter-title">ECMAScript Modules</h6>
                                         <p class="pml-paragraph">Modules as defined by ECMAScript 6 and later are supported. </p>
 
                                     </section>
-                                    <section id="ch__34" class="pml-chapter">
+                                    <section id="ch__45" class="pml-chapter">
                                         <h6 class="pml-chapter-title">PDML Definitions</h6>
                                         <p class="pml-paragraph">As shown in chapter <a class="pml-xref" href="#definition_node">Definition Node</a>, <code class="pml-inline-code">s:def</code> nodes can be imported from external resources.</p>
 
                                     </section>
-                                    <section id="ch__35" class="pml-chapter">
+                                    <section id="ch__46" class="pml-chapter">
                                         <h6 class="pml-chapter-title">Node.js Modules</h6>
                                         <p class="pml-paragraph">While ECMAScript modules are supported, CommonJS modules can currently not be imported with function <code class="pml-inline-code">require(...)</code>.</p>
                                         <p class="pml-paragraph">Native support for Node.js modules might be added in a future version.</p>
@@ -707,56 +1264,22 @@ exp]</code></pre>
                                 </section>
 
                             </section>
-                            <section id="ch__36" class="pml-chapter">
+                            <section id="script_nodes_error_handling" class="pml-chapter">
                                 <h4 class="pml-chapter-title">Error handling</h4>
                                 <p class="pml-paragraph">Errors in script nodes are detected and reported when the PDML document is parsed, and the code is executed.</p>
 
                             </section>
-                            <section id="ch__37" class="pml-chapter">
+                            <section id="script_nodes_examples" class="pml-chapter">
                                 <h4 class="pml-chapter-title">Examples</h4>
                                 <p class="pml-paragraph">Examples of script nodes can be found in <a class="pml-link" href="https://pdml-lang.dev/docs/extensions/scripting_examples/index.html">PDML Scripting Examples</a>.</p>
 
                             </section>
 
                         </section>
-                        <section id="ch__38" class="pml-chapter">
+                        <section id="customized_extension_nodes" class="pml-chapter">
                             <h3 class="pml-chapter-title">Customized Extension Nodes</h3>
                             <p class="pml-paragraph">A PDML parser can provide a plugin mechanism that enables applications to programmatically add customized extension nodes, including type nodes.</p>
                             <p class="pml-paragraph">Instructions for implementing such a plugin are out of scope of this document, because they largely depend on the programming language used to create the PDML parser, as well as other factors. </p>
-
-                        </section>
-
-                    </section>
-                    <section id="ch__39" class="pml-chapter">
-                        <h2 class="pml-chapter-title">PDML/XML Bridge</h2>
-                        <section id="ch__40" class="pml-chapter">
-                            <h3 class="pml-chapter-title">PDML to XML</h3>
-                            <p class="pml-paragraph">TODO </p>
-
-                        </section>
-                        <section id="ch__41" class="pml-chapter">
-                            <h3 class="pml-chapter-title">XML to PDML</h3>
-                            <p class="pml-paragraph">TODO </p>
-
-                        </section>
-                        <section id="ch__42" class="pml-chapter">
-                            <h3 class="pml-chapter-title">XML Validation</h3>
-                            <p class="pml-paragraph">TODO </p>
-
-                        </section>
-                        <section id="ch__43" class="pml-chapter">
-                            <h3 class="pml-chapter-title">XML Queries</h3>
-                            <p class="pml-paragraph">TODO </p>
-
-                        </section>
-                        <section id="ch__44" class="pml-chapter">
-                            <h3 class="pml-chapter-title">XML Transformations</h3>
-                            <p class="pml-paragraph">TODO </p>
-
-                        </section>
-                        <section id="ch__45" class="pml-chapter">
-                            <h3 class="pml-chapter-title">Examples</h3>
-                            <p class="pml-paragraph">TODO </p>
 
                         </section>
 

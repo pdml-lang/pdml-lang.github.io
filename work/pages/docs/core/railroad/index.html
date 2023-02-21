@@ -1,0 +1,148 @@
+---
+[title PDML Railroad Diagrams]
+[template HTML_page]
+[head_end
+        <link rel='stylesheet' href='railroad-diagrams.css'>
+        <script src='railroad-diagrams.js'></script>
+]
+---
+			<div id="content">
+
+				<h2>Core PDML Railroad Diagrams</h2>
+
+                <p>The following railroad diagrams illustrate PDML's grammar.</p>
+                
+                <p>Only <i>Core PDML</i> is covered. Optional extensions like attributes, namespaces etc. are not included.</p>
+
+                <p>The railroad diagrams are not a specification. They are just an auxiliary asset to contextualize the <a href="../specification/index.html">official specification</a>.</p>
+
+                <p>The grammar is also illustrated as <a href="../ebnf/index.html">EBNF</a>.</p>
+
+                <p>Notes:</p>
+                <ul>
+                    <li>Rectangles (e.g. <img src="non_terminal_rr.png" style="vertical-align:middle; height:1.5em;">) represent non-terminal elements. You can click on them to go to their definition.</li>
+                    <li>Rounded rectangles (e.g. <img src="terminal_rr.png" style="vertical-align:middle; height:1.5em;">) represent characters to type.</li>
+                    <li>Thanks to Tab Atkins for his excellent <a href="https://github.com/tabatkins/railroad-diagrams">Railroad-diagram Generator</a>, used to generate these diagrams.</li>
+                </ul>
+
+
+                <h3 id="node">Node</h3>
+                <script>
+                    Diagram ( Choice (
+                        1,
+                        NonTerminal ( 'empty_node', {href:'#empty_node'} ),
+                        NonTerminal ( 'non_empty_node', {href:'#non_empty_node'} )
+                    )).addTo();
+                </script>
+
+
+                <h3 id="empty_node">Empty node</h3>
+                <script>
+                    Diagram ( Sequence(
+                        "[",
+                        NonTerminal ( 'name', {href:'#name'} ),
+                        "]"
+                    )).addTo();
+                </script>
+                <p>Example:</p>
+                <pre class="code_block">[new_line]</pre>
+
+
+                <h3 id="non_empty_node">Non-empty node</h3>
+                <script>
+                    Diagram ( Sequence (
+                        "[",
+                        NonTerminal ( 'name', {href:'#name'} ),
+                        NonTerminal ( 'separator', {href:'#separator'} ),
+                        OneOrMore ( NonTerminal ( 'child_node', {href:'#child_node'} ) ),
+                        "]"
+                    )).addTo();
+                </script>
+                <p>Examples:</p>
+                <pre class="code_block">[color orange]
+[config [color orange]]
+[div A [i[b nice]] dog]</pre>
+
+
+                <h3 id="name">Name</h3>
+                <script>
+                    Diagram ( Sequence (
+                        Choice (
+                            1,
+                            "a-z",
+                            "A-Z",
+                            "_"
+                        ),
+                        ZeroOrMore ( Choice (
+                            1,
+                            "a-z",
+                            "A-Z",
+                            "0-9",
+                            "-",
+                            "_",
+                            "."
+                        ) )
+                    )).addTo();
+                </script>
+                <p>Examples:</p>
+                <pre class="code_block">height
+ins-file
+_default
+Index_12-a.2</pre>
+
+
+                <h3 id="separator">Separator</h3>
+                <script>
+                    Diagram ( Choice (
+                        0,
+                        "\" \"",
+                        "\"\\t\"",
+                        "\"\\n\"",
+                        "\"\\r\\n\""
+                    )).addTo();
+                </script>
+
+
+                <h3 id="child_node">Child node</h3>
+                <script>
+                    Diagram ( Choice (
+                        0,
+                        NonTerminal ( 'node', {href:'#node'} ),
+                        NonTerminal ( 'text', {href:'#text'} )
+                    )).addTo();
+                </script>
+                <p>Examples:</p>
+                <pre class="code_block">[b [i huge]]
+[message All is well!]</pre>
+
+
+                <h3 id="text">Text</h3>
+                <script>
+                    Diagram ( OneOrMore (
+                        NonTerminal ( 'text_char', {href:'#text_char'} )
+                    )).addTo();
+                </script>
+                <p>Examples:</p>
+                <pre class="code_block">Bob
+3.14
+We want simplicity.
+root\\config\["port"\]</pre>
+
+
+                <h3 id="text_char">Text character</h3>
+                <script>
+                    Diagram ( Choice (
+                        0,
+                        'Unicode character, except [, ], and \\',
+                        '\\[',
+                        '\\]',
+                        '\\\\'
+                    )).addTo();
+                </script>
+                <p>Examples:</p>
+                <pre class="code_block">a
+😀
+\[</pre>
+
+
+			</div>

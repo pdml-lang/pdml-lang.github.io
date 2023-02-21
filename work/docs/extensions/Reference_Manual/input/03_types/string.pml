@@ -6,17 +6,21 @@
 
     For example, this code:
     [code
+        ~~~
         [t:string line \[1\]
             line 2
         line 3
         ]
-    code]
+        ~~~
+    ]
     ... expands to:
     [code
+        ~~~
         line [1]
             line 2
         line 3
-    code]
+        ~~~
+    ]
 
-    See also: [xref node_id=raw_text].
+    See also: [xref (ref_id=raw_text)].
 ]

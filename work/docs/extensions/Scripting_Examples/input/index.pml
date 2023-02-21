@@ -7,10 +7,10 @@
 -]
             [tr [tc [b First Published]][tc 2022-02-07]]
             [tr [tc [b Latest Update]][tc 2022-02-10]]
-            [tr [tc [b License]][tc [link url=https://creativecommons.org/licenses/by-nd/4.0/ text="CC BY-ND 4.0"]]]
-            [tr [tc [b Author and Copyright]][tc Christian Neumanns]]
-            [tr [tc [b Website]][tc [link url=https://pdml-lang.dev/]]]
-            [tr [tc [b PML Markup Code]][tc [link url=https://github.com/pdml-lang/extensions-scripting-examples text=Github]]]
+            [tr [tc [b License]][tc [link (url=https://creativecommons.org/licenses/by-nd/4.0/) CC BY-ND 4.0]]]
+            [tr [tc [b Author]][tc Christian Neumanns]]
+            [tr [tc [b Website]][tc [link (url=https://pdml-lang.dev/)]]]
+            [tr [tc [b PML Markup Code]][tc [link (url=https://github.com/pdml-lang/extensions-scripting-examples) Github]]]
         ]
     ]
 
@@ -19,7 +19,7 @@
     [u:set PDML_ext_ref_manual_url=[u:get PDML_docs_url]extensions/reference_manual/index.html]
     [u:set PDML_ext_user_manual_url=[u:get PDML_docs_url]extensions/user_manual/index.html]
     
-    [u:set PML_link="[link url=https://pml-lang.dev/ text=PML]"]
+    [u:set PML_link="[link (url=https://pml-lang.dev/) PML]"]
     
     [u:set examples_dir=examples/]
 
