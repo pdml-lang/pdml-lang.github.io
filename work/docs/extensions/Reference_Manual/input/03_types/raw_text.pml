@@ -35,7 +35,7 @@
         A [i delimiter character] must be a [c "], [c =], or [c ~].
         
         The opening delimiter line must contain at least 3 delimiter characters.
-        The closing delimiter line must contain at least as many delimiter characters as the opening delimiter line.
+        The closing delimiter line must contain the same number of delimiter characters as the opening delimiter line.
         Examples of valid delimiter lines: [c """], [c ====], [c ~~~~~~~~~~].
 
         The indent within the node is handled as follows:

@@ -315,7 +315,7 @@
                     To keep the initial semantics, the code must be changed to:
                     [code
                         ~~~
-                        [foo [# a1 = "v1"]]
+                        [foo [@ a1 = "v1"]]
                         ~~~
                     ]
                     This is error prone!

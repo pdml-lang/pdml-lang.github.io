@@ -745,7 +745,7 @@ line 3 😀</code></pre>
                                             <p class="pml-paragraph">Now suppose that the specification of the node changes later. The node can now also contain text.</p>
                                             <p class="pml-paragraph">Then <i class="pml-italic">the meaning of the above code silently changes</i>!</p>
                                             <p class="pml-paragraph">The initial version was parsed as node <code class="pml-inline-code">foo</code> with attribute <code class="pml-inline-code">a1</code> set to <code class="pml-inline-code">v1</code>. But now the node is parsed as node <code class="pml-inline-code">foo</code> with text content <code class="pml-inline-code">a1 = &quot;v1&quot;</code>. To keep the initial semantics, the code must be changed to:</p>
-                                            <pre class="pml-code"><code>[foo [# a1 = &quot;v1&quot;]]</code></pre>
+                                            <pre class="pml-code"><code>[foo [@ a1 = &quot;v1&quot;]]</code></pre>
                                             <p class="pml-paragraph">This is error prone!</p>
                                             <p class="pml-paragraph">Hence, one should think twice before making the start/end symbols optional. It is best to avoid this syntax simplification if the specification for nodes risks to change in future versions.</p>
 
