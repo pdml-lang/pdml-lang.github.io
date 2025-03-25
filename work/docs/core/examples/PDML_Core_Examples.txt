@@ -1,0 +1,206 @@
+Core PDML Examples
+
+Introduction
+
+This document provides simple examples of encoding data and markup using only Core PDML.
+PDML extensions (optional features) are not used in the examples.
+You'll see how any kind of data and markup can be encoded in PDML.
+The exact rules governing Core PDML (as well as practical guidelines) are provided in ...
+
+
+Data
+
+This section shows how to encode different kinds of data: scalar values, lists, maps, etc.
+
+String
+
+A string like [c This is some text] is encoded as follows:
+File string_example.pdml
+[string This is some text]
+Here we define a node tagged [c string], containing the text [c This is some text].
+The node starts with [c \[] and ends with  [c \]].
+The node tag and it's content are separated by a space.
+
+In JSON the code would look like this:
+File string_example.json
+{"string": "This is some text"}
+
+You can use any Unicode code points in strings, except control characters listed in ...
+For example the string
+He said:
+"She said: 'All is well'"
+😀
+... is encoded as follows:
+[string He said:
+"She said: 'All is well'"
+😀]
+
+JSON version:
+{"string": "He said:\n\"She said: 'All is well'\"\n😀"}
+
+Some characters must be escaped, and some can be escaped (see ...)
+For example, the string [c Characters [, ], and \ must be escaped.] is encoded as follows:
+[string Characters \[, \], and \\ must be escaped.]
+
+
+Scalar Values
+You can encode any scalar value (e.g. number, boolean date) by using it's string representation:
+[scalar_values
+    [string This is some text]
+    [number 123.45]
+    [boolean true]
+    [date 2025-01-14]
+    [URL http://www.pdml-lang.dev]
+    [file_path path/to/file.txt]
+]
+JSON version:
+{
+    scalar_values: {
+        "string": "This is some text",
+        "number": 123.45,
+        "boolean": true,
+        "date": "2025-01-14",
+        "URL": "http://www.pdml-lang.dev",
+        "file_path": "path/to/file.txt"
+    }
+}
+
+Absence of Value
+To encode the absence of value (aka [c null], [c nil], [c void], [c nothing], etc. in programming languages) you use a tagged leaf node (i.e. a tagged node without child nodes):
+[remark]
+JSON version:
+{"remark": null}
+
+Records
+Here's an example of a record tagged [c config] with fields [c color], [c width], [c height], and [c remark]:
+File config.pdml
+[config
+    [color green]
+    [width 200]
+    [height 100]
+    [remark]
+]
+Records can be nested to any level.
+In other words, a record field can itself be a record.
+In the following example, field [c dimensions] is a record with fields [c width] and [c height]:
+[config
+    [color green]
+    [dimensions
+        [width 200]
+        [height 100]
+    ]
+    [remark]
+]
+The indentation (insignificant whitespace) in the above example is optional.
+Node [c config] could also be encoded in it's compact form:
+[config [color green][dimensions [width 200][height 100]][remark]]
+For more information about indentation and other forms of insignificant whitespace please refer to ...
+
+Collections
+
+List
+You can encode simple lists like this:
+[names
+    [name Tim]
+    [name Tom]
+    [name Tam]
+]
+Instead of tagging each element with [c name], you can also use [c _], which, by convention, is used to denote [link Anonymous Nodes]:
+[names
+    [_ Tim]
+    [_ Tom]
+    [_ Tam]
+]
+[note
+    [link PDML extensions] provide other ways to encode simple lists (e.g. [c [names Tim, Tom, Tam]]), but they are not covered in this document.
+]
+You can also encode heterogenous lists (lists with elements of different types):
+[list
+    [string Lorem ipsum ...]
+    [record
+        [field_1 value_1]
+        [field_2 value_2]
+    ]
+    [nested_list
+        [_ Tim]
+        [_ Tom]
+        [_ Tam]
+    ]
+    [remark]
+]
+
+Set
+
+Map
+
+
+Table
+A table is a collection where each element is a record of the same type.
+A table of products would look like this:
+[products
+    [product
+        [id 1]
+        [name Keyboard]
+    ]
+    [product
+        [id 2]
+        [name Mouse]
+    ]
+    ...
+]
+
+Database
+A database is a collection of tables.
+Here's a database containing tables [c customers], [c suppliers], and [c products]:
+
+[mini_ERP_database
+    [customers
+        [customer ...]
+        [customer ...]
+        [customer ...]
+    ]
+    [suppliers
+        [supplier ...]
+        [supplier ...]
+    ]
+    [products
+        [product ...]
+        [product ...]
+        [product ...]
+        [product ...]
+    ]
+]
+
+[note
+    PDML is not a replacement for "real" databases like MySQL, SQL Server, and PostgreSQL.
+]
+
+Tree
+Suppose we want to represent the following arithmetic expression:
+(1 + 2) * (3 + 4 + 5)
+This expression can be represented with an abstract syntax tree (AST):
+...
+You can encode this tree in PDML as follows:
+[expression
+    [op *
+        [op +
+            [num 1]
+            [num 2]
+        ]
+        [op +
+            [num 3]
+            [num 4]
+            [num 5]
+        ]
+    ]
+]
+Here's the compact, less readable form:
+[expression [op *[op +[num 1][num 2]][op +[num 3][num 4][num 5]]]]
+
+Markup
+Consider the following HTML snippet:
+<p>We can write text in <b>bold</b>, <i>italic</i>, or <b><i>bold and italic</i></b>.</p>
+Using the PML (PML), a lightweight markup language that uses PDML under the hood, the markup looks as follows:
+[p We can write text in [b bold], [i italic], or [b [i bold and italic]].]
+
+For a more complete example you can have a look at the PML source code of this document.

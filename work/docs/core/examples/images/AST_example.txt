@@ -1,0 +1,33 @@
+@startuml
+
+skinparam SameClassWidth true
+
+' skinparam class {
+' BackgroundColor PaleGreen
+' BorderColor SpringGreen
+' }
+
+' skinparam stereotypeCBackgroundColor YellowGreen
+' skinparam stereotypeCBackgroundColor<<Foo>> PaleGreen
+
+class "op *" as op_star
+class "op +" as op_plus_1
+class "op +" as op_plus_2
+class "num 1" as num_1
+class "num 2" as num_2
+class "num 3" as num_3
+class "num 4" as num_4
+class "num 5" as num_5
+
+op_star -- op_plus_1
+op_star -- op_plus_2
+op_plus_1 -- num_1
+op_plus_1 -- num_2
+op_plus_2 -- num_3
+op_plus_2 -- num_4
+op_plus_2 -- num_5
+
+hide members
+hide circle
+
+@enduml
