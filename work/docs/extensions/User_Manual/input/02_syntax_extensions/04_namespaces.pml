@@ -1,4 +1,0 @@
-[ch [title Namespaces]
-
-    TODO
-]

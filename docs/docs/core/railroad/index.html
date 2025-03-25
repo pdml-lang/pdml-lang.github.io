@@ -5,13 +5,12 @@
 
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="content-language" content="en-us">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="Practical Data and Markup Language (PDML). PDML is a text format (specification and implementation) to store any kind of data and markup code.">
 		<meta name="keywords" content="data, markup code, language, text format, PDML">
 
 		<link rel="stylesheet" href="../../../css/pdml.css">
 		<link rel="icon" href="../../../favicon.ico" type="image/x-icon" />
-
 
         <link rel='stylesheet' href='railroad-diagrams.css'>
         <script src='railroad-diagrams.js'></script>
@@ -26,15 +25,14 @@
 				const path = window.location.pathname;
 				// console.log ( path );
 				var tab_name = "none";
-				if ( path.includes ( "/about" ) ) {
-					tab_name = "about";
+				if ( path.includes ( "/overview" ) ) {
+					tab_name = "overview";
 				} else if ( path.includes ( "/docs" ) ) {
 					tab_name = "docs";
 				} else if ( path.includes ( "/downloads" ) ) {
 					tab_name = "downloads";
-				} else if ( path.includes ( "/help" ) ) {
-					tab_name = "help";
-				}
+				} else if ( path.includes ( "/support" ) ) {
+					tab_name = "support";
 				if ( tab_name !== "none" ) {
 					document.getElementById(tab_name).style.background = "lightgrey";
 				}
@@ -48,13 +46,16 @@
 			<a href="../../../index.html" class="no_link_decoration">
                 <div id="header">
                     <div id="header_name">Practical Data and Markup Language (PDML)</div>
-                    <div id="header_slogan">the world's simplest text format to store data and markup code</div>
+                    <div id="header_slogan">the world's simplest text format to encode data and markup</div>
                 </div>
 			</a>
 
 			<div id="menu">
-				<div class="menu-item" id="about">
-					<a href="../../../docs/faq/index.html" class="menu-link">About</a>
+				<div class="menu-item" id="home" title="Home page" style="max-width:2em;">
+					<a href="../../../index.html" class="menu-link" style="font-size: 2em;">⌂</a>
+				</div>
+				<div class="menu-item" id="overview">
+					<a href="../../../docs/overview/index.html" class="menu-link">Overview</a>
 				</div>
 				<div class="menu-item" id="docs">
 					<a href="../../../docs/index.html" class="menu-link">Docs</a>
@@ -62,8 +63,8 @@
 				<div class="menu-item" id="downloads">
 					<a href="../../../downloads/index.html" class="menu-link">Downloads</a>
 				</div>
-				<div class="menu-item" id="help">
-					<a href="../../../help/index.html" class="menu-link">Help</a>
+				<div class="menu-item" id="support">
+					<a href="../../../support/index.html" class="menu-link">Support</a>
 				</div>
 			</div>
 
@@ -89,29 +90,25 @@
                 </ul>
 
 
-                <h3 id="node">Node</h3>
+                <h3 id="doc">PDML Document</h3>
+                <script>
+                    Diagram ( Sequence (
+                        NonTerminal ( 'branch_node', {href:'#branch_node'} ),
+                    )).addTo();
+                </script>
+
+
+                <h3 id="branch_node">Branch Node</h3>
                 <script>
                     Diagram ( Choice (
                         1,
-                        NonTerminal ( 'empty_node', {href:'#empty_node'} ),
-                        NonTerminal ( 'non_empty_node', {href:'#non_empty_node'} )
+                        NonTerminal ( 'non_empty_node', {href:'#non_empty_node'} ),
+                        NonTerminal ( 'empty_node', {href:'#empty_node'} )
                     )).addTo();
                 </script>
 
 
-                <h3 id="empty_node">Empty node</h3>
-                <script>
-                    Diagram ( Sequence(
-                        "[",
-                        NonTerminal ( 'name', {href:'#name'} ),
-                        "]"
-                    )).addTo();
-                </script>
-                <p>Example:</p>
-                <pre class="code_block">[new_line]</pre>
-
-
-                <h3 id="non_empty_node">Non-empty node</h3>
+                <h3 id="non_empty_node">Non-empty Node</h3>
                 <script>
                     Diagram ( Sequence (
                         "[",
@@ -122,90 +119,141 @@
                     )).addTo();
                 </script>
                 <p>Examples:</p>
-                <pre class="code_block">[color orange]
+                <pre class="code-block">[color orange]
 [config [color orange]]
-[div A [i[b nice]] dog]</pre>
+[div A [i [b nice]] dog]</pre>
+
+
+                <h3 id="empty_node">Empty Node</h3>
+                <script>
+                    Diagram ( Sequence(
+                        "[",
+                        NonTerminal ( 'name', {href:'#name'} ),
+                        "]"
+                    )).addTo();
+                </script>
+                <p>Example:</p>
+                <pre class="code-block">[line_break]</pre>
 
 
                 <h3 id="name">Name</h3>
                 <script>
-                    Diagram ( Sequence (
-                        Choice (
-                            1,
-                            "a-z",
-                            "A-Z",
-                            "_"
-                        ),
-                        ZeroOrMore ( Choice (
-                            1,
-                            "a-z",
-                            "A-Z",
-                            "0-9",
-                            "-",
-                            "_",
-                            "."
-                        ) )
+                    Diagram ( OneOrMore (
+                        NonTerminal ( 'name_char', {href:'#name_char'} )
                     )).addTo();
                 </script>
                 <p>Examples:</p>
-                <pre class="code_block">height
-ins-file
-_default
-Index_12-a.2</pre>
+                <pre class="code-block">height
+Index_12-a.2
+_
+👆👆
+品質
+Net\sWeight</pre>
+
+
+                <h3 id="name_char">Name Character</h3>
+                <script>
+                    Diagram ( Choice (
+                        0,
+                        'Unicode c.p., except \\ [ ] \' \' \\t \\n \\r * @ = ( ) " ~ : / , ` ! $',
+
+                        '\\\\',
+                        '\\[',
+                        '\\]',
+
+                        '\\s',
+                        '\\t',
+                        '\\n',
+                        '\\r',
+
+                        '\\*',
+                        '\\@',
+                        '\\=',
+                        '\\(',
+                        '\\)',
+                        '\\"',
+                        '\\~',
+                        '\\:',
+                        '\\/',
+                        '\\,',
+                        '\\`',
+                        '\\!',
+                        '\\$'
+                    )).addTo();
+                </script>
+                <p>Examples:</p>
+                <pre class="code-block">a
+Z
+é
+品
+9
+_
+👆
+\=</pre>
 
 
                 <h3 id="separator">Separator</h3>
                 <script>
                     Diagram ( Choice (
                         0,
-                        "\" \"",
-                        "\"\\t\"",
-                        "\"\\n\"",
+                        "' '",
+                        "'\\t'",
+                        "'\\n'",
                         "\"\\r\\n\""
                     )).addTo();
                 </script>
 
 
-                <h3 id="child_node">Child node</h3>
+                <h3 id="child_node">Child Node</h3>
                 <script>
                     Diagram ( Choice (
                         0,
-                        NonTerminal ( 'node', {href:'#node'} ),
-                        NonTerminal ( 'text', {href:'#text'} )
+                        NonTerminal ( 'branch_node', {href:'#branch_node'} ),
+                        NonTerminal ( 'leaf_node', {href:'#leaf_node'} )
                     )).addTo();
                 </script>
                 <p>Examples:</p>
-                <pre class="code_block">[b [i huge]]
-[message All is well!]</pre>
+                <pre class="code-block">[b [i huge]]
+All is well!</pre>
 
 
-                <h3 id="text">Text</h3>
+                <h3 id="leaf_node">Leaf Node</h3>
                 <script>
                     Diagram ( OneOrMore (
                         NonTerminal ( 'text_char', {href:'#text_char'} )
                     )).addTo();
                 </script>
                 <p>Examples:</p>
-                <pre class="code_block">Bob
+                <pre class="code-block">Bob
 3.14
 We want simplicity.
+ขอให้คุณโชคดี
 root\\config\["port"\]</pre>
 
 
-                <h3 id="text_char">Text character</h3>
+                <h3 id="text_char">Text Character</h3>
                 <script>
                     Diagram ( Choice (
                         0,
-                        'Unicode character, except [, ], and \\',
+                        'Unicode code point, except \\ [ ]',
+                        '\\\\',
                         '\\[',
                         '\\]',
-                        '\\\\'
+                        '\\t',
+                        '\\n',
+                        '\\r'
                     )).addTo();
                 </script>
                 <p>Examples:</p>
-                <pre class="code_block">a
+                <pre class="code-block">a
+Z
+é
+ก
+9
+_
 😀
-\[</pre>
+\[
+\n</pre>
 
 
 			</div>

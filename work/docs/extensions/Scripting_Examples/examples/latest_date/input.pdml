@@ -1,8 +1,0 @@
-[root
-
-    Latest update: [s:exp timeUtils.currentLocalDate()]
-
-    Latest update: [s:exp timeUtils.currentLocalDateTimeMinutes()]
-
-    Latest update: [s:script doc.insertText ( timeUtils.currentLocalDate() );]
-]

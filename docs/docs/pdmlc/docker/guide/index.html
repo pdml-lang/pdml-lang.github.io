@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="generator" content="PML 5.0.0 (www.pml-lang.dev)" />
+        <title>How to Run the PDML Companion in a Docker Container?</title>
+        <link rel="stylesheet" href="css/pml-default.css">
+        <link rel="stylesheet" href="css/pml-print-default.css" media="print">
+
+    </head>
+    <body>
+
+        <div class="pml-doc-wrapper">
+            <header class="pml-doc-header">
+            </header>
+            <div class="pml-doc-content">
+                <aside class="pml-doc-left">
+                    <nav class="pml-toc">
+                        <h2 class="pml-toc-title">Table of Contents</h2>
+                        <div class="pml-toc-tree" id="TOCTree">
+                            <ul>
+                                <li class="pml-toc-leaf-node"><a href="#ch__1">Creating a Docker Container</a></li>
+                                <li class="pml-toc-branch-node">
+                                    <details>
+                                        <summary><a href="#ch__2">Running the Container</a></summary>
+                                        <ul>
+                                            <li class="pml-toc-branch-node">
+                                                <details>
+                                                    <summary><a href="#ch__3">Useful Options</a></summary>
+                                                    <ul>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__4">Access to Host Files</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#ch__5">Container User</a></li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                        </ul>
+                                    </details>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </aside>
+                <article id="doc__" class="pml-doc-text">
+                    <h1 class="pml-doc-title">How to Run the PDML Companion in a Docker Container?</h1>
+                    <p class="pml-paragraph">This document explains how to run the PDML Companion in a Docker container on macOS, Unix/Linux or Windows.</p>
+                    <p class="pml-paragraph">Two steps are involved:</p>
+                    <ul class="pml-list">
+                        <li class="pml-list-element">
+                            <p class="pml-paragraph">create a container</p>
+
+                        </li>
+                        <li class="pml-list-element">
+                            <p class="pml-paragraph">run the container</p>
+
+                        </li>
+
+                    </ul>
+                    <section id="ch__1" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Creating a Docker Container</h2>
+                        <p class="pml-paragraph">To create a Docker container for the PDML Companion (PDMLC) command line tool, proceed as follows:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">If not done already, <a class="pml-link" href="https://docs.docker.com/get-started/get-docker/">install Docker</a> (and ensure that your OS complies with the Docker system requirements).</p>
+
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Open a terminal in a directory of your choice, create a working directory (e.g. <code class="pml-inline-code">pdml-docker</code>), and move into that directory, e.g.:</p>
+                                <pre class="pml-input">mkdir pdml-docker
+cd pdml-docker</pre>
+
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Create file <code class="pml-inline-code">Dockerfile</code> and copy-paste the following content:</p>
+                                <div class="pml-caption">File Dockerfile</div>
+                                <pre class="pml-code"><code>FROM openjdk:17-alpine
+
+ARG PDML_VERSION=0.78.0
+
+WORKDIR /app
+
+# Install PDMLC
+RUN apk update &amp;&amp; apk add --no-cache curl
+RUN curl -O https://github.com/pdml-lang/full-pdml-impl/releases/download/v${PDML_VERSION}/pdmlc-java-app-${PDML_VERSION}.tar
+RUN tar -xf pdmlc-java-app-${PDML_VERSION}.tar
+
+ENV PATH=&quot;/app/pdmlc-java-app-${PDML_VERSION}/bin:${PATH}&quot;
+
+WORKDIR /
+
+CMD [&quot;/bin/sh&quot;]</code></pre>
+
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph">Build a Docker image by typing:</p>
+                                <pre class="pml-input">docker build -t pdmlc .</pre>
+                                <p class="pml-paragraph">(Note the required dot at the end of the command)</p>
+
+                            </li>
+
+                        </ul>
+
+                    </section>
+                    <section id="ch__2" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Running the Container</h2>
+                        <p class="pml-paragraph">To run PDMLC in a Docker container type:</p>
+                        <pre class="pml-input">docker run -it pdmlc</pre>
+                        <p class="pml-paragraph">You can now enter PDMLC commands in the terminal session of the Docker container.</p>
+                        <p class="pml-paragraph">For example, to get a list of available PDMLC commands, type:</p>
+                        <pre class="pml-input">pdmlc help</pre>
+                        <section id="ch__3" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Useful Options</h3>
+                            <section id="ch__4" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Access to Host Files</h4>
+                                <p class="pml-paragraph">If you need read/write access to a directory of your host OS, use the <a class="pml-link" href="https://docs.docker.com/reference/cli/docker/container/run/#volume"><code class="pml-inline-code">-v</code></a> option of the Docker <code class="pml-inline-code">run</code> command.</p>
+                                <p class="pml-paragraph">For example, suppose that you are using Windows, and you want to access files in directory <code class="pml-inline-code">C:\temp\test\</code> from within your Docker container. In that case, you can use the <code class="pml-inline-code">-v</code> option as follows:</p>
+                                <pre class="pml-input">docker run -it -v C:\temp\test:/docs pdmlc</pre>
+                                <p class="pml-paragraph">This maps <code class="pml-inline-code">C:\temp\test\</code> to directory <code class="pml-inline-code">/docs</code> in your container, so that you can read from and write to <code class="pml-inline-code">C:\temp\test\</code> via <code class="pml-inline-code">/docs</code>.</p>
+                                <p class="pml-paragraph">For example, the following PDMLC command (executed in your container), reads file <code class="pml-inline-code">C:\temp\test\config.pdml</code> and creates file <code class="pml-inline-code">C:\temp\test\tree_view.html</code> (which you can open in your standard Windows browser):</p>
+                                <pre class="pml-input">pdmlc p2h /docs/config.pdml /docs/tree_view.html</pre>
+
+                            </section>
+                            <section id="ch__5" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Container User</h4>
+                                <div class="pml-admonition">
+                                    <div class="pml-admonition-label">
+                                        <p class="pml-paragraph">Note</p>
+
+                                    </div>
+                                    <div class="pml-admonition-content">
+                                        <p class="pml-paragraph">This section applies only to Unix-like host systems — it doesn&apos;t apply to Windows.</p>
+                                    </div>
+                                </div>
+                                <p class="pml-paragraph">By default, Docker containers run as the <code class="pml-inline-code">root</code> user inside the container, which can cause permission and security issues.</p>
+                                <p class="pml-paragraph">To specify the user under which the container runs, you can use the <code class="pml-inline-code">-u</code> option of the Docker <code class="pml-inline-code">run</code> command. For example, to specify a user with UID 1000 and GID 1000:</p>
+                                <pre class="pml-input">docker run -it -u 1000:1000</pre>
+                                <p class="pml-paragraph">Specifying <code class="pml-inline-code">-u $(id -u):$(id -g)</code> ensures the container process runs as the <i class="pml-italic">current</i> user (with the same UID and GID as the host user) rather than as <code class="pml-inline-code">root</code>:</p>
+                                <pre class="pml-input">docker run -it -u $(id -u):$(id -g)</pre>
+                                <p class="pml-paragraph">The expression <code class="pml-inline-code">$(id -u):$(id -g)</code> is a shell substitution that uses the Unix <code class="pml-inline-code">id</code> command to dynamically fetch the user ID (UID) and group ID (GID) of the current user.</p>
+
+                            </section>
+
+                        </section>
+
+                    </section>
+                </article>
+                <aside class="pml-doc-right">
+                </aside>
+            </div>
+            <footer class="pml-doc-footer">
+            </footer>
+        </div>
+
+    </body>
+</html>

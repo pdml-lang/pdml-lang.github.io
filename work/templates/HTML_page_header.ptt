@@ -5,7 +5,7 @@
 
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="content-language" content="en-us">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="Practical Data and Markup Language (PDML). PDML is a text format (specification and implementation) to store any kind of data and markup code.">
 		<meta name="keywords" content="data, markup code, language, text format, PDML">
 
@@ -26,15 +26,14 @@
 				const path = window.location.pathname;
 				// console.log ( path );
 				var tab_name = "none";
-				if ( path.includes ( "/about" ) ) {
-					tab_name = "about";
+				if ( path.includes ( "/overview" ) ) {
+					tab_name = "overview";
 				} else if ( path.includes ( "/docs" ) ) {
 					tab_name = "docs";
 				} else if ( path.includes ( "/downloads" ) ) {
 					tab_name = "downloads";
-				} else if ( path.includes ( "/help" ) ) {
-					tab_name = "help";
-				}
+				} else if ( path.includes ( "/support" ) ) {
+					tab_name = "support";
 				if ( tab_name !== "none" ) {
 					document.getElementById(tab_name).style.background = "lightgrey";
 				}
@@ -48,13 +47,16 @@
 			<a href="[[= _path_to_root]]/index.html" class="no_link_decoration">
                 <div id="header">
                     <div id="header_name">Practical Data and Markup Language (PDML)</div>
-                    <div id="header_slogan">the world's simplest text format to store data and markup code</div>
+                    <div id="header_slogan">the world's simplest text format to encode data and markup</div>
                 </div>
 			</a>
 
 			<div id="menu">
-				<div class="menu-item" id="about">
-					<a href="[[= _path_to_root]]/docs/faq/index.html" class="menu-link">About</a>
+				<div class="menu-item" id="home" title="Home page" style="max-width:2em;">
+					<a href="[[= _path_to_root]]/index.html" class="menu-link" style="font-size: 2em;">⌂</a>
+				</div>
+				<div class="menu-item" id="overview">
+					<a href="[[= _path_to_root]]/docs/overview/index.html" class="menu-link">Overview</a>
 				</div>
 				<div class="menu-item" id="docs">
 					<a href="[[= _path_to_root]]/docs/index.html" class="menu-link">Docs</a>
@@ -62,8 +64,8 @@
 				<div class="menu-item" id="downloads">
 					<a href="[[= _path_to_root]]/downloads/index.html" class="menu-link">Downloads</a>
 				</div>
-				<div class="menu-item" id="help">
-					<a href="[[= _path_to_root]]/help/index.html" class="menu-link">Help</a>
+				<div class="menu-item" id="support">
+					<a href="[[= _path_to_root]]/support/index.html" class="menu-link">Support</a>
 				</div>
 			</div>
 

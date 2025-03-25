@@ -8,15 +8,19 @@
                         https://standards.iso.org/ittf/PubliclyAvailableStandards/s026153_ISO_IEC_14977_1996(E).zip
                 -->
                 
-				<h2>Core PDML Grammar</h2>
+				<h2>Core PDML 2.0.0 Grammar</h2>
 
-                <p>The following table illustrates PDML's grammar, expressed in an <a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form">EBNF</a>-like notation.</p>
+                <p>The table below shows the <i>Core PDML</i> grammar, presented in an <a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form">EBNF</a>-like format.</p>
                 
-                <p>Only <i>Core PDML</i> is covered. Optional extensions like attributes, namespaces etc. are not included.</p>
+                <p>It covers only <i>Core PDML</i>, omitting PDML extensions (optional features) like comments, attributes etc.</p>
 
-                <p>The following grammar is not a specification. It is just an auxiliary asset to contextualize the <a href="../specification/index.html">official specification</a>.</p>
+                <p>This grammar definition serves as a supplementary resource, to contextualize the <a href="../specification/index.html">authoritative specification</a>.</p>
 
-                <p>The grammar is also illustrated as <a href="../railroad/index.html">Railroad Diagrams</a>.</p>
+<!--
+                <p>The grammar is also visually represented using <a href="../railroad/index.html">Railroad Diagrams</a>.</p>
+-->
+
+                <p><i>Core PDML Grammar</i></p>
                 
                 <table class="ebnf-table">
 
@@ -27,45 +31,57 @@
                     <tbody>
 
                         <tr>
-                            <td>node</td>
+                            <td>PDML_document</td>
                             <td>=</td>
-                            <td>&nbsp;&nbsp;empty_node<br />| non_empty_node</td>
+                            <td>tagged_node</td>
+                            <td>[root<br />&nbsp;&nbsp;[child text]<br />]<br /><a href="../examples/index.html">more examples</a></td>
+                        </tr>
+                        
+
+                        <tr>
+                            <td>tagged_node</td>
+                            <td>=</td>
+                            <td>&nbsp;&nbsp;tagged_branch_node<br />| tagged_leaf_node</td>
                             <td></td>
                         </tr>
                         
                         <tr>
-                            <td>empty_node</td>
+                            <td>tagged_branch_node</td>
                             <td>=</td>
-                            <td>"[" name "]"</td>
-                            <td>[new_line]</td>
+                            <td>"[" tag separator child_node + "]"</td>
+                            <td>[color orange]<br />[config [color orange]]<br />[div A [i [b nice]] dog]</td>
                         </tr>
                         
                         <tr>
-                            <td>non_empty_node</td>
+                            <td>tagged_leaf_node</td>
                             <td>=</td>
-                            <td>"[" name separator child_node + "]"<br /><br /><small>Note: The separator is optional if<br />the name is immediately followed by [.</small></td>
-                            <td>[color orange]<br />[config [color orange]]<br />[div A [i[b nice]] dog]</td>
+                            <td>"[" tag "]"</td>
+                            <td>[remark]<br />[hr]</td>
                         </tr>
                         
                         <tr>
-                            <td>name</td>
+                            <td>tag</td>
                             <td>=</td>
-                            <td>name_start_char name_char *<br /><br /><small>Regex: [a-zA-Z_][a-zA-Z0-9_\.-]*</small></td>
-                            <td>height<br />ins-file<br />_default<br />Index_12-a.2</td>
+                            <td>tag_char +<br /></td>
+                            <td>height<br />123<br />2025-01-29<br />Index_12-a.2<br />_<br />👆👆<br />品質<br />Net\sWeight</td>
                         </tr>
                         
                         <tr>
-                            <td>name_start_char</td>
+                            <td>tag_char</td>
                             <td>=</td>
-                            <td>&nbsp;&nbsp;"a" .. "z"<br />| "A" .. "Z"<br />| "_"</td>
-                            <td>a<br />Z<br />_</td>
-                        </tr>
-                        
-                        <tr>
-                            <td>name_char</td>
-                            <td>=</td>
-                            <td>&nbsp;&nbsp;"a" .. "z"<br />| "A" .. "Z"<br />| "0" .. "9"<br />| "_"<br />| "-"<br />| "."</td>
-                            <td>a<br />Z<br />9<br />_<br />-<br />.</td>
+                            <td>&nbsp;&nbsp;any Unicode code point, except
+                            <br />&nbsp;&nbsp;\ [ ]
+                            <br />&nbsp;&nbsp;{space} {tab} {new line} {carriage return}
+                            <br />&nbsp;&nbsp;^ ( ) = " ~ | : , ` ! $
+                            <br />&nbsp;&nbsp;U+0000 to U+001F (included)
+                            <br />&nbsp;&nbsp;U+0080 to U+009F (included)<br /><br />
+                            | \\<br />| \[<br />| \]<br /><br />
+                            | \s<br />| \t<br />| \n<br />| \r<br /><br />
+                            <!--
+                            | "\*"<br />| "\@"<br />| "\="<br />| "\("<br />| "\)"<br />| "\""<br />| "\~"<br />| "\:"<br />| "\/"<br />| "\,"<br />| "\`"<br />| "\!"<br />| "\$"<br /></td>
+                            -->
+                            | \^<br /> | \(<br /> | \)<br /> | \=<br /> | \"<br /> | \~<br /> | \|<br /> | \:<br /> | \,<br /> | \`<br /> | \!<br /> | \$<br /></td>
+                            <td>a<br />Z<br />é<br />品<br />9<br />_<br />👆<br />\=</td>
                         </tr>
                         
                         <tr>
@@ -78,31 +94,37 @@
                         <tr>
                             <td>child_node</td>
                             <td>=</td>
-                            <td>&nbsp;&nbsp;node<br />| text</td>
-                            <td>[b [i huge]]<br />[message All is well!]</td>
+                            <td>&nbsp;&nbsp;tagged_branch_node<br />| tagged_leaf_node<br />| untagged_text_leaf_node</td>
+                            <td>[b [i huge]]<br />[remark]<br />All is well!</td>
                         </tr>
 
                         <tr>
-                            <td>text</td>
+                            <td>untagged_text_leaf_node<br />(aka text_leaf)</td>
                             <td>=</td>
                             <td>text_char +</td>
-                            <td>Bob<br />3.14<br />We want simplicity.<br />root\\config\["port"\]</td>
+                            <td>Bob<br />3.14<br />We want simplicity.<br />ขอให้คุณโชคดี<br />root\\config\["port"\]</td>
                         </tr>
                         
                         <tr>
                             <td>text_char</td>
                             <td>=</td>
-                            <td>&nbsp;&nbsp;any Unicode character,<br />&nbsp;&nbsp;except "[", "]", and "\"<br />| "\["<br />| "\]"<br />| "\\"</td>
-                            <td>a<br />😀<br />\[</td>
+                            <td>&nbsp;&nbsp;any Unicode code point, except<br />
+                            &nbsp;&nbsp;\ [ ]
+                            <br />&nbsp;&nbsp;U+0000 to U+001F (included)
+                            <br />&nbsp;&nbsp;U+0080 to U+009F (included)<br /><br />
+                            <!--
+                            | "\\"<br />| "\["<br />| "\]"<br /><br />
+                            | "\t"<br />| "\n"<br />| "\r"</td>
+                            -->
+                            | \\<br />| \[<br />| \]<br /><br />
+                            | \s<br />| \t<br />| \n<br />| \r<br /><br />
+                            | \^<br /> | \(<br /> | \)<br /> | \=<br /> | \"<br /> | \~<br /> | \|<br /> | \:<br /> | \,<br /> | \`<br /> | \!<br /> | \$<br /></td>
+                            <!--
+                            <td>a<br />Z<br />é<br />品<br />9<br />_<br />👆<br />\=</td>
+                            -->
+                            <td>a<br />Z<br />é<br />ก<br />9<br />_<br />😀<br />\[<br />\n</td>
                         </tr>
 
                     </tbody>
                 </table>
-
-<!--
-                <blockquote>
-                    <p>Note:</p>
-                    <p>A PDML <code>name</code> must follow the same rules as an XML name. The above regex (<code>[a-zA-Z][a-zA-Z0-9-_.]*</code>) is a simplified version of the <a href="https://www.w3.org/TR/REC-xml/#NT-NameStartChar">authoritative rules for XML names</a>. A simple description of the rules can be found in chapter "XML Naming Rules" of <a href="https://www.w3schools.com/xml/xml_elements.asp">XML Elements</a>.</p>
-                </blockquote>
--->
 			</div>

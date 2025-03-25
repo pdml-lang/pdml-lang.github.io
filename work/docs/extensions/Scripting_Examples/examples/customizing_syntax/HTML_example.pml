@@ -1,3 +1,0 @@
-[image source="icon_1.png" width=64 height=64 border=yes]
-...
-[image source="icon_2.png" width=64 height=64 border=yes]

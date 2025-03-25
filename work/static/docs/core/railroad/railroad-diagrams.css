@@ -1,6 +1,6 @@
 svg.railroad-diagram {
     /* background-color: hsl(30,20%,95%); */
-    /* same values as .code_block in pdml.css */
+    /* same values as .code-block in pdml.css */
     background: #F8F8F8;
     border-radius: 1em;
 }

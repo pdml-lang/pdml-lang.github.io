@@ -5,7 +5,7 @@
 
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="content-language" content="en-us">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="Practical Data and Markup Language (PDML). PDML is a text format (specification and implementation) to store any kind of data and markup code.">
 		<meta name="keywords" content="data, markup code, language, text format, PDML">
 
@@ -21,15 +21,14 @@
 				const path = window.location.pathname;
 				// console.log ( path );
 				var tab_name = "none";
-				if ( path.includes ( "/about" ) ) {
-					tab_name = "about";
+				if ( path.includes ( "/overview" ) ) {
+					tab_name = "overview";
 				} else if ( path.includes ( "/docs" ) ) {
 					tab_name = "docs";
 				} else if ( path.includes ( "/downloads" ) ) {
 					tab_name = "downloads";
-				} else if ( path.includes ( "/help" ) ) {
-					tab_name = "help";
-				}
+				} else if ( path.includes ( "/support" ) ) {
+					tab_name = "support";
 				if ( tab_name !== "none" ) {
 					document.getElementById(tab_name).style.background = "lightgrey";
 				}
@@ -43,13 +42,16 @@
 			<a href="./index.html" class="no_link_decoration">
                 <div id="header">
                     <div id="header_name">Practical Data and Markup Language (PDML)</div>
-                    <div id="header_slogan">the world's simplest text format to store data and markup code</div>
+                    <div id="header_slogan">the world's simplest text format to encode data and markup</div>
                 </div>
 			</a>
 
 			<div id="menu">
-				<div class="menu-item" id="about">
-					<a href="./docs/faq/index.html" class="menu-link">About</a>
+				<div class="menu-item" id="home" title="Home page" style="max-width:2em;">
+					<a href="./index.html" class="menu-link" style="font-size: 2em;">⌂</a>
+				</div>
+				<div class="menu-item" id="overview">
+					<a href="./docs/overview/index.html" class="menu-link">Overview</a>
 				</div>
 				<div class="menu-item" id="docs">
 					<a href="./docs/index.html" class="menu-link">Docs</a>
@@ -57,8 +59,8 @@
 				<div class="menu-item" id="downloads">
 					<a href="./downloads/index.html" class="menu-link">Downloads</a>
 				</div>
-				<div class="menu-item" id="help">
-					<a href="./help/index.html" class="menu-link">Help</a>
+				<div class="menu-item" id="support">
+					<a href="./support/index.html" class="menu-link">Support</a>
 				</div>
 			</div>
 
@@ -67,46 +69,122 @@
 
 <div id="content">
 
-    <p><i>The Practical Data and Markup Language <b>(PDML)</b></i> is a text format designed to store data and markup code.</p>
+    <p>The Practical Data and Markup Language (PDML) is a simple yet versatile text format you can use to encode data and/or markup of any complexity.</p>
 
-    <p>PDML is easy to read and write for humans.</p>
+    <p>PDML code is succinct, easy to read and write, and built by humans for humans.</p>
 
-    <p>Here is an example of a simple XML document:</p>
-    
-    <pre class="code_block">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;person&gt;
-    &lt;name&gt;
-        &lt;first&gt;Albert&lt;/first&gt;
-        &lt;last&gt;Einstein&lt;/last&gt;
-    &lt;/name&gt;
-    &lt;city&gt;Bern&lt;/city&gt;
-    &lt;country&gt;Switzerland&lt;/country&gt;
-&lt;/person&gt;</pre>
+    <h3>Data Example</h3>
 
-    <p>The same document looks like this in PDML:</p>
-    
-    <pre class="code_block">[person
-    [name
-        [first Albert]
-        [last Einstein]
+    <p>Here's a simple data structure shown in XML, JSON, and PDML:</p>
+
+    <style>
+        .code_comparison {
+            display: flex;
+            column-gap: 1em;
+            flex-wrap: wrap;
+            /*
+            flex-direction: row;
+            justify-content: space-evenly;
+            */
+        }
+
+        .code_comparison pre {
+            /*
+            margin: 5px;
+            background-color: lightblue;
+            */
+        }
+    </style>
+
+    <div class="code_comparison">
+        <div>
+            <div><b>XML:</b></div>
+            <pre class="code-block">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;server_config&gt;
+    &lt;name&gt;Office Server&lt;/name&gt;
+    &lt;address&gt;
+        &lt;ip&gt;192.168.1.1&lt;/ip&gt;
+        &lt;port&gt;8080&lt;/port&gt;
+    &lt;/address&gt;
+&lt;/server_config&gt;</pre>
+        </div>
+
+        <div>
+            <div><b>JSON:</b></div>
+        <pre class="code-block">{
+    "server_config": {
+        "name": "Office Server",
+        "address": {
+            "ip": "192.168.1.1",
+            "port": "8080"
+        }
+    }
+}</pre>
+        </div>
+
+        <div>
+            <div><b>PDML:</b></div>
+        <pre class="code-block">[server_config
+    [name Office Server]
+    [address
+        [ip 192.168.1.1]
+        [port 8080]
     ]
-    [city Bern]
-    [country Switzerland]
+]</pre>
+        </div>
+    </div>
+
+    <h3>Markup Example</h3>
+
+    <p>Consider the following HTML code:</p>
+    <pre class="code-block" style="width: fit-content;">&lt;div&gt;
+    &lt;p&gt;We can write text in &lt;b&gt;bold&lt;/b&gt;, &lt;i&gt;italic&lt;/i&gt;, or &lt;b&gt;&lt;i&gt;bold and italic&lt;/b&gt;&lt;/i&gt;.&lt;/p&gt;
+&lt;/div&gt;</pre>
+
+    <p>In PDML, the same markup (i.e. formatted text) is written as follows:</p>
+<pre class="code-block" style="width: fit-content;">[div
+    [p We can write text in [b bold], [i italic], or [b [i bold and italic]].]
 ]</pre>
 
+    <p>Both versions are rendered equally: We can write text in <b>bold</b>, <i>italic</i>, or <b><i>bold and italic</b></i>.</p>
 
-    <p>Markup code, such as this HTML code:</p>
+<!--
+    <h3>Optional Extensions</h3>
+-->
 
-    <pre class="code_block">&lt;p&gt;We can write text in &lt;b&gt;bold&lt;/b&gt;, &lt;i&gt;italic&lt;/i&gt;, or &lt;b&gt;&lt;i&gt;bold and italic&lt;/b&gt;&lt;/i&gt;.&lt;/p&gt;</pre>
+    <h3>Specification, Library, and CLI Tool</h3>
 
-    <p>... looks like this in PDML:</p>
+    <p>On this website you'll find:
+        <ul>
+            <li>
+                <p>The <a href="docs/core/specification/index.html">Core PDML specification</a>: a portable, programming-language-agnostic and open standard specifying the rules to encode data and markup as plain UTF-8 text.</p>
+            </li>
+            <li>
+                <p>A free and open-source (FOSS) <a href="downloads/index.html#ref_impl">reference implementation</a>, written in Java.</p>
+                <!--
+                <p>A free and open-source (FOSS) <a href="downloads/index.html#ref_impl">reference implementation</a>, available as a Java library (<code>.jar</code> file) which you can use to work with PDML documents in JVM-based projects running on Windows, Linux, or MacOS.
+                For example, you can use this library to parse PDML documents; programmatically generate PDML documents and ASTs; explore, change, and transform ASTs; etc.</p>
+                -->
+            </li>
+            <li>
+                <p>A FOSS <a href="downloads/index.html#pdmlc">command line tool</a>, called <i>PDML Companion</i> (running on Windows, Linux, and MacOS), which you can use to carry out various operations on PDML documents.</p>
+                <!--
+                <p>A FOSS <a href="downloads/index.html#companion">command line tool</a>, called <i>PDML Companion</i>, which runs on Windows, Linux, and MacOS.
+                You can use this tool to carry out various operations on PDML documents stored in <code>.pdml</code> text files or read from STDIN, and then store the result in another file or write it to STDOUT.
+                -->
+                <!--
+                For example, you can display a PDML document as an expandable/collapsable tree view in an HTML page; convert PDML to JSON/XML, or JSON/XML to PDML; explore a PDML AST programmatically using standalone Java source code files, etc.</p>
+                -->
+            </li>
+        </ul>
+    </p>
 
-    <pre class="code_block">[p We can write text in [b bold], [i italic], or [b[i bold and italic]].]</pre>
-    
+    <p>Besides a simple and concise syntax, PDML also provides a unique set of optional yet powerful features (extensions) to further enhance its practicality.</p>
 
-    <p>Besides a simple and succinct syntax, PDML also provides unique, powerful extensions to make it more practical.</p>
-
-    <p>For a quick overview please visit the <a href="docs/faq/index.html">Overview page</a>.</p>
+<!--
+    <hr style="color:lightgray">
+-->
+    <p>For more information and examples, please read <a href="docs/overview/index.html">PDML Overview</a>.</p>
 
 </div>
 

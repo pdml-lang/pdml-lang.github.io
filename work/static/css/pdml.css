@@ -69,6 +69,7 @@ body {
 #menu {
     display: flex;
     flex-direction: row;
+/* align-items: center; */
 }
 
 .menu-item {
@@ -80,21 +81,21 @@ body {
     border-radius: 10px 10px 0px 0px;
     
     text-align: center;
-    
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
+
+    height: 2em;
+    line-height:2em;
 }
 
 .menu-link {
-	
 	color: #333;
 	font-size: 0.9em;
 	font-weight: 700;
+	text-decoration: none !important;
+    /*
 	text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-
-	text-decoration: none !important;
+    */
 }
 
 #menu_content_separator {
@@ -119,9 +120,11 @@ body {
     color: #333;
     font-weight: 700;
     text-align: center;
+    /*
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    */
     padding: .7em 1em;
     border: 1px solid #ddd;
     border-radius: 0.5em;
@@ -141,12 +144,13 @@ body {
     color: purple;
 }
 
-.code_block {
+.code-block {
     background: #F8F8F8;
     border-radius: 1em;
     padding:1em;
+    white-space: pre-wrap;
 
-    font-family: Consolas, "DejaVu Sans Mono", monospace;
+    /* font-family: Consolas, "DejaVu Sans Mono", monospace; */
     /* font-size: 1.2em; */
 }
 
@@ -155,8 +159,8 @@ code {
     border-radius: 0.5em;
     padding:0.2em;
 
-    font-family: Consolas, "DejaVu Sans Mono", monospace;
-    /* font-size: 1.2em; */
+    /* font-family: Consolas, "DejaVu Sans Mono", monospace; */
+    /* font-size: 0.8em; */
 }
 
 .ebnf-table {

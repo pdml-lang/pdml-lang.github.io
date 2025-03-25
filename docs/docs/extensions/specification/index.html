@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="generator" content="PML 5.0.0 (www.pml-lang.dev)" />
+        <title>PDML Extensions Specification</title>
+        <link rel="stylesheet" href="css/pml-default.css">
+        <link rel="stylesheet" href="css/pml-print-default.css" media="print">
+
+    </head>
+    <body>
+
+        <div class="pml-doc-wrapper">
+            <header class="pml-doc-header">
+            </header>
+            <div class="pml-doc-content">
+                <aside class="pml-doc-left">
+                    <nav class="pml-toc">
+                        <h2 class="pml-toc-title">Table of Contents</h2>
+                        <div class="pml-toc-tree" id="TOCTree">
+                            <ul>
+                                <li class="pml-toc-leaf-node"><a href="#introduction">Introduction</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#caret">The Extension Start Character ^</a></li>
+                                <li class="pml-toc-branch-node">
+                                    <details>
+                                        <summary><a href="#ch__3">Syntax Extensions</a></summary>
+                                        <ul>
+                                            <li class="pml-toc-branch-node">
+                                                <details>
+                                                    <summary><a href="#comments">Comments</a></summary>
+                                                    <ul>
+                                                        <li class="pml-toc-leaf-node"><a href="#comments_single_line">Single-line Comment</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#comments_multi_line">Multi-line Comment</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#comments_rules">Common Rules</a></li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li class="pml-toc-branch-node">
+                                                <details>
+                                                    <summary><a href="#ues">Unicode Escape Sequences</a></summary>
+                                                    <ul>
+                                                        <li class="pml-toc-leaf-node"><a href="#ues_grammar">Grammar</a></li>
+                                                        <li class="pml-toc-leaf-node"><a href="#ues_rules">Additional Rules</a></li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li class="pml-toc-leaf-node"><a href="#string_literals">String Literals</a></li>
+                                            <li class="pml-toc-leaf-node"><a href="#attributes">Attributes</a></li>
+                                        </ul>
+                                    </details>
+                                </li>
+                                <li class="pml-toc-leaf-node"><a href="#utility_nodes">Utility Nodes</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#scripting">Scripting Nodes</a></li>
+                                <li class="pml-toc-leaf-node"><a href="#types">Types</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </aside>
+                <article id="doc__" class="pml-doc-text">
+                    <h1 class="pml-doc-title">PDML Extensions Specification</h1>
+                    <div class="pml-division">
+                        <table class="pml-table">
+                            <tr class="pml-table-body-row">
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph"><b class="pml-bold">Extensions Version</b></p>
+
+                                </td>
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph">0.78.0</p>
+
+                                </td>
+
+                            </tr>
+                            <tr class="pml-table-body-row">
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph"><b class="pml-bold">First Published</b></p>
+
+                                </td>
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph">2025-03-25</p>
+
+                                </td>
+
+                            </tr>
+                            <tr class="pml-table-body-row">
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph"><b class="pml-bold">Author</b></p>
+
+                                </td>
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph">Christian Neumanns</p>
+
+                                </td>
+
+                            </tr>
+                            <tr class="pml-table-body-row">
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph"><b class="pml-bold">Website</b></p>
+
+                                </td>
+                                <td class="pml-table-body-cell">
+                                    <p class="pml-paragraph"><a class="pml-link" href="https://pdml-lang.dev/">https://pdml-lang.dev/</a></p>
+
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+                    </div>
+                    <section id="introduction" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Introduction</h2>
+                        <p class="pml-paragraph">The Practical Data and Markup Language (PDML) is a text format designed for encoding data and markup (i.e. formatted text).</p>
+                        <p class="pml-paragraph">This document provides the authoritative specification for PDML Extensions. Core PDML is covered in <a class="pml-link" href="../../core/specification/index.html">Core PDML Specification</a>. The difference between Core PDML and PDML Extensions is explained in <a class="pml-link" href="../../overview/index.html#core_addon">What Is &quot;Core PDML&quot; and What Are &quot;PDML Extensions&quot;?</a>.</p>
+                        <p class="pml-paragraph">The specification is written for anyone who wants to know the exact rules governing PDML Extensions (e.g. software developers who want to implement a PDML parser, an editor/IDE plugin, or other PDML assets). If you are new to PDML Extensions, it is recommended to first read <a class="pml-link" href="../../extensions/user_manual/index.html">PDML Extensions User Manual</a>. For general information about PDML you may read <a class="pml-link" href="../../overview/index.html">PDML Overview</a>.</p>
+                        <div class="pml-admonition">
+                            <div class="pml-admonition-label">
+                                <p class="pml-paragraph">Notes</p>
+
+                            </div>
+                            <div class="pml-admonition-content">
+                                <p class="pml-paragraph">Extensions are a <i class="pml-italic">work in progress</i>. All extensions are currently in an experimental state. There might be breaking changes in future versions, and some extensions might even be removed.</p>
+                                <p class="pml-paragraph">Additional extensions are implemented already in the reference implementation, but not yet documented here.</p>
+                                <p class="pml-paragraph">Syntax rules will be shown in Extended Backus–Naur form (EBNF) notation.</p>
+                                <p class="pml-paragraph">Please share your thoughts using the following links:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph"><a class="pml-link" href="https://github.com/pdml-lang/pdml-lang.github.io/discussions">Discussion</a>: ask a question, discuss an idea, enhancement, or anything else.</p>
+
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph"><a class="pml-link" href="https://github.com/pdml-lang/pdml-lang.github.io/issues">Issues</a>: report mistakes, suggest enhancements and missing features, etc.</p>
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </section>
+                    <section id="caret" class="pml-chapter">
+                        <h2 class="pml-chapter-title">The Extension Start Character <code class="pml-inline-code">^</code></h2>
+                        <p class="pml-paragraph">Every extension (except <a class="pml-xref" href="#ues">Unicode Escape Sequences</a>) starts with a Circumflex Accent (<code class="pml-inline-code">^</code>, U+005E), also known as the <b class="pml-bold">extension start character</b> in the context of PDML.</p>
+                        <p class="pml-paragraph">This character is always followed by one or more characters that identify the extension to be applied. For example, <code class="pml-inline-code">^/</code> indicates the start of a <a class="pml-xref" href="#comments">comment</a>, while <code class="pml-inline-code">^&quot;</code> indicates the start of a <a class="pml-xref" href="#string_literals">string literal</a>. </p>
+
+                    </section>
+                    <section id="ch__3" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Syntax Extensions</h2>
+                        <p class="pml-paragraph">The following syntax extensions are provided:</p>
+                        <ul class="pml-list">
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph"><a class="pml-xref" href="#comments">Comments</a></p>
+
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph"><a class="pml-xref" href="#ues">Unicode Escape Sequences</a></p>
+
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph"><a class="pml-xref" href="#string_literals">String Literals</a></p>
+
+                            </li>
+                            <li class="pml-list-element">
+                                <p class="pml-paragraph"><a class="pml-xref" href="#attributes">Attributes</a></p>
+
+                            </li>
+
+                        </ul>
+                        <section id="comments" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Comments</h3>
+                            <p class="pml-paragraph">A comment consists of a text segment that is not part of the data/markup code stored in a PDML document. PDML supports single-line comments and nested multi-line comments.</p>
+                            <section id="comments_single_line" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Single-line Comment</h4>
+                                <p class="pml-paragraph">A single-line comment starts with <code class="pml-inline-code">^//</code> or <code class="pml-inline-code">^/</code> at any position in a line. It ends at the end of line:</p>
+                                <pre class="pml-code"><code>^// Full line comment
+text ^// Trailing comment</code></pre>
+                                <p class="pml-paragraph">If the comment starts with <code class="pml-inline-code">^//</code> then the line break at the end of line (LF or CRLF) is included in the comment, otherwise it is not included:</p>
+                                <pre class="pml-code"><code>^// Line break is part of the comment
+^/  Line break is part of the following text
+text text</code></pre>
+
+                            </section>
+                            <section id="comments_multi_line" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Multi-line Comment</h4>
+                                <p class="pml-paragraph">A multi-line comment starts with <code class="pml-inline-code">^/</code>, immediately followed by one or more <code class="pml-inline-code">*</code> characters (e.g. <code class="pml-inline-code">^/*</code>, <code class="pml-inline-code">^/**</code>, <code class="pml-inline-code">^/***</code>). It must be ended by the same number of <code class="pml-inline-code">*</code> characters that were used to start the comment, followed by a <code class="pml-inline-code">/</code> character (e.g. <code class="pml-inline-code">*/</code>, <code class="pml-inline-code">**/</code>, <code class="pml-inline-code">***/</code>).</p>
+                                <p class="pml-paragraph">It can start at any position in a line. It can end in the same line as it was started, or at a subsequent line, at any position:</p>
+                                <pre class="pml-code"><code>^/*
+    multi
+    line
+    comment
+*/
+
+text ^/* inline comment */ text
+
+text ^/* this text is
+commented out */ text </code></pre>
+                                <p class="pml-paragraph">Multi-line comments can be nested to any level:</p>
+                                <pre class="pml-code"><code>^/* level 1 (not nested)
+    ^/* level 2
+        ^/* level 3 */
+    */
+*/</code></pre>
+
+                            </section>
+                            <section id="comments_rules" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Common Rules</h4>
+                                <p class="pml-paragraph">Single- and multi-line comments must adhere to the following rules:</p>
+                                <p class="pml-paragraph">Comments are allowed:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">At the start, in the middle, and at the end of text leaves:</p>
+                                        <pre class="pml-code"><code>[foo <b class="pml-bold">^/* comment at start */</b> text]
+
+[foo text <b class="pml-bold">^/* comment */</b> text <b class="pml-bold">^/* comment */</b> text]
+
+[foo text <b class="pml-bold">^/* comment at end */</b>]
+
+[foo text
+    <b class="pml-bold">^// comment</b>
+    text <b class="pml-bold">^// comment</b>
+]</code></pre>
+
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Before, between, and after attribute assignments (see <a class="pml-xref" href="#attributes">Attributes</a>).</p>
+
+                                    </li>
+
+                                </ul>
+                                <p class="pml-paragraph">Comments are not allowed:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">In tags:</p>
+                                        <pre class="pml-code"><code>[foo<b class="pml-bold">^/* INVALID comment */</b>bar]</code></pre>
+
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">In string literals:</p>
+                                        <pre class="pml-code"><code>^&quot;start <b class="pml-bold">^/* INVALID comment*/</b> end&quot;</code></pre>
+
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Before or after the root node:</p>
+                                        <pre class="pml-code"><code><b class="pml-bold">^// INVALID comment
+^/* INVALID comment */</b>
+
+[root
+    data and/or markup
+]
+
+<b class="pml-bold">^// INVALID comment
+^/* INVALID comment */</b></code></pre>
+
+                                    </li>
+
+                                </ul>
+                                <div class="pml-admonition">
+                                    <div class="pml-admonition-label">
+                                        <p class="pml-paragraph">Note</p>
+
+                                    </div>
+                                    <div class="pml-admonition-content">
+                                        <p class="pml-paragraph">Comments are usually skipped (ignored) by parsers. However, sometimes they must be handled in one way or another. For example, a parser that creates a concrete syntax tree (CST) stores all comments in the CST.</p>
+                                    </div>
+                                </div>
+
+                            </section>
+
+                        </section>
+                        <section id="ues" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Unicode Escape Sequences</h3>
+                            <p class="pml-paragraph">Unicode escape sequences enable users and machines to insert <a class="pml-link" href="https://en.wikipedia.org/wiki/List_of_Unicode_characters">Unicode code points</a> in PDML documents by specifying the hexadecimal values of the code points.</p>
+                            <p class="pml-paragraph">For an introduction and examples you may first read section <a class="pml-link" href="../../extensions/user_manual/index.html#ues">Unicode Escape Sequences</a> in the PDML Extensions User Manual.</p>
+                            <section id="ues_grammar" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Grammar</h4>
+                                <p class="pml-paragraph">PDML adopts the <code class="pml-inline-code">\u{hhhhhh}</code> syntax for Unicode escape sequences, but allows a list of several code points to be defined in a single escape sequence.</p>
+                                <p class="pml-paragraph">The grammar is defined as follows:</p>
+                                <table class="pml-table">
+                                    <thead class="pml-table-header">
+                                        <tr class="pml-table-header-row">
+                                            <th class="pml-table-header-cell">
+                                                <p class="pml-paragraph">Name</p>
+
+                                            </th>
+                                            <th class="pml-table-header-cell">
+                                                <p class="pml-paragraph">Rule</p>
+
+                                            </th>
+                                            <th class="pml-table-header-cell">
+                                                <p class="pml-paragraph">Examples</p>
+
+                                            </th>
+
+                                        </tr>
+
+                                    </thead>
+                                    <tr class="pml-table-body-row">
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph">Unicode_escape_sequence</p>
+
+                                        </td>
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph"><code class="pml-inline-code">&quot;\u{&quot; hex_values &quot;}&quot;</code></p>
+
+                                        </td>
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph"><code class="pml-inline-code">\u{41}</code><br /> <code class="pml-inline-code">\u{41 42 43}</code></p>
+
+                                        </td>
+
+                                    </tr>
+                                    <tr class="pml-table-body-row">
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph">hex_values</p>
+
+                                        </td>
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph"><code class="pml-inline-code">hex_value ( whitespace hex_value ) *</code></p>
+
+                                        </td>
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph"><code class="pml-inline-code">41</code><br /> <code class="pml-inline-code">41 42 43</code></p>
+
+                                        </td>
+
+                                    </tr>
+                                    <tr class="pml-table-body-row">
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph">hex_value</p>
+
+                                        </td>
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph"><code class="pml-inline-code">hex_digit hex_digit ? hex_digit ?</code><br /> <code class="pml-inline-code">hex_digit ? hex_digit ? hex_digit ?</code></p>
+
+                                        </td>
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph"><code class="pml-inline-code">A</code><br /> <code class="pml-inline-code">1F600</code></p>
+
+                                        </td>
+
+                                    </tr>
+                                    <tr class="pml-table-body-row">
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph">hex_digit</p>
+
+                                        </td>
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph"><code class="pml-inline-code">  0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</code><br /> <code class="pml-inline-code">| A | B | C | D | E | F</code><br /> <code class="pml-inline-code">| a | b | c | d | e | f</code></p>
+
+                                        </td>
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph"><code class="pml-inline-code">0</code><br /> <code class="pml-inline-code">9</code><br /> <code class="pml-inline-code">a</code><br /> <code class="pml-inline-code">F</code></p>
+
+                                        </td>
+
+                                    </tr>
+                                    <tr class="pml-table-body-row">
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph">whitespace</p>
+
+                                        </td>
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph"><code class="pml-inline-code">whitespace_item +</code></p>
+
+                                        </td>
+                                        <td class="pml-table-body-cell">
+
+                                        </td>
+
+                                    </tr>
+                                    <tr class="pml-table-body-row">
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph">whitespace_item</p>
+
+                                        </td>
+                                        <td class="pml-table-body-cell">
+                                            <p class="pml-paragraph"><code class="pml-inline-code">  {space} (U+0020)</code><br /> <code class="pml-inline-code">| {character tabulation} (U+0009)</code><br /> <code class="pml-inline-code">| {Unix line break} (U+000A)</code><br /> <code class="pml-inline-code">| {Windows line break} (U+000D U+000A)</code></p>
+
+                                        </td>
+                                        <td class="pml-table-body-cell">
+
+                                        </td>
+
+                                    </tr>
+
+                                </table>
+
+                            </section>
+                            <section id="ues_rules" class="pml-chapter">
+                                <h4 class="pml-chapter-title">Additional Rules</h4>
+                                <p class="pml-paragraph">In addition to the rules defined by the grammar, the following rules apply:</p>
+                                <ul class="pml-list">
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Leading zeros are optional, e.g. <code class="pml-inline-code">\u{A}</code>, <code class="pml-inline-code">\u{0A}</code> and <code class="pml-inline-code">\u{00000A}</code> all represent a new line character.</p>
+
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">The following Unicode code points are invalid:</p>
+                                        <ul class="pml-list">
+                                            <li class="pml-list-element">
+                                                <p class="pml-paragraph"><code class="pml-inline-code">U+0000</code> (for reasons explained in <a class="pml-link" href="../../core/specification/index.html#invalid_characters">Invalid Characters</a>)</p>
+
+                                            </li>
+                                            <li class="pml-list-element">
+                                                <p class="pml-paragraph">Surrogates in the ranges U+D800 to U+DBFF and U+DC00 to U+DFFF (reserved to encode code points beyond U+FFFF in UTF-16)</p>
+
+                                            </li>
+
+                                        </ul>
+                                        <p class="pml-paragraph">All other Unicode code points in the range U+0001 to U+10FFFF (maximum valid code point in Unicode) are valid.</p>
+                                        <p class="pml-paragraph">A parser must generate an error if an invalid Unicode code point is present in a PDML document.</p>
+
+                                    </li>
+                                    <li class="pml-list-element">
+                                        <p class="pml-paragraph">Unicode escape sequences must be supported in:</p>
+                                        <ul class="pml-list">
+                                            <li class="pml-list-element">
+                                                <p class="pml-paragraph">node tags, e.g. <code class="pml-inline-code">[foo\u{41}bar]</code> → <code class="pml-inline-code">[fooAbar]</code></p>
+
+                                            </li>
+                                            <li class="pml-list-element">
+                                                <p class="pml-paragraph">text leaves, e.g. <code class="pml-inline-code">[foo foo\u{41}bar]</code> → <code class="pml-inline-code">[foo fooAbar]</code></p>
+
+                                            </li>
+                                            <li class="pml-list-element">
+                                                <p class="pml-paragraph">unquoted string literals, e.g. <code class="pml-inline-code">foo\u{41}bar</code> → <code class="pml-inline-code">fooAbar</code></p>
+
+                                            </li>
+                                            <li class="pml-list-element">
+                                                <p class="pml-paragraph">quoted string literals, e.g. <code class="pml-inline-code">&quot;foo\u{41}bar&quot;</code> → <code class="pml-inline-code">&quot;fooAbar&quot;</code></p>
+
+                                            </li>
+                                            <li class="pml-list-element">
+                                                <p class="pml-paragraph">multiline string literals with escape mode enabled, e.g.</p>
+                                                <pre class="pml-code"><code>&quot;&quot;&quot;e
+foo\u{41}bar
+&quot;&quot;&quot;</code></pre>
+
+                                            </li>
+
+                                        </ul>
+                                        <p class="pml-paragraph">As attribute names and values are defined using string literals, Unicode escape sequences are also supported in attribute names and values.</p>
+
+                                    </li>
+
+                                </ul>
+                                <div class="pml-admonition">
+                                    <div class="pml-admonition-label">
+                                        <p class="pml-paragraph">Note</p>
+
+                                    </div>
+                                    <div class="pml-admonition-content">
+                                        <p class="pml-paragraph">When a PDML document is parsed, Unicode escape sequences are usually converted into their Unicode code points. For example, <code class="pml-inline-code">\u{221E}</code> is converted to <code class="pml-inline-code">∞</code>, which is then stored in the AST as a single Unicode code point (character).</p>
+                                        <p class="pml-paragraph">However, this is not always the case. For example, a parser that creates a <i class="pml-italic">concrete</i> syntax tree (CST) stores the Unicode escape sequences (unchanged) into the CST.</p>
+                                    </div>
+                                </div>
+
+                            </section>
+
+                        </section>
+                        <section id="string_literals" class="pml-chapter">
+                            <h3 class="pml-chapter-title">String Literals</h3>
+                            <div class="pml-admonition">
+                                <div class="pml-admonition-label">
+                                    <p class="pml-paragraph">Note</p>
+
+                                </div>
+                                <div class="pml-admonition-content">
+                                    <p class="pml-paragraph">This feature is implemented already in the <a class="pml-link" href="https://github.com/pdml-lang/full-pdml-impl">PDML reference implementation</a>, but not yet documented here.</p>
+                                </div>
+                            </div>
+
+                        </section>
+                        <section id="attributes" class="pml-chapter">
+                            <h3 class="pml-chapter-title">Attributes</h3>
+                            <div class="pml-admonition">
+                                <div class="pml-admonition-label">
+                                    <p class="pml-paragraph">Note</p>
+
+                                </div>
+                                <div class="pml-admonition-content">
+                                    <p class="pml-paragraph">This feature is implemented already in the <a class="pml-link" href="https://github.com/pdml-lang/full-pdml-impl">PDML reference implementation</a>, but not yet documented here.</p>
+                                </div>
+                            </div>
+
+                        </section>
+
+                    </section>
+                    <section id="utility_nodes" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Utility Nodes</h2>
+                        <div class="pml-admonition">
+                            <div class="pml-admonition-label">
+                                <p class="pml-paragraph">Note</p>
+
+                            </div>
+                            <div class="pml-admonition-content">
+                                <p class="pml-paragraph">This feature is implemented already in the <a class="pml-link" href="https://github.com/pdml-lang/full-pdml-impl">PDML reference implementation</a>, but not yet documented here.</p>
+                            </div>
+                        </div>
+
+                    </section>
+                    <section id="scripting" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Scripting Nodes</h2>
+                        <div class="pml-admonition">
+                            <div class="pml-admonition-label">
+                                <p class="pml-paragraph">Note</p>
+
+                            </div>
+                            <div class="pml-admonition-content">
+                                <p class="pml-paragraph">This feature is implemented already in the <a class="pml-link" href="https://github.com/pdml-lang/full-pdml-impl">PDML reference implementation</a>, but not yet documented here.</p>
+                            </div>
+                        </div>
+
+                    </section>
+                    <section id="types" class="pml-chapter">
+                        <h2 class="pml-chapter-title">Types</h2>
+                        <div class="pml-admonition">
+                            <div class="pml-admonition-label">
+                                <p class="pml-paragraph">Note</p>
+
+                            </div>
+                            <div class="pml-admonition-content">
+                                <p class="pml-paragraph">This feature is partially implemented in the <a class="pml-link" href="https://github.com/pdml-lang/full-pdml-impl">PDML reference implementation</a>, but not yet documented here.</p>
+                            </div>
+                        </div>
+
+                    </section>
+                </article>
+                <aside class="pml-doc-right">
+                </aside>
+            </div>
+            <footer class="pml-doc-footer">
+            </footer>
+        </div>
+
+    </body>
+</html>

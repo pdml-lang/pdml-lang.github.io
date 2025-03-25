@@ -1,7 +1,0 @@
-[s:def
-    ~~~
-    function icon ( path, borderColor ) {
-        doc.insert ( `[image source="${path}" width=64 height=64 html_style="border: 3px solid ${borderColor};"]` );
-    }
-    ~~~
-]

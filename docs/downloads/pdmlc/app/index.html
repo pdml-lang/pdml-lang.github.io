@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PDML Companion Download</title> 
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="content-language" content="en-us">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Practical Data and Markup Language (PDML). PDML is a text format (specification and implementation) to store any kind of data and markup code.">
+		<meta name="keywords" content="data, markup code, language, text format, PDML">
+
+		<link rel="stylesheet" href="../../../css/pdml.css">
+		<link rel="icon" href="../../../favicon.ico" type="image/x-icon" />
+
+
+	</head>
+
+	<body>
+		<script>
+			window.onload = function() {
+				const path = window.location.pathname;
+				// console.log ( path );
+				var tab_name = "none";
+				if ( path.includes ( "/overview" ) ) {
+					tab_name = "overview";
+				} else if ( path.includes ( "/docs" ) ) {
+					tab_name = "docs";
+				} else if ( path.includes ( "/downloads" ) ) {
+					tab_name = "downloads";
+				} else if ( path.includes ( "/support" ) ) {
+					tab_name = "support";
+				if ( tab_name !== "none" ) {
+					document.getElementById(tab_name).style.background = "lightgrey";
+				}
+			};
+		</script>
+
+		<div id="left_margin"></div>
+		
+		<div id="page">
+		
+			<a href="../../../index.html" class="no_link_decoration">
+                <div id="header">
+                    <div id="header_name">Practical Data and Markup Language (PDML)</div>
+                    <div id="header_slogan">the world's simplest text format to encode data and markup</div>
+                </div>
+			</a>
+
+			<div id="menu">
+				<div class="menu-item" id="home" title="Home page" style="max-width:2em;">
+					<a href="../../../index.html" class="menu-link" style="font-size: 2em;">⌂</a>
+				</div>
+				<div class="menu-item" id="overview">
+					<a href="../../../docs/overview/index.html" class="menu-link">Overview</a>
+				</div>
+				<div class="menu-item" id="docs">
+					<a href="../../../docs/index.html" class="menu-link">Docs</a>
+				</div>
+				<div class="menu-item" id="downloads">
+					<a href="../../../downloads/index.html" class="menu-link">Downloads</a>
+				</div>
+				<div class="menu-item" id="support">
+					<a href="../../../support/index.html" class="menu-link">Support</a>
+				</div>
+			</div>
+
+			<div id="menu_content_separator"></div>
+
+			<div id="content">
+
+				<h2>PDML Companion Installation</h2>
+
+				<p>To install the PDML Companion application (PDMLC), proceed as follows:</p>
+				<ul>
+					<li>
+						<p>If not done already, install Java version 17 or later.</p>
+						<p>Ensure that your OS <code>PATH</code> environment variable includes the <code>bin</code> sub-directory of your Java installation.</p>
+					</li>
+					<li>
+						<p>Extract one of the following files into a directory of your choice:</p>
+						<ul>
+							<li>macOS/Unix/Linux: <a href="https://github.com/pdml-lang/full-pdml-impl/releases/download/v0.78.0/pdmlc-java-app-0.78.0.tar">pdmlc-java-app-0.78.0.tar</a> (run <code>tar -xf pdmlc-0.78.0.tar</code>)</li>
+							<li>Windows: <a href="https://github.com/pdml-lang/full-pdml-impl/releases/download/v0.78.0/pdmlc-java-app-0.78.0.zip">pdmlc-java-app-0.78.0.zip</a></li>
+						</ul>
+					</li>
+					<li>
+						<p>Add the path to the <code>bin</code> sub-directory of the PDML Companion to your OS <code>PATH</code> environment variable.</p>
+					</li>
+					<li>
+						<p>To get the list of all available CLI commands, open a terminal and type:</p>
+						<p><code>pdmlc help</code></p>
+					</li>
+				</ul>
+
+			</div>
+
+			<div id="footer"></div>
+		
+		</div>
+		
+		<div id="right_margin"></div>
+	</body>
+</html>
+
