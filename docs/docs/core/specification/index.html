@@ -678,6 +678,7 @@ green]</code></pre>
                                     <p class="pml-paragraph">To represent binary or non-printable data in a PDML document, encoding methods like <a class="pml-link" href="https://en.wikipedia.org/wiki/Base64">Base64</a> should be used, ensuring the document remains valid, readable, and interoperable (see <a class="pml-xref" href="#binary_data_tips">Encoding Binary Data</a>).</p>
                                 </div>
                             </div>
+                            <p class="pml-paragraph">Unicode surrogate code points in the range U+D800 to U+DFFF are also invalid anywhere in a PDML document, because they are reserved for encoding Unicode code points beyond U+FFFF in UTF-16 encodings. </p>
 
                         </section>
                         <section id="character_escape_sequences" class="pml-chapter">
