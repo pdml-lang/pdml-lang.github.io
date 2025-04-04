@@ -1,5 +1,5 @@
 [ch (id=string) [title Strings]
-
+    
     You can encode the string [c This is some arbitrary string] as follows:
     [caption File string_example.pdml]
     [code
